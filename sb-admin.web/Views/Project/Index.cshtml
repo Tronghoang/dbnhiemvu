@@ -1,0 +1,228 @@
+﻿
+@{
+    ViewBag.Title = "Quản lý project";
+    Layout = "~/Views/Shared/_admin.cshtml";
+}
+
+
+@{
+    ViewBag.Title = "Quản lý Project";
+}
+@section js{
+<script src="~/Helper/jquery-validation-1.17.0/dist/jquery.validate.min.js"></script>
+
+    <script>
+    $("#frmThemProject").validate({
+        rules: {
+            vTenProject: {
+                required: true
+            },
+            vMoTa: {
+                required: true
+            }
+        },
+        messages: {
+            vTenNhiemVu: "Không được bỏ trống !",
+            vMoTa: "Không được bỏ trống !",
+        },
+        errorClass: "form-control-feedback",
+        highlight: function (element) {
+            $(element).addClass("form-control-danger");
+            $(element).closest("div").addClass("has-danger");
+        },
+        unhighlight: function (element) {
+            $(element).removeClass('form-control-danger');
+            $(element).closest("div").removeClass("has-danger");
+        }
+    });
+
+    $(function () {
+        loadList();
+    });
+
+    function loadList() {
+        $.ajax({
+            url: "@Url.Action("GetProject","Project")",
+            type: 'post',
+            dataType: 'json',
+            data: {
+                'index': $("#index").val(),
+                'search': $("#search").val(),
+                'iNgayLap': $("#selNgayLap").val(),
+            },
+            success: function (result) {
+
+                createItemList(result)
+            }
+        });
+    }
+
+    function createItemList(result) {
+        var html = '';
+        for (i = 0; i < result.length; i++) {
+            html = '<div class="input-group w3-margin">';
+
+            html += '</div>';
+            $(".my-list").append(html);
+        }
+    }
+
+    function detailsItem(iMaProjectCode) {
+        $.get("@Url.Action("ChiTietProject","Project")", { iMaProjectCode: iMaProjectCode });
+    }
+
+    $("#search").keyup(function () {
+        $(".my-list").empty();
+        $("#index").val(0);
+        loadList();
+    });
+
+
+
+    $("#selNgayLap").change(function () {
+        $(".my-list").empty();
+        $("#index").val(0);
+        loadList();
+    });
+
+
+
+    function taiThem() {
+        var index = $("#index").val();
+        index++;
+        $("#index").val(index);
+        loadList();
+    }
+
+    function frmThemProjectSubmit(event) {
+        if ($("#frmThemProject").valid() == true) {
+            $.ajax({
+                url: "@Url.Action("ThemProject","Account")",
+                type: "post",
+                dataType: "text",
+                data: {
+                    "vTenProject": $("input[name='vTenProject']").val(),
+                    "vMoTa": $("input[name='vMoTa']").val(),
+                    },
+                success: function (result) {
+                    var html = '';
+                    $(".main-thongbao").empty();
+                    if (result != 0) {
+                        html = '<h2 id="thongbao" class="w3-center">Đã thêm nhiệm vụ thất bại</h2>';
+                    }
+                    else {
+                        html = '<h2 id="thongbao" class="w3-center">Đã thêm nhiệm vụ thất bại</h2>';
+                    }
+                    html += '<center><a class="w3-btn w3-padding-large w3-teal w3-hover-green w3-center" onclick="closeModal()">OK</a></center>';
+                    $(".main-thongbao").append(html);
+                    openModal('#modal-ThemProject', '#modal-ThongBao');
+                }
+            });
+
+        }
+
+    }
+    </script>
+}
+
+
+<div class="w3-white w3-margin-top w3-container w3-border w3-border-green" style="padding:0px">
+
+    <div class="w3-bar w3-teal">
+        <div class="w3-bar-item">@ViewBag.Title</div>
+    </div>
+    <div class="w3-container">
+        <div class="w3-bar">
+            <div class="w3-bar-item col-md-4">
+                <div class="input-group">
+                    <input type="text" id="search" class="form-control" placeholder="Search for..." aria-label="Search for...">
+                    <span class="input-group-btn">
+                        <button class="btn w3-teal" id="btnsearch" type="button"><i class="fa fa-search" aria-hidden="true"></i></button>
+                    </span>
+                </div>
+            </div>
+            <div class="w3-bar-item col-md-4">
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1">Ngày tạo</span>
+                    <select class="form-control" id="selNgayLap">
+                        <option value="1">giảm dần</option>
+                        <option value="2">tăng dần</option>
+                    </select>
+                </div>
+            </div>
+            <div class="w3-bar-item col-md-1">
+                <button onclick="openModal('', '#modal-ThemProject')" class="w3-button w3-teal">+ Thêm Mới</button>
+            </div>
+        </div>
+        <input hidden id="index" value="0" />
+        <div class="my-list w3-margin-left">
+        </div>
+        <div class="w3-row" id="btntaithem">
+            <button onclick="taiThem()" class="w3-btn w3-block w3-teal w3-padding-large">Tải thêm...</button>
+        </div>
+    </div>
+
+
+    <div id="modal-ThemProject" class="w3-modal">
+        <div class="w3-modal-content w3-animate-right w3-card-4">
+            <div class="w3-display-container">
+                <form id="frmThemProject" method="post" enctype="multipart/form-data">
+                    @Html.AntiForgeryToken()
+                    <header class="w3-container w3-teal">
+                        <span onclick="closeModal()" class="w3-button w3-display-topright">&times;</span>
+                        <h2 id="title-modal">Thêm project mới</h2>
+                    </header>
+                    <div class="modal-main comfrim">
+                        <table class="w3-table-all comfrim" align="center">
+                            <thead>
+                                <tr>
+                                    <th width="20%"></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tr>
+                                <td>
+                                    Tên project
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Nhập tên nhiệm vụ ở đây..." name="vTenProject" />
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Mô tả
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Nhập mô tả ở đây..." name="vMoTa" />
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <footer id="footer-modal" class="w3-container w3-teal">
+                        <a class="w3-btn w3-padding-large w3-hover-white" onclick="closeModal()">Quay lại</a>
+                        <a class="w3-btn w3-padding-large w3-hover-white w3-right" onclick="frmThemProjectSubmit()">Lưu</a>
+                    </footer>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div id="modal-ThongBao" class="w3-modal">
+        <div class="w3-modal-content w3-animate-right w3-card-4">
+            <div class="w3-display-container">
+                <header class="w3-container w3-teal">
+                    <h2 id="title-modal">Thông báo</h2>
+                </header>
+                <div class="main-thongbao align-content-center">
+                </div>
+                <footer id="footer-modal" class="w3-container w3-teal"></footer>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

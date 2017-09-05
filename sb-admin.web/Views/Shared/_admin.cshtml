@@ -22,6 +22,7 @@
     <link href="~/plugins/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/font-awesome-4.1.0/css/font-awesome.css" rel="stylesheet" />
     <link href="~/Content/animate.min.css" rel="stylesheet" />
+    <link href="~/Content/w3csss.css" rel="stylesheet" />
     <link href="~/plugins/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" type="text/css" />
     <!-- CORE CSS FRAMEWORK - END -->
     <!-- HEADER SCRIPTS INCLUDED ON THIS PAGE - START -->
@@ -35,7 +36,7 @@
     <link href="~/Content/font-awesome-4.1.0/css/style.css" rel="stylesheet" />
     <link href="~/Content/font-awesome-4.1.0/css/responsive.css" rel="stylesheet" />
     <!-- CORE CSS TEMPLATE - END -->
-
+    @RenderSection("css", required: false)
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -237,6 +238,7 @@
             </div>
         </div>
     </div>
+    @RenderSection("js", required: false)
     @RenderSection("scripts", required: false)
     <!-- modal end -->
 </body>

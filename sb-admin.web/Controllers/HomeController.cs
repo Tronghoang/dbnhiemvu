@@ -32,7 +32,7 @@ namespace sb_admin.web.Controllers
         public ActionResult ThemNhiemVu(string vTenNhiemVu,string vMoTa, int iMaThanhVienCode, DateTime dNgayBD,DateTime dNgayKT)
         {
             dbnhiemvuEntities db = new dbnhiemvuEntities();
-            NhiemVu nhiemvu = new NhiemVu();
+            Models.NhiemVu nhiemvu = new Models.NhiemVu();
             List<LayNhiemVu> laynhiemvuvualuu = new List<Models.LayNhiemVu>();
             try
             {
@@ -74,7 +74,7 @@ namespace sb_admin.web.Controllers
         {
             dbnhiemvuEntities db = new dbnhiemvuEntities();
             ChiTietLoi chitietloi = new ChiTietLoi();
-            NhiemVu nhiemvu = new NhiemVu();
+            Models.NhiemVu nhiemvu = new Models.NhiemVu();
             try
             {
                 nhiemvu = db.NhiemVus.Find(id);
@@ -219,7 +219,7 @@ namespace sb_admin.web.Controllers
         public ActionResult NhanNhiemVu(int id)
         {
             dbnhiemvuEntities db = new dbnhiemvuEntities();
-            NhiemVu nhiemvu = new NhiemVu();
+            Models.NhiemVu nhiemvu = new Models.NhiemVu();
             try
             {
                 nhiemvu = db.NhiemVus.Find(id);
@@ -235,7 +235,7 @@ namespace sb_admin.web.Controllers
         public ActionResult NopNhiemVu(int id,int trangthai)
         {
             dbnhiemvuEntities db = new dbnhiemvuEntities();
-            NhiemVu nhiemvu = new NhiemVu();
+            Models.NhiemVu nhiemvu = new Models.NhiemVu();
             try
             {
                 if(trangthai==2)
@@ -261,7 +261,7 @@ namespace sb_admin.web.Controllers
         public ActionResult Duyet(int id)
         {
             dbnhiemvuEntities db = new dbnhiemvuEntities();
-            NhiemVu nhiemvu = new NhiemVu();
+            Models.NhiemVu nhiemvu = new Models.NhiemVu();
             try
             {
                     nhiemvu = db.NhiemVus.Find(id);

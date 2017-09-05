@@ -10,6 +10,17 @@
     <Property Name="iTrangThai" Type="int" />
     <Property Name="vDuongDanTapTin" Type="nvarchar(max)" />
   </EntityType>
+  <EntityType Name="Chat">
+    <Key>
+      <PropertyRef Name="iMaChatCode" />
+    </Key>
+    <Property Name="iMaChatCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="iNoiDung" Type="nvarchar(max)" />
+    <Property Name="dNgayLap" Type="date" />
+    <Property Name="iMaNguoiGuiCode" Type="int" />
+    <Property Name="iMaNguoiNhanCode" Type="int" />
+    <Property Name="iTrangThai" Type="int" />
+  </EntityType>
   <EntityType Name="ChiTietLoi">
     <Key>
       <PropertyRef Name="iMaChiTietLoiCode" />
@@ -29,6 +40,17 @@
     <Property Name="vDuongDan" Type="nvarchar(max)" />
     <Property Name="iTrangThai" Type="int" />
   </EntityType>
+  <EntityType Name="Module">
+    <Key>
+      <PropertyRef Name="iMaModuleCode" />
+    </Key>
+    <Property Name="iMaModuleCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="vTenModule" Type="nvarchar(max)" />
+    <Property Name="vMoTa" Type="nvarchar(max)" />
+    <Property Name="dNgayLap" Type="date" />
+    <Property Name="iTrangThai" Type="int" />
+    <Property Name="iMaProjectCode" Type="int" />
+  </EntityType>
   <EntityType Name="NhiemVu">
     <Key>
       <PropertyRef Name="iMaNhiemVuCode" />
@@ -42,6 +64,17 @@
     <Property Name="iMaNguoiDangCode" Type="int" />
     <Property Name="iMaNguoiDuocGiaoCode" Type="int" />
     <Property Name="iMaTrangThaiCode" Type="int" />
+    <Property Name="iMaModuleCode" Type="int" />
+  </EntityType>
+  <EntityType Name="Project">
+    <Key>
+      <PropertyRef Name="iMaProjectCode" />
+    </Key>
+    <Property Name="iMaProjectCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="vTenProject" Type="nvarchar(max)" />
+    <Property Name="vMoTa" Type="nvarchar(max)" />
+    <Property Name="dNgayLap" Type="date" />
+    <Property Name="iTrangThai" Type="int" />
   </EntityType>
   <EntityType Name="Quyen">
     <Key>
@@ -50,6 +83,16 @@
     <Property Name="iMaQuynhCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="vTenQuyen" Type="nvarchar" MaxLength="50" />
     <Property Name="iTrangThai" Type="int" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
   </EntityType>
   <EntityType Name="TapTin">
     <Key>
@@ -98,10 +141,14 @@
   </EntityType>
   <EntityContainer Name="dbnhiemvuModelStoreContainer">
     <EntitySet Name="BaoCao" EntityType="Self.BaoCao" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Chat" EntityType="Self.Chat" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ChiTietLoi" EntityType="Self.ChiTietLoi" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Hinh" EntityType="Self.Hinh" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Module" EntityType="Self.Module" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="NhiemVu" EntityType="Self.NhiemVu" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Project" EntityType="Self.Project" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Quyen" EntityType="Self.Quyen" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TapTin" EntityType="Self.TapTin" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TapTinBaoCao" EntityType="Self.TapTinBaoCao" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ThanhVien" EntityType="Self.ThanhVien" Schema="dbo" store:Type="Tables" />

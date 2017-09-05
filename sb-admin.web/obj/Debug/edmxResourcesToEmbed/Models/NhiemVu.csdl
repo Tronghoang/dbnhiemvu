@@ -10,6 +10,17 @@
     <Property Name="iTrangThai" Type="Int32" />
     <Property Name="vDuongDanTapTin" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
   </EntityType>
+  <EntityType Name="Chat">
+    <Key>
+      <PropertyRef Name="iMaChatCode" />
+    </Key>
+    <Property Name="iMaChatCode" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="iNoiDung" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="dNgayLap" Type="DateTime" Precision="0" />
+    <Property Name="iMaNguoiGuiCode" Type="Int32" />
+    <Property Name="iMaNguoiNhanCode" Type="Int32" />
+    <Property Name="iTrangThai" Type="Int32" />
+  </EntityType>
   <EntityType Name="ChiTietLoi">
     <Key>
       <PropertyRef Name="iMaChiTietLoiCode" />
@@ -29,6 +40,17 @@
     <Property Name="vDuongDan" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="iTrangThai" Type="Int32" />
   </EntityType>
+  <EntityType Name="Module">
+    <Key>
+      <PropertyRef Name="iMaModuleCode" />
+    </Key>
+    <Property Name="iMaModuleCode" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="vTenModule" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="vMoTa" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="dNgayLap" Type="DateTime" Precision="0" />
+    <Property Name="iTrangThai" Type="Int32" />
+    <Property Name="iMaProjectCode" Type="Int32" />
+  </EntityType>
   <EntityType Name="NhiemVu">
     <Key>
       <PropertyRef Name="iMaNhiemVuCode" />
@@ -42,6 +64,17 @@
     <Property Name="iMaNguoiDangCode" Type="Int32" />
     <Property Name="iMaNguoiDuocGiaoCode" Type="Int32" />
     <Property Name="iMaTrangThaiCode" Type="Int32" />
+    <Property Name="iMaModuleCode" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Project">
+    <Key>
+      <PropertyRef Name="iMaProjectCode" />
+    </Key>
+    <Property Name="iMaProjectCode" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="vTenProject" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="vMoTa" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="dNgayLap" Type="DateTime" Precision="0" />
+    <Property Name="iTrangThai" Type="Int32" />
   </EntityType>
   <EntityType Name="Quyen">
     <Key>
@@ -50,6 +83,16 @@
     <Property Name="iMaQuynhCode" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="vTenQuyen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="iTrangThai" Type="Int32" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
   </EntityType>
   <EntityType Name="TapTin">
     <Key>
@@ -98,10 +141,14 @@
   </EntityType>
   <EntityContainer Name="dbnhiemvuEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="BaoCaos" EntityType="Self.BaoCao" />
+    <EntitySet Name="Chats" EntityType="Self.Chat" />
     <EntitySet Name="ChiTietLois" EntityType="Self.ChiTietLoi" />
     <EntitySet Name="Hinhs" EntityType="Self.Hinh" />
+    <EntitySet Name="Modules" EntityType="Self.Module" />
     <EntitySet Name="NhiemVus" EntityType="Self.NhiemVu" />
+    <EntitySet Name="Projects" EntityType="Self.Project" />
     <EntitySet Name="Quyens" EntityType="Self.Quyen" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
     <EntitySet Name="TapTins" EntityType="Self.TapTin" />
     <EntitySet Name="TapTinBaoCaos" EntityType="Self.TapTinBaoCao" />
     <EntitySet Name="ThanhViens" EntityType="Self.ThanhVien" />

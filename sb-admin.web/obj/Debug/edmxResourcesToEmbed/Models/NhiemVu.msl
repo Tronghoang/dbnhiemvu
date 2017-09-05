@@ -12,6 +12,18 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Chats">
+      <EntityTypeMapping TypeName="dbnhiemvuModel.Chat">
+        <MappingFragment StoreEntitySet="Chat">
+          <ScalarProperty Name="iMaChatCode" ColumnName="iMaChatCode" />
+          <ScalarProperty Name="iNoiDung" ColumnName="iNoiDung" />
+          <ScalarProperty Name="dNgayLap" ColumnName="dNgayLap" />
+          <ScalarProperty Name="iMaNguoiGuiCode" ColumnName="iMaNguoiGuiCode" />
+          <ScalarProperty Name="iMaNguoiNhanCode" ColumnName="iMaNguoiNhanCode" />
+          <ScalarProperty Name="iTrangThai" ColumnName="iTrangThai" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="ChiTietLois">
       <EntityTypeMapping TypeName="dbnhiemvuModel.ChiTietLoi">
         <MappingFragment StoreEntitySet="ChiTietLoi">
@@ -33,6 +45,18 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Modules">
+      <EntityTypeMapping TypeName="dbnhiemvuModel.Module">
+        <MappingFragment StoreEntitySet="Module">
+          <ScalarProperty Name="iMaModuleCode" ColumnName="iMaModuleCode" />
+          <ScalarProperty Name="vTenModule" ColumnName="vTenModule" />
+          <ScalarProperty Name="vMoTa" ColumnName="vMoTa" />
+          <ScalarProperty Name="dNgayLap" ColumnName="dNgayLap" />
+          <ScalarProperty Name="iTrangThai" ColumnName="iTrangThai" />
+          <ScalarProperty Name="iMaProjectCode" ColumnName="iMaProjectCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="NhiemVus">
       <EntityTypeMapping TypeName="dbnhiemvuModel.NhiemVu">
         <MappingFragment StoreEntitySet="NhiemVu">
@@ -45,6 +69,18 @@
           <ScalarProperty Name="iMaNguoiDangCode" ColumnName="iMaNguoiDangCode" />
           <ScalarProperty Name="iMaNguoiDuocGiaoCode" ColumnName="iMaNguoiDuocGiaoCode" />
           <ScalarProperty Name="iMaTrangThaiCode" ColumnName="iMaTrangThaiCode" />
+          <ScalarProperty Name="iMaModuleCode" ColumnName="iMaModuleCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Projects">
+      <EntityTypeMapping TypeName="dbnhiemvuModel.Project">
+        <MappingFragment StoreEntitySet="Project">
+          <ScalarProperty Name="iMaProjectCode" ColumnName="iMaProjectCode" />
+          <ScalarProperty Name="vTenProject" ColumnName="vTenProject" />
+          <ScalarProperty Name="vMoTa" ColumnName="vMoTa" />
+          <ScalarProperty Name="dNgayLap" ColumnName="dNgayLap" />
+          <ScalarProperty Name="iTrangThai" ColumnName="iTrangThai" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -54,6 +90,17 @@
           <ScalarProperty Name="iMaQuynhCode" ColumnName="iMaQuynhCode" />
           <ScalarProperty Name="vTenQuyen" ColumnName="vTenQuyen" />
           <ScalarProperty Name="iTrangThai" ColumnName="iTrangThai" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="dbnhiemvuModel.sysdiagram">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
