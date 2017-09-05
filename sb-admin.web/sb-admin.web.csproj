@@ -195,6 +195,7 @@
     <Compile Include="Models\Module.cs">
       <DependentUpon>NhiemVu.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ModuleViewModel.cs" />
     <Compile Include="Models\Navbar.cs" />
     <Compile Include="Models\NhiemVu.Context.cs">
       <AutoGen>True</AutoGen>
@@ -806,6 +807,7 @@
     <Content Include="Views\Home\ThanhVien.cshtml" />
     <Content Include="Views\Project\Index.cshtml" />
     <Content Include="Views\Project\ChiTietProject.cshtml" />
+    <Content Include="Views\Module\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -821,7 +823,6 @@
     <Folder Include="Scripts\dist\" />
     <Folder Include="Scripts\js\" />
     <Folder Include="Scripts\ui\" />
-    <Folder Include="Views\Module\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
