@@ -1,0 +1,64 @@
+﻿@model sb_admin.web.Models.NguoiLam
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Delete</title>
+</head>
+<body>
+   <div class="modal fade" id="deleteModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title">Xác nhận</h4>
+            </div>
+            <div class="modal-body">
+                <h3>Bạn có chắc muốn xóa cuốn sách này?</h3>
+                <div>
+                <hr />
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Tên Người Làm</th>
+                                <th>Số Điện Thoại</th>
+                                <th>CMND</th>
+                                <th>Ngày Công</th>
+                                <th>Việc Làm</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                                <tr class="odd gradeX">
+                                    <td>@Model.TenNguoiLam</td>
+
+                                    <td>@Model.SoDienThoai</td>
+                                    <td class="center">@Model.CMND</td>
+                                    <td class="center">@Model.NgayCong</td>
+                                    <td class="center">@Model.ViecLam</td>
+                                </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div><!-- /.modal-body -->
+            <div class="modal-footer">
+            @using (Html.BeginForm("Delete", "Home", FormMethod.Post))
+            {
+                <div class="form-actions no-color text-center">
+                    <input type="submit" value="Xóa" class="btn btn-danger" />
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                </div>
+            }
+            </div><!-- /.modal-footer -->
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+</body>
+</html>

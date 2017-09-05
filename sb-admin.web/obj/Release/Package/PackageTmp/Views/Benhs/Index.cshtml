@@ -1,0 +1,91 @@
+﻿@model IEnumerable<sb_admin.web.Models.Benh>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_admin2.cshtml";
+}
+<link href="~/plugins/datatables/css/jquery.dataTables.css" rel="stylesheet" type="text/css" media="screen" />
+<link href="~/plugins/datatables/extensions/TableTools/css/dataTables.tableTools.min.css" rel="stylesheet" type="text/css" media="screen" />
+<link href="~/plugins/datatables/extensions/Responsive/css/dataTables.responsive.css" rel="stylesheet" type="text/css" media="screen" />
+<link href="~/plugins/datatables/extensions/Responsive/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet" type="text/css" media="screen" />
+
+<h2>Index</h2>
+
+<p>
+    <a class="btn btn-info them" href="/Benhs/Create">Thêm Người Làm</a>
+</p>
+<div class="col-lg-12">
+    <section class="box ">
+        <header class="panel_header">
+            <h2 class="title pull-left">Thông Tin Bệnh</h2>
+            <div class="actions panel_actions pull-right">
+                <a class="box_toggle fa fa-chevron-down"></a>
+                <a class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></a>
+                <a class="box_close fa fa-times"></a>
+            </div>
+        </header>
+        <div class="content-body">
+            <div class="row">
+                <div class="col-xs-12">
+
+
+                    <table id="example-1" class="table table-striped dt-responsive display">
+                        <thead>
+                            <tr>
+                                <th>Tên</th>
+                                <th>Ngày Đăng</th>
+                                <th>Nội dung</th>
+                                <th>Hình Ảnh</th>
+
+                                <th> Thao Tác </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var item in Model)
+            {
+                                <tr class="odd gradeX">
+                                    <td>@item.title</td>
+
+                                    <td>@item.NgayDang</td>
+                                    <td class="center">@item.NoiDung</td>
+                                    <td><img style="width:100px;height:50px" src="~/Content/Image/@item.HinhAnh" /></td>
+                                    <td>
+                                        @Html.ActionLink("Edit", "Edit", new { id = item.idBenh }) |
+                                        @Html.ActionLink("Details", "Detail", new { id = item.idBenh }) |
+                                        <a id="xoa" class="xoa" href="@Url.Action("Delete", new { id = item.idBenh })">Xóa</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+
+
+                    </table>
+                </div>
+                </div>
+            </div>
+        </section>
+    </div>
+<div class="body-content"></div>
+@section scripts
+{
+    <script src="~/plugins/datatables/js/jquery.dataTables.min.js" type="text/javascript"></script>
+    <script src="~/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js" type="text/javascript"></script>
+    <script src="~/plugins/datatables/extensions/Responsive/js/dataTables.responsive.min.js" type="text/javascript"></script>
+    <script src="~/plugins/datatables/extensions/Responsive/bootstrap/3/dataTables.bootstrap.js" type="text/javascript"></script>
+    <script>
+        $('.xoa').click(function (e) {
+            var a_href = $(this).attr('href'); /* Lấy giá trị của thuộc tính href */
+            e.preventDefault(); /* Không thực hiện action mặc định */
+            $.ajax({ /* Gửi request lên server */
+                url: a_href, /* Nội dung trong Delete.cshtml cụ thể là deleteModal div được server trả về */
+                type: 'GET',
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) { /* Sau khi nhận được giá */
+                    $('.body-content').prepend(data); /* body-content div (định nghĩa trong _Layout.cshtml) sẽ thêm deleteModal div vào dưới cùng */
+                    $('#deleteModal').modal('show'); /* Hiển thị deleteModal div dưới kiểu modal */
+                }
+            });
+        });
+    </script>
+}

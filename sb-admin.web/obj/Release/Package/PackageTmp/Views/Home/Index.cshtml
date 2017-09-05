@@ -1,0 +1,810 @@
+﻿@model sb_admin.web.Models.DuAnPhanCungEntities1
+@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_admin.cshtml";
+}
+
+<div class="col-xs-12 col-md-6 col-lg-4">
+    <section class="box ">
+        <header class="panel_header">
+            <a href="/Home/Chat">   <h2 class="title pull-left">CHAT TRỰC TUYẾN</h2></a> 
+
+        </header>
+        <div class="content-body">
+            <div class="row">
+                <div class="col-xs-12">
+                    <a href="/Home/Chat">    <img src="~/images/Livechat.jpg" style="height:200px" /> </a>
+</div>
+            </div> <!-- End .row -->
+        </div>
+    </section>
+</div>
+
+
+
+<div class="col-xs-12 col-md-6 col-lg-4">
+    <section class="box ">
+        <header class="panel_header">
+            <h2 class="title pull-left">THÔNG TIN TỪ CHUYÊN GIA</h2>
+
+        </header>
+        <div class="content-body">
+            <div class="row">
+                <div class="col-xs-12">
+                    <img src="~/images/CHUYENGIA.jpg" style="height:200px" />
+                </div>
+            </div> <!-- End .row -->
+        </div>
+    </section>
+</div>
+
+
+
+<div class="col-xs-12 col-md-6 col-lg-4">
+    <a href="/Admin/Charts">
+        <section class="box ">
+            <header class="panel_header">
+                <h2 class="title pull-left">CHỈ DẪN ĐỊA LÝ</h2>
+
+            </header>
+            <div class="content-body">
+                <div class="row">
+                    <div class="col-xs-12">
+
+                        <div class="chart-container">
+                            <img src="~/images/NONGDAN.jpg" style="height:200px;width:100%" />
+                        </div>
+                    </div>
+                </div> <!-- End .row -->
+            </div>
+        </section>
+    </a>
+</div>
+<div class="col-xs-12 col-md-6 col-lg-4">
+    <section class="box ">
+        <header class="panel_header">
+            <a href="/Home/PhanBon">     <h2 class="title pull-left">THÔNG TIN VỀ PHÂN BÓN</h2></a>
+           
+        </header>
+        <div class="content-body">
+            <div class="row">
+                <div class="col-xs-12">
+                    <a href="/Home/PhanBon">     <img src="~/images/PHANBON.jpg" style="height:200px" /></a>
+                </div>
+            </div> <!-- End .row -->
+        </div>
+    </section>
+</div>
+
+
+
+<div class="col-xs-12 col-md-6 col-lg-4">
+    <section class="box ">
+        <header class="panel_header">
+            <a href="/Home/ThuocTruSau">
+                <h2 class="title pull-left">THÔNG TIN VỀ THUỐC TRỪ SÂU</h2>
+            </a>
+        </header>
+        <div class="content-body">
+            <div class="row">
+                <div class="col-xs-12">
+                    <a href="/Home/ThuocTruSau">
+                        <img src="~/images/sa.jpg" style="height:200px" />
+                        </a>
+</div>
+            </div> <!-- End .row -->
+        </div>
+    </section>
+</div>
+
+
+
+<div class="col-xs-12 col-md-6 col-lg-4">
+    
+        <section class="box ">
+            <header class="panel_header">
+                <a href="/Home/NguoiLam">
+                    <h2 class="title pull-left">QUẢN LÝ NGƯỜI LAO ĐỘNG</h2>
+                </a>
+    </header>
+    <div class="content-body">
+        <div class="row">
+            <div class="col-xs-12">
+
+                <div class="chart-container">
+                    <a href="/Home/NguoiLam">     <img src="~/images/NONGDAN.jpg" style="height:200px;width:100%" /> </a>
+                </div>
+            </div>
+        </div> <!-- End .row -->
+    </div>
+    </section>
+
+</div>
+<div class="col-xs-12 col-md-6 col-lg-4">
+    <section class="box ">
+        <header class="panel_header">
+            <a href="/Home/Benh">     <h2 class="title pull-left">THÔNG TIN TỪ VỀ BỆNH</h2></a>
+
+        </header>
+        <div class="content-body">
+            <div class="row">
+                <div class="col-xs-12">
+                    <a href="/Home/Benh">   <img src="~/images/CHUYENGIA.jpg" style="height:200px" /></a>
+</div>
+            </div> <!-- End .row -->
+        </div>
+    </section>
+</div>
+<div class="col-xs-12 col-md-6 col-lg-4">
+    <section class="box ">
+        <header class="panel_header">
+            <a href="/Home/Contact">    <h2 class="title pull-left">LIÊN HỆ VỚI CHÚNG TÔI</h2> </a>
+
+</header>
+        <div class="content-body">
+            <div class="row">
+                <div class="col-xs-12">
+                    <a href="/Home/Contact">     <img src="~/images/CHUYENGIA.jpg" style="height:200px" /></a>
+                </div>
+            </div> <!-- End .row -->
+        </div>
+    </section>
+</div>
+<div class="col-xs-12 col-md-6 col-lg-4">
+    <section class="box ">
+        <header class="panel_header">
+            <a href="/Home/Contact">    <h2 class="title pull-left">LIÊN HỆ VỚI CHÚNG TÔI</h2> </a>
+
+        </header>
+        <div class="content-body">
+            <div class="row">
+                <div class="col-xs-12"style="height:200px">
+                    <h3 >LIÊN HỆ VỚI CHÚNG TÔI</h3>
+                </div>
+            </div> <!-- End .row -->
+        </div>
+    </section>
+</div>
+@*<style>
+     .scroll-pane { width: 100%; float:left; }
+  .scroll-bar-wrap { clear: left; padding: 0 4px 0 2px; margin: 0 -1px -1px -1px;  }
+  .scroll-bar-wrap .ui-slider { background: none; border:0; height: 2em; margin: 0 auto;  }
+  .scroll-bar-wrap .ui-handle-helper-parent { position: relative; width: 100%; height: 100%; margin: 0 auto; }
+  .scroll-bar-wrap .ui-slider-handle { top:.2em; height: 1.5em; }
+  .scroll-bar-wrap .ui-slider-handle .ui-icon { margin: -8px auto 0; position: relative; top: 50%; }
+</style>
+<link type="text/css" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="weather.css">
+<link href="~/Content/weather.css" rel="stylesheet" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script type="text/html" src="~/Scripts/canvasjs.min.js">
+</script>
+<script src="~/Scripts/canvasjs.js"></script>
+<script src="~/Scripts/excanvas.js"></script>
+
+<script src="~/Scripts/highcharts.js"></script>
+
+    <script type="text/javascript"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css">
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
+
+<div id="background" style="background-color:#ddd;height:600px">
+    <canvas id="rain-canvas" style="width:1229px"></canvas>
+    <canvas id="cloud-canvas"style="width:1229px"></canvas>
+    <canvas id="weather-canvas"style="width:1229px"></canvas>
+    <canvas id="time-canvas"style="width:1229px"></canvas>
+    <canvas id="lightning-canvas"style="width:1229px"></canvas>
+    <div class="page-wrap">
+
+        <header class="search-bar">
+            <p class="search-text"><span class="search-location-text">Bạn muốn xem nhiệt độ thành phố nào <input id="search-location-input" class="search-location-input" type="text" placeholder="Tên Thành Phố, Tỉnh"> ?</span></p>
+            <div class="search-location-button-group">
+                <button id="search-location-button" class="fa fa-search search-location-button search-button"></button>
+                <!--
+                -->
+                <button id="geo-button" class="geo-button fa fa-location-arrow search-button"></button>
+            </div>
+        </header>
+        <div id="geo-error-message" class="geo-error-message hide"><button id='close-error' class='fa fa-times close-error'></button>Uh oh! It looks like we can't find your location. If you're using an Adblocker, it may block our ability to find your location. Please type your city into the search box above!</div>
+       
+        <div class="attribution-links hide" id="attribution-links">
+            <button id='close-attribution' class='fa fa-times close-attribution'></button>
+            <h3>Icons from <a href="https://thenounproject.com/">Noun Project</a></h3>
+            <ul>
+                <li class="icon-attribution"><a href="https://thenounproject.com/term/cloud/6852/">Cloud</a> by Pieter J. Smits</li>
+                <li class="icon-attribution"><a href="https://thenounproject.com/term/snow/64/">Snow</a> from National Park Service Collection</li>
+                <li class="icon-attribution"><a href="https://thenounproject.com/term/drop/11449/">Drop</a> Alex Fuller</li>
+                <li class="icon-attribution"><a href="https://thenounproject.com/term/smoke/27750/">Smoke</a> by Gerardo Martín Martínez</li>
+                <li class="icon-attribution"><a href="https://thenounproject.com/term/moon/13554/">Moon</a> by Jory Raphael</li>
+                <li class="icon-attribution"><a href="https://thenounproject.com/term/warning/18974/">Warning</a> by Icomatic</li>
+                <li class="icon-attribution"><a href="https://thenounproject.com/term/sun/13545/">Sun</a> by Jory Raphael</li>
+                <li class="icon-attribution"><a href="https://thenounproject.com/term/windsock/135621/">Windsock</a> by Golden Roof</li>
+        </div>
+        <div id="a" style="text-align:center">
+            <div class="location" id="location" style="font-size:25px;font-family: serif;padding-top:50px"></div>
+            <div class="weather-container">
+                <div id="temperature-info" class="temperature-info">
+                    <div class="temperature" id="temperature"></div>
+                    <div class="weather-description" id="weather-description"></div>
+                </div>
+                <div class="weather-box">
+                    <ul class="weather-info" id="weather-info">
+                        <li class="weather-item humidity">Độ Ẩm: <span id="humidity"></span>%</li>
+                        <!--
+                        -->
+                        <li class="weather-item wind">Gió: <span id="wind-direction"></span> <span id="wind"></span> <span id="speed-unit"></span></li>
+                    </ul>
+                </div>
+                <div class="temp-change">
+                    <button id="celsius" class="temp-change-button celsius">&deg;C</button><button id="fahrenheit" class="temp-change-button fahrenheit">&deg;F</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <script>
+            window.onload = function () {
+
+                var dps = []; // dataPoints
+
+                var chart = new CanvasJS.Chart("chartContainer",{
+                    title :{
+                        text: "Live Random Data"
+                    },
+                    data: [{
+                        type: "line",
+                        dataPoints: dps
+                    }]
+                });
+
+                var xVal = 0;
+                var yVal = 100;
+                var updateInterval = 100;
+                var dataLength = 9; // number of dataPoints visible at any point
+
+                var updateChart = function (data) {
+                    // count is number of times loop runs to generate random dataPoints.
+
+                    //for (var j = 0; j < count; j++) {
+                    //	yVal = yVal +  Math.round(5 + Math.random() *(-5-5));
+                    //	dps.push({
+                    //		x: xVal,
+                    //		y: yVal
+                    //	});
+                    //	xVal++;
+                    //	console.log(count);
+                    //};
+                    $.getJSON("/Home/GetDefect/", function (data) {
+                        for (var i = 0; i <= data.length - 1; i++) {
+                            dps.push({ label: data[i].thoigian, y: parseInt(data[i].NhietDo1) });
+
+                            console.log(data.length);
+                            console.log(data);
+
+                        };
+
+                    });
+                    if (dps.length > dataLength) {
+
+                        dps.shift();
+                    }
+
+                    chart.render();
+
+                };
+
+                // generates first set of dataPoints
+                updateChart(dataLength);
+
+                // update chart after specified time.
+                setInterval(function(){updateChart()}, updateInterval);
+
+            }
+        </script>
+        <div id="chartContainer" style="height: 300px; width:100%;">
+        </div>*@
+    @*
+        <script>
+            $(function () {
+
+                var dataPoints = [
+                    { y: 10 },
+                    { y: 14 },
+                    { y: 0 },
+                    { y: 20 },
+                    { y: 14 },
+                    { y: 7 }
+                ];
+
+                var chart = new CanvasJS.Chart("chartContainer", {
+                    title: {
+                        text: "Live Data Scroll"
+                    },
+                    axisY: {
+                        gridThickness: 0,
+                    },
+                    data: [{
+                        type: "line",
+                        dataPoints: dataPoints
+                    }]
+                });
+                chart.render();
+
+                var current = 0;
+
+                var updateChart = function () {
+                    chart.options.data[0].dataPoints.push({
+                        y: Math.random() * 10 + 5
+                    });
+
+                    if (!chart.options.axisX)
+                        chart.options.axisX = { viewportMinimum: null, viewportMaximum: null };
+
+                    chart.options.axisX.viewportMinimum = current++;
+                    chart.render();
+                };
+
+                setInterval(function () {
+                    updateChart()
+                }, 500);
+
+
+                $("#slider-range").slider({
+                    range: "max",
+                    min: 0,
+                    value: 10,
+                    slide: function (event, ui) {
+                        current = ui.value;
+                        $("#slider-range").slider("option", "max", dataPoints[dataPoints.length - 1].x);
+                        $("#slider-range").slider("value", current);
+                        $("#slider-range").slider("option", "min", 0);
+                    }
+                });
+
+            });
+        </script>
+        <div id="chartContainer" style="height: 400px; width: 100%;"></div>
+        <div id="slider-range" style="width:100%;"></div><br /><br />
+        <div class="col-lg-12">
+            <section class="box ">
+                <header class="panel_header">
+                    <h2 class="title pull-left">Real Time</h2>
+                    <div class="actions panel_actions pull-right">
+                        <a class="box_toggle fa fa-chevron-down"></a>
+                        <a class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></a>
+                        <a class="box_close fa fa-times"></a>
+                    </div>
+                </header>
+                <div class="content-body">
+                    <div class="row">
+                        <div class="col-xs-12">
+
+                            <div class="flot-demo-container">
+                                <div id="flot-realtime" class="flot-demo-placeholder"></div>
+                            </div>
+                            <br>
+                            <p>You can update a chart periodically to get a real-time effect by using a timer to insert the new data in the plot and redraw it.</p>
+                            <p>Time between updates: <input id="updateInterval" type="text" value="" style="text-align: right; width:3em;padding:2px 5px;"> milliseconds</p>
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+
+
+
+        <script type="text/javascript">
+            //$(document).ready(function () {
+            //    var dataPoints = [];
+
+            //        var chart = new CanvasJS.Chart("chartContainer1", {
+            //            theme: "theme2",//theme1
+            //            title: {
+            //                text: "Number of Defects by Environment"
+            //            },
+            //            data: [
+            //            {
+            //                // Change type to "bar", "splineArea", "area", "spline", "pie",etc.
+            //                type: "line",
+            //                dataPoints: dataPoints
+            //            }
+            //            ]
+            //        });
+
+            //        chart.render();
+            //    });
+
+            //});
+            ////adas
+            window.onload = function () {
+
+                var dataPoints = []; // dataPoints
+
+                var chart = new CanvasJS.Chart("chartContainer", {
+                    title: {
+                        text: "Live Random Data"
+                    },
+                    data: [{
+                        type: "line",
+                        dataPoints: dataPoints
+                    }]
+                });
+
+                var xVal = 0;
+                var yVal = 100;
+                var updateInterval = 500;
+                var dataLength = 500; // number of dataPoints visible at any point
+                var updateChart = function () {
+                    $.getJSON("/Home/GetDefect/", function (data) {
+                        for (var i = 0; i <= data.length - 1; i++) {
+                            dataPoints.push({ label: data[i].thoigian, y: parseInt(data[i].NhietDo1) });
+                            console.log(data);
+                        };
+
+                    });
+
+                    chart.render();
+
+                };
+
+                // generates first set of dataPoints
+               // updateChart(dataLength);
+
+                // update chart after specified time.
+                setInterval(function () { updateChart() }, updateInterval);
+
+            }
+        </script>
+        <div class="col-xs-12 col-md-6 col-lg-4">
+            <section class="box ">
+                <div class="form-group">
+                    <header class="panel_header">
+                        <h2 class="title pull-left">Nhiệt Độ 1</h2>
+                    </header>
+                    </div>
+                    <div class="content-body">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="chart-container">
+                                    <div id="chartContainer" style="height: 300px; width: 100%;"></div>
+                                </div>
+                            </div>
+                        </div> <!-- End .row -->
+                    </div>
+        </section>
+        </div>
+
+        <div class="col-lg-5 col-lg-offset-5">
+            <div class="form-group">
+                <div class="container" style="margin-top:20px">
+                    <div class='col-md-5'>
+                        <div class="form-group">
+                            <div class='input-group date'>
+                                <span>Ngày bắt đầu</span>
+                                <input type='date' id='stardate' class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class='input-group date'>
+                                <span>Ngày kết thúc</span>
+                                <input type='date' id='enddate' class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <input type="button" value="Search" onclick="searchDate()" class="btn btn-default" style="margin-left:65px" />
+            </div>
+
+
+            <div id="chartContainer1" style="height: 300px; width: 50%;"></div>
+        </div>
+
+            <script type="text/javascript">
+            $(document).ready(function () {
+            });
+            var dataPoints = [];
+            function searchDate2() {
+                var stardate = $('#stardate2').val();
+                var enddate = $('#enddate2').val();
+
+                $.ajax({
+                    url: '/Home/GetDefect/',
+                    type: 'GET',
+                    sucess: function (data) {
+                        //load chart khi serach
+
+                    }
+                }).done(function (data) {
+                    var obj = JSON.parse(data);
+                    console.log(obj);
+                    for (var i = 0; i <= obj.length - 1; i++) {
+                        dataPoints.push({ label: obj[i].thoigian, y: parseInt(obj[i].NhietDo2) });
+                    }
+
+                    var chart = new CanvasJS.Chart("chartContainer2", {
+                        theme: "theme2",//theme1
+                        title: {
+                            text: "Nhiệt Độ 2"
+                        },
+                        data: [
+                        {
+                            // Change type to "bar", "splineArea", "area", "spline", "pie",etc.
+                            type: "line",
+                            dataPoints: dataPoints
+                        }
+                        ]
+                    });
+
+                    chart.render();
+                });
+            }
+        </script>
+        <div class="col-xs-12 col-md-6 col-lg-4">
+            <section class="box ">
+                <div class="form-group">
+                    <center>
+                        <div class='input-group date'>
+                            <span>Ngày bắt đầu</span>
+                            <input type='date' id='stardate2' class="form-control" />
+                        </div>
+                        <div class='input-group date'>
+                            <span>Ngày kết thúc</span>
+                            <input type='date' id='enddate2' class="form-control" />
+                        </div>
+                        <input type="button" value="Search" onclick="searchDate2()" class="btn btn-default" />
+                </div>
+                </center>
+                <header class="panel_header">
+                    <h2 class="title pull-left">Nhiệt Độ 2</h2>
+                </header>
+                <div class="content-body">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="chart-container">
+                                <div id="chartContainer2" style="height: 300px; width: 100%;"></div>
+                            </div>
+                        </div>
+                    </div> <!-- End .row -->
+                </div>
+            </section>
+        </div>
+        @*
+        <script type="text/javascript">
+            $(document).ready(function () {
+            });
+            var dataPoints = [];
+            function searchDate3() {
+                var stardate = $('#stardate3').val();
+                var enddate = $('#enddate3').val();
+
+                $.ajax({
+                    url: '/Home/GetDefect?stardate=' + stardate + '&&enddate=' + enddate,
+                    type: 'GET',
+                    sucess: function (data) {
+                        //load chart khi serach
+
+                    }
+                }).done(function (data) {
+                    var obj = JSON.parse(data);
+                    console.log(obj);
+                    for (var i = 0; i <= obj.length - 1; i++) {
+                        dataPoints.push({ label: obj[i].thoigian, y: parseInt(obj[i].NhietDo3) });
+                    }
+
+                    var chart = new CanvasJS.Chart("chartContainer3", {
+                        theme: "theme2",//theme1
+                        title: {
+                            text: "Nhiệt Độ 3"
+                        },
+                        data: [
+                        {
+                            // Change type to "bar", "splineArea", "area", "spline", "pie",etc.
+                            type: "line",
+                            dataPoints: dataPoints
+                        }
+                        ]
+                    });
+
+                    chart.render();
+                });
+            }
+        </script>
+        <div class="col-xs-12 col-md-6 col-lg-4">
+            <section class="box ">
+                <div class="form-group">
+                    <center>
+                        <div class='input-group date'>
+                            <span>Ngày bắt đầu</span>
+                            <input type='date' id='stardate3' class="form-control" />
+                        </div>
+                        <div class='input-group date'>
+                            <span>Ngày kết thúc</span>
+                            <input type='date' id='enddate3' class="form-control" />
+                        </div>
+                        <input type="button" value="Search" onclick="searchDate3()" class="btn btn-default" />
+                </div>
+                </center>
+                <header class="panel_header">
+                    <h2 class="title pull-left">Nhiệt Độ 3</h2>
+                </header>
+                <div class="content-body">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="chart-container">
+                                <div id="chartContainer1" style="height: 300px; width: 100%;"></div>
+                            </div>
+                        </div>
+                    </div> <!-- End .row -->
+                </div>
+            </section>
+        </div>
+        <script>
+            function abc() {
+                var hientai = 20;
+                var antoan = 30;
+                if(hientai > antoan)
+                {
+
+                    setInterval(function(){ $('#abc').text("không ổn rồi").css("color","red"); }, 3000);
+                }
+                else
+
+                setInterval(function(){ $('#abc').text("ổn").css('color','blue'); }, 3000);
+                }
+        </script>
+            <div style="text-align:center;">
+                <button onclick="abc()">Try it</button>
+                Temperature : <span id="abc"></span>
+            </div>*@
+
+    @*<script>
+            jQuery(function ($) {
+
+                'use strict';
+
+                var CMPLTADMIN_SETTINGS = window.CMPLTADMIN_SETTINGS || {};
+
+                /*--------------------------------
+                    Flot Chart
+                 --------------------------------*/
+                CMPLTADMIN_SETTINGS.chartFlot = function () {
+
+
+                    /*------------------ Real Time ------------------------*/
+                    if ($("#flot-realtime").length) {
+                        // We use an inline data source in the example, usually data would
+                        // be fetched from a server
+
+                        var rtdata = [],
+                            totalPoints = 300;
+
+                        function RealTimegetRandomData() {
+
+                            if (rtdata.length > 0)
+                                rtdata = rtdata.slice(1);
+
+                            // Do a random walk
+
+                            while (rtdata.length < totalPoints) {
+
+                                var prev = rtdata.length > 0 ? rtdata[rtdata.length - 1] : 50,
+                                    y = prev + Math.random() * 10 - 5;
+
+                                if (y < 0) {
+                                    y = 0;
+                                } else if (y > 100) {
+                                    y = 100;
+                                }
+
+                                rtdata.push(y);
+                            }
+
+                            // Zip the generated y values with the x values
+
+                            var res = [];
+                            for (var i = 0; i < rtdata.length; ++i) {
+                                res.push([i, rtdata[i]])
+                            }
+
+                            return res;
+                        }
+
+                        // Set up the control widget
+
+                        var updateInterval = 30;
+                        $("#updateInterval").val(updateInterval).change(function () {
+                            var v = $(this).val();
+                            if (v && !isNaN(+v)) {
+                                updateInterval = +v;
+                                if (updateInterval < 1) {
+                                    updateInterval = 1;
+                                } else if (updateInterval > 2000) {
+                                    updateInterval = 2000;
+                                }
+                                $(this).val("" + updateInterval);
+                            }
+                        });
+
+                        var realplot = $.plot("#flot-realtime", [RealTimegetRandomData()], {
+                            series: {
+                                shadowSize: 0 // Drawing is faster without shadows
+                            },
+                            yaxis: {
+                                min: 0,
+                                max: 100
+                            },
+                            xaxis: {
+                                show: false
+                            },
+                            colors: ["#673AB7"],
+                            grid: {
+                                tickColor: "#f5f5f5",
+                                borderWidth: 1,
+                                borderColor: "#eaeaea"
+                            },
+                        });
+
+                        function realtimeupdate() {
+
+                            realplot.setData([RealTimegetRandomData()]);
+
+                            // Since the axes don't change, we don't need to call realplot.setupGrid()
+
+                            realplot.draw();
+                            setTimeout(realtimeupdate, updateInterval);
+                        }
+
+                        realtimeupdate();
+
+
+                    }
+
+                };
+
+
+                function labelFormatter(label, series) {
+                    return "<div style='font-size:8pt; text-align:center; padding:2px; color:white;'>" + label + "<br/>" + Math.round(series.percent) + "%</div>";
+                }
+
+
+
+
+                /******************************
+                 initialize respective scripts
+                 *****************************/
+                $(document).ready(function () {
+                    CMPLTADMIN_SETTINGS.chartFlot();
+                });
+
+                $(window).resize(function () {
+                });
+
+                $(window).load(function () { });
+
+            });
+
+
+
+        </script>*@
+
+    @*<script src="~/plugins/flot-chart/jquery.flot.fillbetween.js" type="text/javascript"></script>
+        <script src="~/plugins/flot-chart/jquery.flot.navigate.js" type="text/javascript"></script>
+        <script src="~/plugins/flot-chart/jquery.flot.pie.js" type="text/javascript"></script>
+        <script src="~/plugins/flot-chart/jquery.flot.stack.js" type="text/javascript"></script>
+        <script src="~/plugins/flot-chart/jquery.flot.crosshair.js" type="text/javascript"></script>
+        <script src="~/plugins/flot-chart/jquery.flot.time.js" type="text/javascript"></script>
+        <script src="~/plugins/flot-chart/jquery.flot.selection.js" type="text/javascript"></script>
+        <script src="~/js/chart-flot.js" type="text/javascript"></script>
+        <script src="~/plugins/icheck/icheck.min.js" type="text/javascript"></script>*@
+
+    @section scripts
+{
+        
+        <script src="~/Scripts/jquery.flot.js"></script>
+        <script src="~/Scripts/chart-flot.js"></script>
+    
+    <script src="~/Scripts/weather.js"></script>
+    }

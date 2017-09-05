@@ -1,0 +1,174 @@
+﻿@model sb_admin.web.Models.Benh
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_admin2.cshtml";
+    <style type="text/css">
+        .thumb-image {
+            float: left;
+            width: 100px;
+            position: relative;
+            padding: 5px;
+        }
+    </style>
+    }
+@using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+<div class="col-lg-12">
+    <section class="aaa ">
+        <header class="panel_header">
+            <h2 class="title pull-left">Thêm bệnh</h2>
+
+        </header>
+        <div class="content-body">
+            <form id="icon_validate" action="#">
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label class="form-label">Tiêu đề</label>
+                            <div class="controls">
+                                <input type="text" id="title" name="title" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Hình Ảnh</label>
+                            <div class="controls">
+                                <input type="file" id="HinhAnh" name="HinhAnh">
+                                <div id="dvPreview">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="padding-top:100px">
+                            <label class="form-label">Nội Dung</label>
+                            <div class="controls">
+                                <textarea class="ckeditor" cols="80" id="NoiDung" name="NoiDung" rows="10"></textarea>
+                            </div>
+                        </div>
+
+
+                        <div class="pull-right">
+                            <button type="submit"  class="btn btn-success">Save</button>
+                            <button type="button" class="btn btn-default">Cancel</button>
+                        </div>
+                        <div class="pull-left">
+                            @Html.ActionLink("Back to List", "Index")
+                        </div>
+                        </div>
+                    </div>
+            </form>
+        </div>
+    </section>
+</div>
+}
+@*<h2>Create</h2>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" })) 
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Benh</h4>
+        <hr>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="title">title</label>
+            <div class="col-md-10">
+                <input class="form-control text-box single-line" id="title" name="title" type="text" value="">
+                <span class="field-validation-valid text-danger" data-valmsg-for="title" data-valmsg-replace="true"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="NoiDung">NoiDung</label>
+            <div class="col-md-10">
+                <input class="form-control text-box single-line" id="NoiDung" name="NoiDung" type="text" value="">
+                <span class="field-validation-valid text-danger" data-valmsg-for="NoiDung" data-valmsg-replace="true"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="HinhAnh">HinhAnh</label>
+            <div class="col-md-10">
+               
+                <span class="field-validation-valid text-danger" data-valmsg-for="HinhAnh" data-valmsg-replace="true"></span>
+                <div>
+                    <input type="file" id="HinhAnh" name="HinhAnh">
+                    <div id="dvPreview">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default">
+            </div>
+        </div>
+    </div>
+}*@
+
+
+@section scripts{
+<script src="~/plugins/ckeditor/ckeditor.js" type="text/javascript"></script>
+
+    @*upload image using ajax request*@
+    <script>
+        $(document).ready(function () {
+            $("#HinhAnh").change(function () {
+                var formData = new FormData();
+                var totalFiles = document.getElementById("HinhAnh").files.length;
+                for (var i = 0; i < totalFiles; i++) {
+                    var file = document.getElementById("HinhAnh").files[i];
+
+                    formData.append("HinhAnh", file);
+                    @*preview image*@
+                    //Get count of selected files
+                    var countFiles = $(this)[0].files.length;
+                    var imgPath = $(this)[0].value;
+                    var extn = imgPath.substring(imgPath.lastIndexOf('.') + 1).toLowerCase();
+                    var dvPreview = $("#dvPreview");
+                    dvPreview.empty();
+                    if (extn == "gif" || extn == "png" || extn == "jpg" || extn == "jpeg") {
+                        if (typeof (FileReader) != "undefined") {
+                            //loop for each file selected for uploaded.
+                            for (var i = 0; i < countFiles; i++) {
+                                var reader = new FileReader();
+                                reader.onload = function (e) {
+                                    $("<img />", {
+                                        "src": e.target.result,
+                                        "class": "thumb-image"
+                                    }).appendTo(dvPreview);
+                                }
+                                dvPreview.show();
+                                reader.readAsDataURL($(this)[0].files[i]);
+                            }
+                        } else {
+                            alert("This browser does not support FileReader.");
+                        }
+                    } else {
+                        alert("Pls select only images");
+                    }
+
+                    @*end preview image*@
+                }
+
+                $.ajax({
+                    type: "POST",
+                    url: '/Benhs/Create',
+                    data: formData,
+                    dataType: 'json',
+                    contentType: false,
+                    processData: false,
+
+                });;
+                console.log(formData)
+            });
+        });
+
+    </script>
+
+}

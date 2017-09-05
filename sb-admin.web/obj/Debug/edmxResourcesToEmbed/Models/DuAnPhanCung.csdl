@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DuAnPhanCungModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="ChatGroup">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TenNguoiChat" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="NoiDung" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="TrangThai" Type="Int32" />
+  </EntityType>
+  <EntityType Name="ChiTietHoaDonNhap">
+    <Key>
+      <PropertyRef Name="iMaChiTietHoaDonNhapCode" />
+    </Key>
+    <Property Name="iMaChiTietHoaDonNhapCode" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="iMaHoaDonNhapCode" Type="Int32" Nullable="false" />
+    <Property Name="vTenVatTu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="dNgayNhap" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="fGiaNhap" Type="Double" Nullable="false" />
+    <Property Name="iSoLuong" Type="Int32" Nullable="false" />
+    <Property Name="iTrangThai" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ChiTietHoaDonXuat">
+    <Key>
+      <PropertyRef Name="iMaChiTietHoaDonXuatCode" />
+    </Key>
+    <Property Name="iMaChiTietHoaDonXuatCode" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="iMaHoaDonXuatCode" Type="Int32" Nullable="false" />
+    <Property Name="vTenVatTu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="dNgayNhap" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="iSoLuong" Type="Int32" Nullable="false" />
+    <Property Name="iTrangThai" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="HoaDonNhap">
+    <Key>
+      <PropertyRef Name="iMaHoaDonNhapCode" />
+    </Key>
+    <Property Name="iMaHoaDonNhapCode" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="iMaNhanVienCode" Type="Int32" Nullable="false" />
+    <Property Name="dNgayLap" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="fTongTien" Type="Double" />
+    <Property Name="iTrangthai" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="HoaDonxuat">
+    <Key>
+      <PropertyRef Name="iMaHoaDonXuatCode" />
+    </Key>
+    <Property Name="iMaHoaDonXuatCode" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="dNgayLap" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="iMaNV" Type="Int32" Nullable="false" />
+    <Property Name="iTrangThai" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ThanhVien">
+    <Key>
+      <PropertyRef Name="idTV" />
+    </Key>
+    <Property Name="idTV" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MaSudung" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="TaiKhoan" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="MatKhau" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="TenDayDu" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="SoDienThoai" Type="Int32" />
+    <Property Name="TrangThai" Type="Int32" />
+    <Property Name="Quyen" Type="Int32" />
+  </EntityType>
+  <EntityType Name="VatTu">
+    <Key>
+      <PropertyRef Name="iMaVatTuCode" />
+    </Key>
+    <Property Name="iMaVatTuCode" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="vTenVatTu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="vDVT" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="iSoLuong" Type="Int32" Nullable="false" />
+    <Property Name="vHinhAnh" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="vKichThuoc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="iTrangThai" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="DuAnPhanCungEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="ChatGroups" EntityType="Self.ChatGroup" />
+    <EntitySet Name="ChiTietHoaDonNhaps" EntityType="Self.ChiTietHoaDonNhap" />
+    <EntitySet Name="ChiTietHoaDonXuats" EntityType="Self.ChiTietHoaDonXuat" />
+    <EntitySet Name="HoaDonNhaps" EntityType="Self.HoaDonNhap" />
+    <EntitySet Name="HoaDonxuats" EntityType="Self.HoaDonxuat" />
+    <EntitySet Name="ThanhViens" EntityType="Self.ThanhVien" />
+    <EntitySet Name="VatTus" EntityType="Self.VatTu" />
+  </EntityContainer>
+</Schema>

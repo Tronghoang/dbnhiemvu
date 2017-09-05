@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DuAnPhanCungModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Form">
+    <Key>
+      <PropertyRef Name="STT" />
+    </Key>
+    <Property Name="STT" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id" Type="Int32" />
+    <Property Name="thoigian" Type="DateTime" Precision="3" />
+    <Property Name="NhietDo1" Type="Double" />
+    <Property Name="NhietDo2" Type="Double" />
+    <Property Name="Nhietdo3" Type="Double" />
+    <Property Name="Gas" Type="Int32" />
+    <Property Name="TGoff" Type="Int32" />
+    <Property Name="Tgon" Type="Int32" />
+    <NavigationProperty Name="ThanhVien" Relationship="Self.FK_Form_ThanhVien" FromRole="Form" ToRole="ThanhVien" />
+  </EntityType>
+  <EntityType Name="ThanhVien">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MaSudung" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="TaiKhoan" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="MatKhau" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="TenDayDu" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="SoDienThoai" Type="Int32" />
+    <NavigationProperty Name="Forms" Relationship="Self.FK_Form_ThanhVien" FromRole="ThanhVien" ToRole="Form" />
+  </EntityType>
+  <Association Name="FK_Form_ThanhVien">
+    <End Role="ThanhVien" Type="Self.ThanhVien" Multiplicity="0..1" />
+    <End Role="Form" Type="Self.Form" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ThanhVien">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Form">
+        <PropertyRef Name="id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DuAnPhanCungEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Forms" EntityType="Self.Form" />
+    <EntitySet Name="ThanhViens" EntityType="Self.ThanhVien" />
+    <AssociationSet Name="FK_Form_ThanhVien" Association="Self.FK_Form_ThanhVien">
+      <End Role="ThanhVien" EntitySet="ThanhViens" />
+      <End Role="Form" EntitySet="Forms" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

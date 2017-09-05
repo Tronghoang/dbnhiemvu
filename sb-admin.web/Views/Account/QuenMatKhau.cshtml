@@ -1,0 +1,60 @@
+﻿@model sb_admin.web.Models.ThanhVien
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>QuenMatKhau</title>
+    <link href="~/Content/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link href='//fonts.googleapis.com/css?family=Text+Me+One' rel='stylesheet' type='text/css'>
+
+    <script src="~/Scripts/jquery.min.js"></script>
+    <script src="~/Scripts/easyResponsiveTabs.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#horizontalTab').easyResponsiveTabs({
+                type: 'default', //Types: default, vertical, accordion
+                width: 'auto', //auto or any width like 600px
+                fit: true   // 100% fit in a container
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="main">
+        <div class="main-info">
+            <div class="sap_tabs">
+                <div id="horizontalTab" style="display: block; width: 100%; margin: 0px;">
+                    <ul class="resp-tabs-list">
+                        <li class="resp-tab-item" aria-controls="tab_item-0"><h2><span>Quên Mật Khẩu</span></h2></li>
+                    </ul>
+                    <div class="clear"> </div>
+                    <div class="resp-tabs-container">
+
+                        <div class="tab-1 resp-tab-content" aria-labelledby="tab_item-0">
+                            <div class="agileits-login">
+                                @using (Html.BeginForm("QuenMatKhau", "Account", FormMethod.Post, new { @class = "form-signin", role = "form" }))
+                                {@Html.AntiForgeryToken()
+                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Email" })
+                                    @ViewBag.ThongBao
+                                    <div class="w3ls-submit">
+                                        <div class="submit-text">
+                                            <input type="submit" value="Quên Mật Khẩu" class="btn btn-lg btn-primary btn-block" />
+                                        </div>
+                                    </div>
+                                 
+                                }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+</body>
+</html>

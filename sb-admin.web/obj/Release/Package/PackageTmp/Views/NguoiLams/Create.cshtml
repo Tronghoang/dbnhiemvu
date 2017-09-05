@@ -1,0 +1,78 @@
+﻿@model sb_admin.web.Models.NguoiLam
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Create</title>
+</head>
+<body>
+    <div class="modal fade" id="createModal">
+        <div class="modal-dialog" style="width:100%">
+            <div class="modal-content">
+
+                <div class="modal-body">
+                    <h3>Bạn có chắc muốn xóa thông tin này?</h3>
+                    <div>
+                        <hr />
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Tên Người Làm</th>
+                                    <th>Số Điện Thoại</th>
+                                    <th>CMND</th>
+                                    <th>Ngày Công</th>
+                                    <th>Việc Làm</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="odd gradeX">
+                                    <td><input class="TenNguoiLam" id="TenNguoiLam" type="text" value="" /> </td>
+                                    <td><input class="SoDienThoai" id="SoDienThoai" type="text" value="" /></td>
+                                    <td class="center"><input class="CMND" id="CMND" type="text" value="" /></td>
+                                    <td class="center"><input class="NgayCong" id="NgayCong" type="text" value="" /></td>
+                                    <td class="center"><input class="ViecLam" id="ViecLam" type="text" value="" /></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div><!-- /.modal-body -->
+                <div class="modal-footer">
+
+                    <div class="form-actions no-color text-center">
+                        <input type="submit" value="Thêm" onclick="Create()" class="btn btn-danger" />
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                    </div>
+
+                </div><!-- /.modal-footer -->
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+</body>
+</html>
+<script>
+    function Create() {
+        var data = {
+            //idNguoiLam: $("#idNguoiLam").val(),
+            SoDienThoai: $("#SoDienThoai").val(),
+            TenNguoiLam: $("#TenNguoiLam").val(),
+            CMND: $("#CMND").val(),
+            ViecLam: $("#ViecLam").val(),
+            NgayCong: $("#NgayCong").val()
+        }
+        console.log(data);
+        $.ajax({
+            url: '/NguoiLams/Create',
+            type: 'POST',
+           data:data,
+            success: function (data) {
+                location.reload();
+            }
+        });
+    }
+</script>

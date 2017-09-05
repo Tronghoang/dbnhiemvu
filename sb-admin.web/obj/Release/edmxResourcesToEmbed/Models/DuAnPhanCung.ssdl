@@ -1,0 +1,216 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DuAnPhanCungModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Benh">
+    <Key>
+      <PropertyRef Name="idBenh" />
+    </Key>
+    <Property Name="idBenh" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="title" Type="nvarchar" MaxLength="500" />
+    <Property Name="idTV" Type="int" />
+    <Property Name="NgayDang" Type="date" />
+    <Property Name="NguoiDang" Type="nvarchar" MaxLength="500" />
+    <Property Name="NoiDung" Type="nvarchar(max)" />
+    <Property Name="HinhAnh" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="BenhVeNam">
+    <Key>
+      <PropertyRef Name="idbenhvenam" />
+    </Key>
+    <Property Name="idbenhvenam" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idcaytrong" Type="int" />
+    <Property Name="Loai" Type="nvarchar" MaxLength="100" />
+    <Property Name="DocTo" Type="nvarchar" MaxLength="100" />
+    <Property Name="DauHieuNhanBiet" Type="nvarchar" MaxLength="100" />
+    <Property Name="CachPhongNgua" Type="nvarchar" MaxLength="100" />
+    <Property Name="CachKhacPhuc" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="CayTrong">
+    <Key>
+      <PropertyRef Name="idcaytrong" />
+    </Key>
+    <Property Name="idcaytrong" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TenCayTrong" Type="nvarchar" MaxLength="100" />
+    <Property Name="MuaTrong" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="ChatGroup">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TenNguoiChat" Type="nvarchar" MaxLength="500" />
+    <Property Name="NoiDung" Type="nvarchar" MaxLength="500" />
+    <Property Name="TrangThai" Type="int" />
+  </EntityType>
+  <EntityType Name="DichBenhPhoBien">
+    <Key>
+      <PropertyRef Name="idbenhphobien" />
+    </Key>
+    <Property Name="idbenhphobien" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idcaytrong" Type="int" />
+    <Property Name="TenBenh" Type="nvarchar" MaxLength="100" />
+    <Property Name="TacNhanGayBenh" Type="nvarchar" MaxLength="100" />
+    <Property Name="DauHieuNhanBiet" Type="nvarchar" MaxLength="100" />
+    <Property Name="CachPhongNgua" Type="nvarchar" MaxLength="100" />
+    <Property Name="CachKhacPhuc" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Form">
+    <Key>
+      <PropertyRef Name="STT" />
+    </Key>
+    <Property Name="STT" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idTV" Type="int" />
+    <Property Name="thoigian" Type="datetime" />
+    <Property Name="NhietDo1" Type="float" />
+    <Property Name="NhietDo2" Type="float" />
+    <Property Name="Nhietdo3" Type="float" />
+    <Property Name="Gas" Type="int" />
+    <Property Name="TGoff" Type="int" />
+    <Property Name="Tgon" Type="int" />
+  </EntityType>
+  <EntityType Name="Map">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DiaChi" Type="nvarchar" MaxLength="500" />
+    <Property Name="KinhDo" Type="nvarchar" MaxLength="500" />
+    <Property Name="ViDo" Type="nvarchar" MaxLength="500" />
+    <Property Name="NoiDung" Type="nvarchar" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="NguoiLam">
+    <Key>
+      <PropertyRef Name="idNguoiLam" />
+    </Key>
+    <Property Name="idNguoiLam" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TenNguoiLam" Type="nvarchar" MaxLength="100" />
+    <Property Name="SoDienThoai" Type="int" />
+    <Property Name="CMND" Type="int" />
+    <Property Name="NgayCong" Type="int" />
+    <Property Name="ViecLam" Type="nvarchar" MaxLength="100" />
+    <Property Name="TrangThai" Type="int" />
+  </EntityType>
+  <EntityType Name="PhanBon">
+    <Key>
+      <PropertyRef Name="idPhanBon" />
+    </Key>
+    <Property Name="idPhanBon" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="title" Type="nvarchar" MaxLength="500" />
+    <Property Name="idTV" Type="int" />
+    <Property Name="NgayDang" Type="date" />
+    <Property Name="NguoiDang" Type="nvarchar" MaxLength="500" />
+    <Property Name="NoiDung" Type="nvarchar(max)" />
+    <Property Name="HinhAnh" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="Phanhoi">
+    <Key>
+      <PropertyRef Name="idPhanHoi" />
+    </Key>
+    <Property Name="idPhanHoi" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Ten" Type="nvarchar" MaxLength="100" />
+    <Property Name="SDT" Type="nvarchar" MaxLength="100" />
+    <Property Name="Email" Type="nvarchar" MaxLength="100" />
+    <Property Name="NoiDung" Type="nvarchar" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="PhanTich">
+    <Key>
+      <PropertyRef Name="idPhanTich" />
+    </Key>
+    <Property Name="idPhanTich" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TienGiong" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="TienCong" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="TienPhan" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="TuNgay" Type="datetime" />
+    <Property Name="DenNgay" Type="datetime" />
+    <Property Name="GiaBan" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="LoiNhuan" Type="decimal" Precision="18" Scale="0" />
+  </EntityType>
+  <EntityType Name="ThanhVien">
+    <Key>
+      <PropertyRef Name="idTV" />
+    </Key>
+    <Property Name="idTV" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MaSudung" Type="nvarchar" MaxLength="100" />
+    <Property Name="TaiKhoan" Type="nvarchar" MaxLength="100" />
+    <Property Name="MatKhau" Type="nvarchar" MaxLength="100" />
+    <Property Name="TenDayDu" Type="nvarchar" MaxLength="100" />
+    <Property Name="Email" Type="nvarchar" MaxLength="100" />
+    <Property Name="SoDienThoai" Type="int" />
+    <Property Name="TrangThai" Type="int" />
+    <Property Name="Quyen" Type="int" />
+  </EntityType>
+  <EntityType Name="ThuocTruSau">
+    <Key>
+      <PropertyRef Name="idThuocTruSau" />
+    </Key>
+    <Property Name="idThuocTruSau" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="title" Type="nvarchar" MaxLength="500" />
+    <Property Name="idTV" Type="int" />
+    <Property Name="NgayDang" Type="date" />
+    <Property Name="NguoiDang" Type="nvarchar" MaxLength="500" />
+    <Property Name="NoiDung" Type="nvarchar(max)" />
+    <Property Name="HinhAnh" Type="nvarchar(max)" />
+  </EntityType>
+  <Association Name="FK_BenhVeNam_CayTrong">
+    <End Role="CayTrong" Type="Self.CayTrong" Multiplicity="0..1" />
+    <End Role="BenhVeNam" Type="Self.BenhVeNam" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CayTrong">
+        <PropertyRef Name="idcaytrong" />
+      </Principal>
+      <Dependent Role="BenhVeNam">
+        <PropertyRef Name="idcaytrong" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DichBenhPhoBien_CayTrong">
+    <End Role="CayTrong" Type="Self.CayTrong" Multiplicity="0..1" />
+    <End Role="DichBenhPhoBien" Type="Self.DichBenhPhoBien" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CayTrong">
+        <PropertyRef Name="idcaytrong" />
+      </Principal>
+      <Dependent Role="DichBenhPhoBien">
+        <PropertyRef Name="idcaytrong" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Form_ThanhVien">
+    <End Role="ThanhVien" Type="Self.ThanhVien" Multiplicity="0..1" />
+    <End Role="Form" Type="Self.Form" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ThanhVien">
+        <PropertyRef Name="idTV" />
+      </Principal>
+      <Dependent Role="Form">
+        <PropertyRef Name="idTV" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DuAnPhanCungModelStoreContainer">
+    <EntitySet Name="Benh" EntityType="Self.Benh" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BenhVeNam" EntityType="Self.BenhVeNam" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CayTrong" EntityType="Self.CayTrong" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ChatGroup" EntityType="Self.ChatGroup" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DichBenhPhoBien" EntityType="Self.DichBenhPhoBien" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Form" EntityType="Self.Form" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Map" EntityType="Self.Map" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="NguoiLam" EntityType="Self.NguoiLam" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PhanBon" EntityType="Self.PhanBon" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Phanhoi" EntityType="Self.Phanhoi" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PhanTich" EntityType="Self.PhanTich" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ThanhVien" EntityType="Self.ThanhVien" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ThuocTruSau" EntityType="Self.ThuocTruSau" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_BenhVeNam_CayTrong" Association="Self.FK_BenhVeNam_CayTrong">
+      <End Role="CayTrong" EntitySet="CayTrong" />
+      <End Role="BenhVeNam" EntitySet="BenhVeNam" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DichBenhPhoBien_CayTrong" Association="Self.FK_DichBenhPhoBien_CayTrong">
+      <End Role="CayTrong" EntitySet="CayTrong" />
+      <End Role="DichBenhPhoBien" EntitySet="DichBenhPhoBien" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Form_ThanhVien" Association="Self.FK_Form_ThanhVien">
+      <End Role="ThanhVien" EntitySet="ThanhVien" />
+      <End Role="Form" EntitySet="Form" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

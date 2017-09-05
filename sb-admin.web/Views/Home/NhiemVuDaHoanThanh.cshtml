@@ -1,0 +1,112 @@
+﻿
+@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_admin.cshtml";
+}
+<link href="~/Content/datatables.min.css" rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-notify/0.2.0/css/bootstrap-notify.min.css" rel="stylesheet" />
+<style>
+    .not {
+        top: 0;
+    }
+</style>
+<div class='notifications top-right not'></div>
+<div class="" style="margin-top:50px">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+
+                <div class="panel-body">
+
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover dataTables-example" id="example">
+                            <thead>
+                                <tr>
+                                    <th>Tên nhiệm vụ</th>
+                                    <th>Mô Tả</th>
+                                    <th>Hình</th>
+                                    <th>File</th>
+                                    <th>Người Đăng</th>
+                                    <th>Người Được Giao</th>
+                                    <th>Ngày Bắt Đầu</th>
+                                    <th>Ngày Kết Thúc</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <tr id="test1" role="row" class="odd">
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <center>
+                        <a id="luu" class="btn btn-success"> Lưu</a>
+                    </center>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script src="~/Scripts/datatables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-notify/0.2.0/js/bootstrap-notify.js"></script>
+    <script src="~/Scripts/dist/jquery.validate.js"></script>
+    <script src="~/Scripts/datepicker.js"></script>
+    <script>
+        var dataTable1 = $('#example').DataTable();
+        $(document).ready(function () {
+
+            //Xóa đi dòng cũ của datatable đã khai báo
+            let dataTable1 = $('#example').DataTable();
+            dataTable1
+                .clear()
+                .draw();
+            $.ajax({
+                type: "post",
+                dataType: "json",
+                url: "@Url.Action("LayNhiemVuDaHoanThanh", "Home")",
+                success: function (res) {
+                    debugger;
+                    for (let i = 0; i < res.length; i++) {
+                        var startday = new Date(parseInt(res[i].dNgayBD.substr(6)));
+                        fStart = startday.getDate() + '/' + startday.getMonth() + '/' + startday.getFullYear();
+                        var endday = new Date(parseInt(res[i].dNgayKT.substr(6)));
+                        eStart = endday.getDate() + '/' + endday.getMonth() + '/' + endday.getFullYear();
+                            dataTable1.row.add([
+                                '' + res[i].vTenNhiemVu + '',
+                                '' + res[i].vMoTa + '',
+                                'đây là hình',
+                                'đây là file',
+                                '' + res[i].vNguoiDang + '',
+                                '' + res[i].vNguoiDuocGiaoCode + '',
+                                '' + fStart + '',
+                                '' + eStart + '',
+                                '<input type="button" id="' + res[i].iMaNhiemVuCode + '" class="btn btn-success" value="Xem"  />',
+                            ]).node().id = 'tr' + res[i].iMaNhiemVuCode + '';
+                            dataTable1.draw();
+                    }
+
+                },
+                error: function (data) {
+                    alert(data.x);
+                }
+            });
+
+        });
+       
+        
+    </script>
+
+}

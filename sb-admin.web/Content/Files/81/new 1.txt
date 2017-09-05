@@ -1,0 +1,30 @@
+ //lấy hết tất cả số lượng trong datatable
+            for (let i = 0; i < dsInput.length ; i = i + 3) {
+                    let dataCurent = [dsInput[i].value];
+                    datainputsoluong.push(dataCurent);
+            }
+            for (k = 0; k < datainputsoluong.length; k++) {
+                for (h = 0; h < datainputsoluong[k].length; h = h + 1) {
+                    finaldatainputsoluong.push(datainputsoluong[k][h]);
+                }
+            }//end lấy số lượng
+
+            //Lấy hết tất cả giá nhập trong input trong datatable
+            for (let i = 1; i < dsInput.length ; i=i+3) {
+                let dataCurent = [dsInput[i].value];
+                if ([dsInput[i].value] == "Hủy")
+                {
+
+                }
+                else
+                {
+                    datainputgianhap.push(dataCurent);
+                }
+               
+            }
+            for (k = 0; k < datainputgianhap.length; k++) {
+                for (h = 0; h < datainputgianhap[k].length; h = h + 1) {
+                    finaldatainputgianhap.push(datainputgianhap[k][h]);
+                }
+            }
+            //end

@@ -1,0 +1,592 @@
+﻿
+@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_admin.cshtml";
+}
+<link href="~/Content/datatables.min.css" rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-notify/0.2.0/css/bootstrap-notify.min.css" rel="stylesheet" />
+<link href="~/Content/dropdowlist/prism.css" rel="stylesheet" />
+<link href="~/Content/dropdowlist/chosen.css" rel="stylesheet" />
+<link href="~/Content/datepicker.css" rel="stylesheet" />
+<style>
+ .not{
+    top:0;
+}
+ .myClass{
+     position: relative;
+ }
+</style>
+<div class='notifications top-right not'></div>
+<div class="col-lg-12">
+    <div class="panel panel-default">
+
+        <div class="panel-body">
+            <div class="form-group head">
+                <div class="controls  themnhiemvu">
+                    <input type="button" id="themnhiemvu" class="btn btn-primary " value="Thêm mới nhiệm vụ" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="" style="margin-top:50px">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+
+                <div class="panel-body">
+
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover dataTables-example" id="example">
+                            <thead>
+                                <tr>
+                                    <th>Tên nhiệm vụ</th>
+                                    <th>Mô Tả</th>
+                                    <th>Hình</th>
+                                    <th>File</th>
+                                    <th>Người Đăng</th>
+                                    <th>Người Được Giao</th>
+                                    <th>Ngày Bắt Đầu</th>
+                                    <th>Ngày Kết Thúc</th>
+                                    <th>Nhận nhiệm vụ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                           
+                                <tr id="test1" role="row" class="odd">
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*modal thêm vật tư*@
+<div class="form-horizontal">
+    <div class="modal fade" id="ThemNhiemVu">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="formthemnhiemvu" method="post" action="#" enctype = "multipart/form-data">
+                    <h3 style="text-align:center">Thêm nhiệm vụ</h3>
+                    <div class="modal-body">
+                        <div class="col-xs-12">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+
+                                    <div class="form-group ">
+                                        <div class="controls col-md-3">
+                                            <label for="field-120478">Tên nhiệm vụ</label>
+                                        </div>
+                                        <div class="controls col-md-9">
+                                            <input style="width:100%" type="text" id="vTenNhiemVu" name="vTenNhiemVu" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        <div class="controls col-md-3">
+                                            <label for="field-120478">File(word,excel...)</label>
+                                        </div>
+                                        <div class="controls col-md-9">
+                                            <input  type="file" id="AnhDaiDien" name="file">
+                                            <div id="macdinh" ></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        <div class="controls col-md-3">
+                                            <label for="field-120478">Mô tả ngắn</label>
+                                        </div>
+                                        <div class="controls col-md-9">
+                                            <textarea style="width:100%" id="vMoTa" name="vMoTa" ></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        <div class="controls col-md-3">
+                                            <label for="field-120478">Người được giao</label>
+                                        </div>
+                                        <div class="controls col-md-9">
+                                            @*<div style="width:100%">
+                                                @Html.DropDownList("iMaThanhVienCode", (SelectList)ViewBag.ListNguoiDuocGiaoTask, new { @class = "chosen-select", @style = "width: 100%;" })
+                                            </div>*@
+                                            <select name="iMaThanhVienCode"  style="width:100%;height: 40px;text-align-last:center">
+                                                @foreach(var item in ViewBag.ListNguoiDuocGiaoTask)
+                                                {
+                                                    <option value="@item.iMaThanhVienCode">@item.vTenDangNhap</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        <div class="controls col-md-3">
+                                            <label for="field-120478">Ngày bắt đầu</label>
+                                        </div>
+                                        <div class="controls col-md-9">
+                                            @*<input style="width:100%" type="text" id="dNgayBatDau" name="dNgayBatDau" />*@
+                                            <input type="text" id="dNgayBatDau" name="dNgayBatDau" class="form-control datepicker" data-format="mm/dd/yyyy" placeholder="hãy chọn ngày bắt dầu">
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        <div class="controls col-md-3">
+                                            <label for="field-120478">Ngày kết thúc</label>
+                                        </div>
+                                        <div class="controls col-md-9">
+                                            @*<input style="width:100%" type="text" id="dNgayKetThuc" name="dNgayKetThuc" />*@
+                                            <input type="text" id="dNgayKetThuc" name="dNgayKetThuc" class="form-control datepicker" data-format="mm/dd/yyyy" placeholder="hãy chọn ngày kết thúc">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- /.modal-body -->
+                    <div class="modal-footer">
+
+                        <div class="form-actions no-color text-center">
+                            <a  id="luunhiemvu" class="btn btn-success"> Thêm nhiệm vụ</a>
+                            <input type="button" class="btn btn-danger" value="Hủy" data-dismiss="modal" />
+                        </div>
+                    </div><!-- /.modal-footer -->
+                </form>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+</div>
+@*Modal xem file*@
+<div class="form-horizontal">
+    <div class="modal fade" id="xemfile" aria-hidden="true">
+        <div class="modal-dialog" style="width:100%;margin-top: 60px;">
+            <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="col-xs-12">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-bordered table-hover dataTables-example" id="example1">
+                                            <thead>
+                                                <tr>
+                                                    <th>Đường dẫn</th>
+                                                    <th>Thao tác</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- /.modal-body -->
+                    <div class="modal-footer ">
+                        <div class="form-actions no-color text-center">
+                            <input type="button" class="btn btn-danger" value="Đóng" data-dismiss="modal" />
+                        </div>
+
+                    </div><!-- /.modal-footer -->
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+</div>
+@*Modal them file*@
+<div class="form-horizontal">
+    <div class="modal fade" id="themfile" aria-hidden="true">
+        <div class="modal-dialog" style="width:100%;margin-top: 60px;">
+            <div class="modal-content">
+                <form method="post" action="#" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <div class="col-xs-12">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <div class="form-group ">
+                                        <div class="controls col-md-3">
+                                            <label for="field-120478">File(word,excel...)</label>
+                                        </div>
+                                        <div class="controls col-md-9">
+                                            <input multiple="multiple" type="file" name="file">
+                                            <div id="macdinh"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- /.modal-body -->
+                    <div class="modal-footer ">
+                        <div class="form-actions no-color text-center">
+                            <input id="luufile" type="button" class="btn btn-success" value="Lưu"  />
+                            <input type="button" class="btn btn-danger" value="Đóng" data-dismiss="modal" />
+                        </div>
+
+                    </div><!-- /.modal-footer -->
+                </form>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+</div>
+@section scripts
+{
+    <script src="~/Scripts/datatables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-notify/0.2.0/js/bootstrap-notify.js"></script>
+    <script src="~/Scripts/dist/jquery.validate.js"></script>
+    <script src="~/Scripts/chosen.jquery.js"></script>
+    <script src="~/Scripts/init.js"></script>
+    <script src="~/Scripts/prism.js"></script>
+    <script src="~/Scripts/jquery.mask.js"></script>
+    <script src="~/Scripts/datepicker.js"></script>
+    <script>
+        var dataTable1 = $('#example').DataTable();
+        $(document).ready(function () {
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth() + 1;
+            var yyyy = today.getFullYear();
+            let moi = '<span style="position: absolute;top: 0;right: 0;width: 37px;" class="label label-accent">HOT</span>';
+            //Xóa đi dòng cũ của datatable đã khai báo
+            let dataTable1 = $('#example').DataTable();
+            dataTable1
+                .clear()
+                .draw();
+            $.ajax({
+                type: "post",
+                dataType: "json",
+                url: "@Url.Action("LayNhiemVu", "Home")",
+                success: function (res) {
+
+                    for (let i = 0; i < res.length; i++) {
+                        var startday = new Date(parseInt(res[i].dNgayBD.substr(6)));
+                        fStart = startday.getDate() + '/' + (startday.getMonth()+1)  +'/' + startday.getFullYear();
+                        var endday = new Date(parseInt(res[i].dNgayKT.substr(6)));
+                        eStart = endday.getDate() + '/' + (endday.getMonth() + 1) + '/' + endday.getFullYear();
+                        var dd2 = startday.getDate();
+                        var mm2 = startday.getMonth() + 1;
+                        var yyyy2 = startday.getFullYear();
+                        debugger;
+                        if (res[i].iMaTrangThaiCode==1)
+                        {
+                            if ((dd - dd2) <= 5) {
+                                if (mm == mm2) {
+                                    if (yyyy == yyyy2) {
+                                        var rowNode=  dataTable1.row.add([
+                                           '' + res[i].vTenNhiemVu + '' + moi + '',
+                                           '' + res[i].vMoTa + '',
+                                           'đây là hình',
+                                           '<input type="button" id="file-' + res[i].iMaNhiemVuCode + '" onclick="XemFile(' + res[i].iMaNhiemVuCode + ')" class="btn btn-danger" value="Xem File"  /><input style="width: 90px;" type="button" id="them-' + res[i].iMaNhiemVuCode + '" onclick="ThemFile(' + res[i].iMaNhiemVuCode + ')" class="btn btn-success" value="Thêm File"  />',
+                                           '' + res[i].vNguoiDang + '',
+                                           '' + res[i].vNguoiDuocGiaoCode + '',
+                                           '' + fStart + '',
+                                           '' + eStart + '',
+                                           '<input type="button" id="' + res[i].iMaNhiemVuCode + '"  onclick="NhanNhiemVu(' + res[i].iMaNhiemVuCode + ')" class="btn btn-danger" value="Nhận Nhiệm vụ"  />',
+                                        ]).node()
+                                        $(rowNode).find('td').addClass('myClass');
+                                    }
+                                }
+                            }
+                            else {
+                                dataTable1.row.add([
+                                         '' + res[i].vTenNhiemVu + '',
+                                         '' + res[i].vMoTa + '',
+                                         'đây là hình',
+                                         '<input type="button" id="file-' + res[i].iMaNhiemVuCode + '" onclick="XemFile(' + res[i].iMaNhiemVuCode + ')" class="btn btn-danger" value="Xem File"  /><input style="width: 90px;" type="button" id="them-' + res[i].iMaNhiemVuCode + '" onclick="ThemFile(' + res[i].iMaNhiemVuCode + ')" class="btn btn-success" value="Thêm File"  />',
+                                         '' + res[i].vNguoiDang + '',
+                                         '' + res[i].vNguoiDuocGiaoCode + '',
+                                         '' + fStart + '',
+                                         '' + eStart + '',
+                                         '<input type="button" id="' + res[i].iMaNhiemVuCode + '"  onclick="NhanNhiemVu(' + res[i].iMaNhiemVuCode + ')" class="btn btn-danger" value="Nhận Nhiệm vụ"  />',
+                                ]).draw();
+                            }
+
+                        }
+                        else
+                        {
+                            dataTable1.row.add([
+                          '' + res[i].vTenNhiemVu + '',
+                          '' + res[i].vMoTa + '',
+                          'đây là hình',
+                          '<input type="button" id="file-' + res[i].iMaNhiemVuCode + '" onclick="XemFile(' + res[i].iMaNhiemVuCode + ')" class="btn btn-danger" value="Xem File"  /><input style="width: 90px;" type="button" id="them-' + res[i].iMaNhiemVuCode + '" onclick="ThemFile(' + res[i].iMaNhiemVuCode + ')" class="btn btn-success" value="Thêm File"  />',
+                          '' + res[i].vNguoiDang + '',
+                          '' + res[i].vNguoiDuocGiaoCode + '',
+                          '' + fStart + '',
+                          '' + eStart + '',
+                          '<input type="button" id="' + res[i].iMaNhiemVuCode + '" class="btn btn-success" value="Đang làm"  />',
+                            ]).draw()
+                        }
+                    }
+
+                },
+                error: function (data) {
+                    alert(data.x);
+                }
+            });
+
+        });
+        function ThemFile(id)
+        {
+            debugger;
+            $('#themfile').modal('show');
+            $("#luufile").after('<input onclick="upload(' + id + ')" type="button" class="btn btn-success" value="Lưu"  />');
+            $("#luufile").remove();
+        }
+        
+        function XemFile(id) {
+            $('#xemfile').modal('show');
+            let dataTable1 = $('#example1').DataTable();
+            dataTable1
+                .clear()
+                .draw();
+            $.ajax({
+                type: "post",
+                data: { 'id': id },
+                url: "@Url.Action("LayFile", "Home")",
+                success: function (res) {
+                    for (let i = 0; i < res.length; i++) {
+                        var rowNode = dataTable1.row.add([
+                             '' + res[i].vTenTapTin + '',
+                             '<input type="button" id="tai-' + res[i].iMaNhiemVuCode + '" onclick="TaiTapTin(' + res[i].iMaNhiemVuCode + ',' + res[i].iMaFileCode + ');" class="btn btn-success" value="Tải File"  />',
+                        ]).draw()
+                        .node()
+                        $(rowNode).find('td').addClass('text-center');
+                    }
+                },
+                error: function (data) {
+                    alert(data.x);
+                }
+            });
+        };
+        function TaiTapTin(id,idmafile)
+        {
+            $.ajax({
+                type: 'POST',
+                url: "@Url.Action("LayFileCanTai", "Home")",
+                data: { 'id': id, 'idmafile': idmafile },
+                success: function (res) {
+                    debugger;
+                    var a = res[0].iMaNhiemVuCode;
+                    window.location = '/Home/Download?file='+res[0].vTenTapTin+ '&id='+ a;
+                }
+            });
+        }
+        function NhanNhiemVu(id) {
+            var temp = $("#" + id).css({
+                "background-color": "#398439",
+                "border-color": "#255625"
+            });
+            $("#" + id).val("Đang làm");
+            $.ajax({
+                type: "post",
+                url: "@Url.Action("NhanNhiemVu", "Home")",
+                data: { 'id': id },
+                success: function (res) {
+                    if (res == true)
+                    {
+                        //show thông báo
+                        $('.not').notify({
+                            message: {
+                                text: 'Bạn đã nhận thành công!'
+                            }
+                        }).show();
+                    }
+
+                },
+                error: function (data) {
+                    alert(data.x);
+                }
+            });
+        };
+        //thêm dữ liệu vật tư vào csdl
+        $('#themnhiemvu').click(function () {
+            $('#ThemNhiemVu').modal('show');
+        });
+        var iMaThanhVienCode = $('select[name=iMaThanhVienCode]').val();
+        $('select').on('change', function () {
+            iMaThanhVienCode = this.value;
+        });
+        $("#luunhiemvu").click(function () {
+
+            $("#formthemnhiemvu").valid();
+            var vTenNhiemVu = $("#vTenNhiemVu").val();
+            var vMoTa = $("#vMoTa").val();
+            var dNgayBD = $("#dNgayBatDau").val();
+            var dNgayKT = $("#dNgayKetThuc").val();
+            let startday1 = new Date(dNgayBD);
+            let endday1 = new Date(dNgayKT);
+            //fStart = startday.getDate() + '/' + startday.getMonth() + '/' + startday.getFullYear();
+            let ngaybatdau = startday1.getDate();
+            let thangbatdau = startday1.getMonth() + 1;
+            let ngayketthuc = endday1.getDate();
+            let thangketthuc = endday1.getMonth() + 1;
+            let nambatdau = startday1.getFullYear();
+            let namketthuc = endday1.getFullYear();
+            if (ngaybatdau > ngayketthuc) {
+                if (thangbatdau => thangketthuc) {
+                    if (nambatdau < namketthuc) {
+                        alert("ngày kết thúc không thể trước ngày bắt đầu");
+                        return false;
+                    }
+
+                }
+            }
+            if ($("#formthemnhiemvu").valid() == true) {
+                debugger;
+                $.ajax({
+                    type: "post",
+                    url: "@Url.Action("ThemNhiemVu", "Home")",
+                    data: { 'vTenNhiemVu': vTenNhiemVu, 'vMoTa': vMoTa, 'iMaThanhVienCode': iMaThanhVienCode, 'dNgayBD': dNgayBD, 'dNgayKT': dNgayKT },
+                    success: function (res) {
+                        upload(res[0].iMaNhiemVuCode);
+                        //show thông báo
+                        $('.not').notify({
+                            message: {
+                                text: 'Bạn đã thêm thành công!'
+                            }
+                        }).show();
+                        //reset textbox
+                        $("#vTenNhiemVu").val("");
+                        $("#vMoTa").val("");
+                        $("#iMaThanhVienCode").val("");
+                        $("#dNgayBatDau").val("");
+                        $("#dNgayKetThuc").val("");
+                        let dataTable1 = $('#example').DataTable();
+                        let moi = '<span style="position: absolute;top: 0;right: 0;width: 37px;" class="label label-accent">HOT</span>';
+                        for (i = 0; i < res.length; i++) {
+                            var startday = new Date(parseInt(res[i].dNgayBD.substr(6)));
+                            fStart = startday.getDate() + '/' + startday.getMonth() + '/' + startday.getFullYear();
+                            var endday = new Date(parseInt(res[i].dNgayKT.substr(6)));
+                            eStart = endday.getDate() + '/' + endday.getMonth() + '/' + endday.getFullYear();
+                            debugger;
+                            var rowNode = dataTable1.row.add([
+                           '' + res[i].vTenNhiemVu + '' + moi + '',
+                           '' + res[i].vMoTa + '',
+                           'đây là hình',
+                           '<input type="button" id="file-' + res[i].iMaNhiemVuCode + '" onclick="XemFile(' + res[i].iMaNhiemVuCode + ')" class="btn btn-danger" value="Xem File"  />',
+                           '' + res[i].vNguoiDang + '',
+                           '' + res[i].vNguoiDuocGiaoCode + '',
+                           '' + fStart + '',
+                           '' + eStart + '',
+                           '<input type="button" id="' + res[i].iMaNhiemVuCode + '" onclick="NhanNhiemVu(' + res[i].iMaNhiemVuCode + ')" class="btn btn-danger" value="Nhận Nhiệm vụ"  />',
+                            ]).draw()
+                            .node()
+                            $(rowNode).find('td').addClass('myClass');
+
+                        }
+                    },
+                    error: function (data) {
+                        alert(data.x);
+                    }
+                })
+            }
+
+            else {
+                alert("asd");
+            }
+        });
+        function upload(iMaNhiemVuCode)
+        {
+            debugger;
+            var inputfile = $("input[type='file']");
+            var data = new FormData();
+            for (i = 0; i < inputfile.length; i++) {
+                var files = inputfile[i].files;
+                console.log(event.target.files);
+                for (var j = 0; j < files.length; j++) {
+                    var file = files[j];
+                    data.append("FileUpload" + i, file);
+                }
+            }
+            $.ajax({
+                url: "/Home/UploadFile?iMaNhiemVuCode=" + iMaNhiemVuCode,
+                type: "POST",
+                contentType: false,
+                processData: false,
+                data: data,
+                success: function (result) {
+                    alert("upthanhcong");
+                }
+            });
+        }
+        $("#formthemnhiemvu").validate({
+            rules: {
+                vTenNhiemVu: "required",
+                vMoTa: "required",
+            },
+            messages: {
+                vTenNhiemVu: "Vui lòng nhập tên nhiệm vụ",
+                vMoTa: "Vui lòng nhập mô tả",
+            }
+        });
+         @*preview image*@
+        //$(document).ready(function () {
+        //    $("#AnhDaiDien").change(function () {
+        //        var formData = new FormData();
+        //        var totalFiles = document.getElementById("AnhDaiDien").files.length;
+        //            for (var i = 0; i < totalFiles; i++) {
+        //            var file = document.getElementById("AnhDaiDien").files[i];
+        //            formData.append("AnhDaiDien", file);
+        //            console.log(formData);
+        //           var files = event.target.files;
+        //           console.log(files);
+        //            if (file.size > 2097152) {
+        //                alert("Thông Báo", "Kích thước file không lớn hơn 2MB", "warning")
+        //            }
+        //            //Loop through our files
+        //            for (i = 0; i < files.length; i += 1) {
+
+        //                //Just for Clarity Create a New Variable
+        //                var file = files[i];
+        //                var fileInfo = ["<li>",
+        //                                 file.name,
+        //                                 "</li>"].join('');
+
+        //                //Add the Info to the list
+        //                //$("#duongdan").empty();
+        //                //$("#duongdan").append(fileInfo);
+        //            }
+        //            //Get count of selected files
+        //            var countFiles = $(this)[0].files.length;
+        //            var imgPath = $(this)[0].value;
+        //            var extn = imgPath.substring(imgPath.lastIndexOf('.') + 1).toLowerCase();
+        //            var macdinh = $("#macdinh");
+        //            if (extn == "gif" || extn == "png" || extn == "jpg" || extn == "jpeg") {
+        //                if (typeof (FileReader) != "undefined") {
+        //                    //loop for each file selected for uploaded.
+        //                    for (var i = 0; i < countFiles; i++) {
+
+        //                        var reader = new FileReader();
+        //                        reader.onload = function (e) {
+
+        //                            macdinh.empty();
+        //                            macdinh= $("<img />", {
+        //                                "src": e.target.result,
+        //                                "style": "width:100px;height:100px",
+        //                            }).appendTo(macdinh);
+        //                        }
+        //                        macdinh.show();
+        //                        reader.readAsDataURL($(this)[0].files[i]);
+        //                    }
+        //                } else {
+        //                    alert("This browser does not support FileReader.");
+        //                }
+        //            } else {
+        //                alert("Thông Báo", "Hãy chọn đúng hình ảnh", "warning")
+        //            }
+
+
+        //            }
+        //    });
+        //});
+        @*end preview image*@
+    </script>
+
+}
+
+
+

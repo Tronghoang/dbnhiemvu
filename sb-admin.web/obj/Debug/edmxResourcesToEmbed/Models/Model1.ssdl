@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DuAnPhanCungModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Form">
+    <Key>
+      <PropertyRef Name="STT" />
+    </Key>
+    <Property Name="STT" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id" Type="int" />
+    <Property Name="thoigian" Type="datetime" />
+    <Property Name="NhietDo1" Type="float" />
+    <Property Name="NhietDo2" Type="float" />
+    <Property Name="Nhietdo3" Type="float" />
+    <Property Name="Gas" Type="int" />
+    <Property Name="TGoff" Type="int" />
+    <Property Name="Tgon" Type="int" />
+  </EntityType>
+  <EntityType Name="ThanhVien">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MaSudung" Type="nvarchar" MaxLength="100" />
+    <Property Name="TaiKhoan" Type="nvarchar" MaxLength="100" />
+    <Property Name="MatKhau" Type="nvarchar" MaxLength="100" />
+    <Property Name="TenDayDu" Type="nvarchar" MaxLength="100" />
+    <Property Name="Email" Type="nvarchar" MaxLength="100" />
+    <Property Name="SoDienThoai" Type="int" />
+  </EntityType>
+  <Association Name="FK_Form_ThanhVien">
+    <End Role="ThanhVien" Type="Self.ThanhVien" Multiplicity="0..1" />
+    <End Role="Form" Type="Self.Form" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ThanhVien">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Form">
+        <PropertyRef Name="id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DuAnPhanCungModelStoreContainer">
+    <EntitySet Name="Form" EntityType="Self.Form" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ThanhVien" EntityType="Self.ThanhVien" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Form_ThanhVien" Association="Self.FK_Form_ThanhVien">
+      <End Role="ThanhVien" EntitySet="ThanhVien" />
+      <End Role="Form" EntitySet="Form" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

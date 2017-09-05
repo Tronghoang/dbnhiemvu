@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DuAnPhanCungModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="ChatGroup">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TenNguoiChat" Type="nvarchar" MaxLength="500" />
+    <Property Name="NoiDung" Type="nvarchar" MaxLength="500" />
+    <Property Name="TrangThai" Type="int" />
+  </EntityType>
+  <EntityType Name="ChiTietHoaDonNhap">
+    <Key>
+      <PropertyRef Name="iMaChiTietHoaDonNhapCode" />
+    </Key>
+    <Property Name="iMaChiTietHoaDonNhapCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="iMaHoaDonNhapCode" Type="int" Nullable="false" />
+    <Property Name="vTenVatTu" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="dNgayNhap" Type="datetime" Nullable="false" />
+    <Property Name="fGiaNhap" Type="float" Nullable="false" />
+    <Property Name="iSoLuong" Type="int" Nullable="false" />
+    <Property Name="iTrangThai" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ChiTietHoaDonXuat">
+    <Key>
+      <PropertyRef Name="iMaChiTietHoaDonXuatCode" />
+    </Key>
+    <Property Name="iMaChiTietHoaDonXuatCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="iMaHoaDonXuatCode" Type="int" Nullable="false" />
+    <Property Name="vTenVatTu" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="dNgayNhap" Type="datetime" Nullable="false" />
+    <Property Name="iSoLuong" Type="int" Nullable="false" />
+    <Property Name="iTrangThai" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="HoaDonNhap">
+    <Key>
+      <PropertyRef Name="iMaHoaDonNhapCode" />
+    </Key>
+    <Property Name="iMaHoaDonNhapCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="iMaNhanVienCode" Type="int" Nullable="false" />
+    <Property Name="dNgayLap" Type="datetime" Nullable="false" />
+    <Property Name="fTongTien" Type="float" />
+    <Property Name="iTrangthai" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="HoaDonxuat">
+    <Key>
+      <PropertyRef Name="iMaHoaDonXuatCode" />
+    </Key>
+    <Property Name="iMaHoaDonXuatCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="dNgayLap" Type="datetime" Nullable="false" />
+    <Property Name="iMaNV" Type="int" Nullable="false" />
+    <Property Name="iTrangThai" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ThanhVien">
+    <Key>
+      <PropertyRef Name="idTV" />
+    </Key>
+    <Property Name="idTV" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MaSudung" Type="nvarchar" MaxLength="100" />
+    <Property Name="TaiKhoan" Type="nvarchar" MaxLength="100" />
+    <Property Name="MatKhau" Type="nvarchar" MaxLength="100" />
+    <Property Name="TenDayDu" Type="nvarchar" MaxLength="100" />
+    <Property Name="Email" Type="nvarchar" MaxLength="100" />
+    <Property Name="SoDienThoai" Type="int" />
+    <Property Name="TrangThai" Type="int" />
+    <Property Name="Quyen" Type="int" />
+  </EntityType>
+  <EntityType Name="VatTu">
+    <Key>
+      <PropertyRef Name="iMaVatTuCode" />
+    </Key>
+    <Property Name="iMaVatTuCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="vTenVatTu" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="vDVT" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="iSoLuong" Type="int" Nullable="false" />
+    <Property Name="vHinhAnh" Type="nvarchar" MaxLength="50" />
+    <Property Name="vKichThuoc" Type="nvarchar" MaxLength="50" />
+    <Property Name="iTrangThai" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="DuAnPhanCungModelStoreContainer">
+    <EntitySet Name="ChatGroup" EntityType="Self.ChatGroup" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ChiTietHoaDonNhap" EntityType="Self.ChiTietHoaDonNhap" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ChiTietHoaDonXuat" EntityType="Self.ChiTietHoaDonXuat" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HoaDonNhap" EntityType="Self.HoaDonNhap" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HoaDonxuat" EntityType="Self.HoaDonxuat" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ThanhVien" EntityType="Self.ThanhVien" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="VatTu" EntityType="Self.VatTu" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

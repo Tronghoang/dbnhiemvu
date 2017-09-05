@@ -1,0 +1,74 @@
+﻿@model sb_admin.web.Models.NguoiLam
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>NguoiLam</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.TenNguoiLam)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.TenNguoiLam)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.SoDienThoai)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.SoDienThoai)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.CMND)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.CMND)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.NgayCong)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.NgayCong)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.ViecLam)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.ViecLam)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.TrangThai)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.TrangThai)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.idNguoiLam }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

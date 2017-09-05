@@ -1,0 +1,196 @@
+C:\Users\Luis\Documents\Visual Studio 2013\Projects\sb-admin.web\sb-admin.web.Tests\bin\Debug\sb-admin.web.Tests.dll.config
+C:\Users\Luis\Documents\Visual Studio 2013\Projects\sb-admin.web\sb-admin.web.Tests\bin\Debug\sb-admin.web.Tests.dll
+C:\Users\Luis\Documents\Visual Studio 2013\Projects\sb-admin.web\sb-admin.web.Tests\bin\Debug\sb-admin.web.Tests.pdb
+C:\Users\Luis\Documents\Visual Studio 2013\Projects\sb-admin.web\sb-admin.web.Tests\bin\Debug\Microsoft.Web.Infrastructure.dll
+C:\Users\Luis\Documents\Visual Studio 2013\Projects\sb-admin.web\sb-admin.web.Tests\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Luis\Documents\Visual Studio 2013\Projects\sb-admin.web\sb-admin.web.Tests\bin\Debug\sb-admin.web.dll
+C:\Users\Luis\Documents\Visual Studio 2013\Projects\sb-admin.web\sb-admin.web.Tests\bin\Debug\System.Web.Helpers.dll
+C:\Users\Luis\Documents\Visual Studio 2013\Projects\sb-admin.web\sb-admin.web.Tests\bin\Debug\System.Web.Mvc.dll
+C:\Users\Luis\Documents\Visual Studio 2013\Projects\sb-admin.web\sb-admin.web.Tests\bin\Debug\System.Web.Razor.dll
+C:\Users\Luis\Documents\Visual Studio 2013\Projects\sb-admin.web\sb-admin.web.Tests\bin\Debug\System.Web.WebPages.Deployment.dll
+C:\Users\Luis\Documents\Visual Studio 2013\Projects\sb-admin.web\sb-admin.web.Tests\bin\Debug\System.Web.WebPages.dll
+C:\Users\Luis\Documents\Visual Studio 2013\Projects\sb-admin.web\sb-admin.web.Tests\bin\Debug\System.Web.WebPages.Razor.dll
+C:\Users\Luis\Documents\Visual Studio 2013\Projects\sb-admin.web\sb-admin.web.Tests\bin\Debug\System.Web.Optimization.dll
+C:\Users\Luis\Documents\Visual Studio 2013\Projects\sb-admin.web\sb-admin.web.Tests\bin\Debug\Owin.dll
+C:\Users\Luis\Documents\Visual Studio 2013\Projects\sb-admin.web\sb-admin.web.Tests\bin\Debug\Microsoft.Owin.dll
+C:\Users\Luis\Documents\Visual Studio 2013\Projects\sb-admin.web\sb-admin.web.Tests\bin\Debug\Microsoft.Owin.Security.Cookies.dll
+C:\Users\Luis\Documents\Visual Studio 2013\Projects\sb-admin.web\sb-admin.web.Tests\bin\Debug\Microsoft.Owin.Security.dll
+C:\Users\Luis\Documents\Visual Studio 2013\Projects\sb-admin.web\sb-admin.web.Tests\bin\Debug\sb-admin.web.pdb
+C:\Users\Luis\Documents\Visual Studio 2013\Projects\sb-admin.web\sb-admin.web.Tests\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Luis\Documents\Visual Studio 2013\Projects\sb-admin.web\sb-admin.web.Tests\bin\Debug\System.Web.Helpers.xml
+C:\Users\Luis\Documents\Visual Studio 2013\Projects\sb-admin.web\sb-admin.web.Tests\bin\Debug\System.Web.Mvc.xml
+C:\Users\Luis\Documents\Visual Studio 2013\Projects\sb-admin.web\sb-admin.web.Tests\bin\Debug\System.Web.Razor.xml
+C:\Users\Luis\Documents\Visual Studio 2013\Projects\sb-admin.web\sb-admin.web.Tests\bin\Debug\System.Web.WebPages.xml
+C:\Users\Luis\Documents\Visual Studio 2013\Projects\sb-admin.web\sb-admin.web.Tests\bin\Debug\System.Web.WebPages.Deployment.xml
+C:\Users\Luis\Documents\Visual Studio 2013\Projects\sb-admin.web\sb-admin.web.Tests\bin\Debug\System.Web.WebPages.Razor.xml
+C:\Users\Luis\Documents\Visual Studio 2013\Projects\sb-admin.web\sb-admin.web.Tests\bin\Debug\System.Web.Optimization.xml
+C:\Users\Luis\Documents\Visual Studio 2013\Projects\sb-admin.web\sb-admin.web.Tests\bin\Debug\Microsoft.Owin.xml
+C:\Users\Luis\Documents\Visual Studio 2013\Projects\sb-admin.web\sb-admin.web.Tests\bin\Debug\Microsoft.Owin.Security.Cookies.xml
+C:\Users\Luis\Documents\Visual Studio 2013\Projects\sb-admin.web\sb-admin.web.Tests\bin\Debug\Microsoft.Owin.Security.xml
+C:\Users\Luis\Documents\Visual Studio 2013\Projects\sb-admin.web\sb-admin.web.Tests\obj\Debug\sb-admin.web.Tests.csprojResolveAssemblyReference.cache
+C:\Users\Luis\Documents\Visual Studio 2013\Projects\sb-admin.web\sb-admin.web.Tests\obj\Debug\sb-admin.web.Tests.dll
+C:\Users\Luis\Documents\Visual Studio 2013\Projects\sb-admin.web\sb-admin.web.Tests\obj\Debug\sb-admin.web.Tests.pdb
+C:\Users\Luis\Documents\Visual Studio 2013\Projects\sb-admin.web\sb-admin.web.Tests\bin\Debug\Microsoft.Owin.Host.SystemWeb.dll
+C:\Users\Luis\Documents\Visual Studio 2013\Projects\sb-admin.web\sb-admin.web.Tests\bin\Debug\Microsoft.Owin.Host.SystemWeb.xml
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin.web.Tests\bin\Debug\sb-admin.web.Tests.dll.config
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin.web.Tests\bin\Debug\sb-admin.web.Tests.dll
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin.web.Tests\bin\Debug\sb-admin.web.Tests.pdb
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin.web.Tests\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin.web.Tests\bin\Debug\Microsoft.Web.Infrastructure.dll
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin.web.Tests\bin\Debug\Newtonsoft.Json.dll
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin.web.Tests\bin\Debug\sb-admin.web.dll
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin.web.Tests\bin\Debug\System.Web.Helpers.dll
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin.web.Tests\bin\Debug\System.Web.Mvc.dll
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin.web.Tests\bin\Debug\System.Web.Razor.dll
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin.web.Tests\bin\Debug\System.Web.WebPages.Deployment.dll
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin.web.Tests\bin\Debug\System.Web.WebPages.dll
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin.web.Tests\bin\Debug\System.Web.WebPages.Razor.dll
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin.web.Tests\bin\Debug\Microsoft.Owin.dll
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin.web.Tests\bin\Debug\System.Web.Optimization.dll
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin.web.Tests\bin\Debug\Owin.dll
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin.web.Tests\bin\Debug\EntityFramework.dll
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin.web.Tests\bin\Debug\Microsoft.Owin.Security.Cookies.dll
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin.web.Tests\bin\Debug\Microsoft.Owin.Security.dll
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin.web.Tests\bin\Debug\Microsoft.Owin.Host.SystemWeb.dll
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin.web.Tests\bin\Debug\sb-admin.web.pdb
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin.web.Tests\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.xml
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin.web.Tests\bin\Debug\Newtonsoft.Json.xml
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin.web.Tests\bin\Debug\System.Web.Helpers.xml
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin.web.Tests\bin\Debug\System.Web.Mvc.xml
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin.web.Tests\bin\Debug\System.Web.Razor.xml
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin.web.Tests\bin\Debug\System.Web.WebPages.xml
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin.web.Tests\bin\Debug\System.Web.WebPages.Deployment.xml
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin.web.Tests\bin\Debug\System.Web.WebPages.Razor.xml
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin.web.Tests\bin\Debug\Microsoft.Owin.xml
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin.web.Tests\bin\Debug\System.Web.Optimization.xml
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin.web.Tests\bin\Debug\EntityFramework.xml
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin.web.Tests\bin\Debug\Microsoft.Owin.Security.Cookies.xml
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin.web.Tests\bin\Debug\Microsoft.Owin.Security.xml
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin.web.Tests\bin\Debug\Microsoft.Owin.Host.SystemWeb.xml
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin.web.Tests\obj\Debug\sb-admin.web.Tests.csprojResolveAssemblyReference.cache
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin.web.Tests\obj\Debug\sb-admin.web.Tests.dll
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin.web.Tests\obj\Debug\sb-admin.web.Tests.pdb
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin.web.Tests\bin\Debug\Microsoft.AspNet.SignalR.Core.dll
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin.web.Tests\bin\Debug\Microsoft.AspNet.SignalR.Core.xml
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin.web.Tests\bin\Debug\PagedList.dll
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin-bootstrap-template-asp-mvc-authentication-master\sb-admin.web.Tests\bin\Debug\PagedList.xml
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\a\sb-admin.web.Tests\bin\Debug\sb-admin.web.Tests.dll.config
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\a\sb-admin.web.Tests\bin\Debug\sb-admin.web.Tests.dll
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\a\sb-admin.web.Tests\bin\Debug\sb-admin.web.Tests.pdb
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\a\sb-admin.web.Tests\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\a\sb-admin.web.Tests\bin\Debug\Microsoft.Web.Infrastructure.dll
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\a\sb-admin.web.Tests\bin\Debug\Newtonsoft.Json.dll
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\a\sb-admin.web.Tests\bin\Debug\sb-admin.web.dll
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\a\sb-admin.web.Tests\bin\Debug\System.Web.Helpers.dll
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\a\sb-admin.web.Tests\bin\Debug\System.Web.Mvc.dll
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\a\sb-admin.web.Tests\bin\Debug\System.Web.Razor.dll
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\a\sb-admin.web.Tests\bin\Debug\System.Web.WebPages.Deployment.dll
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\a\sb-admin.web.Tests\bin\Debug\System.Web.WebPages.dll
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\a\sb-admin.web.Tests\bin\Debug\System.Web.WebPages.Razor.dll
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\a\sb-admin.web.Tests\bin\Debug\Microsoft.Owin.dll
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\a\sb-admin.web.Tests\bin\Debug\System.Web.Optimization.dll
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\a\sb-admin.web.Tests\bin\Debug\Owin.dll
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\a\sb-admin.web.Tests\bin\Debug\Microsoft.AspNet.SignalR.Core.dll
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\a\sb-admin.web.Tests\bin\Debug\EntityFramework.dll
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\a\sb-admin.web.Tests\bin\Debug\PagedList.dll
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\a\sb-admin.web.Tests\bin\Debug\Microsoft.Owin.Security.Cookies.dll
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\a\sb-admin.web.Tests\bin\Debug\Microsoft.Owin.Security.dll
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\a\sb-admin.web.Tests\bin\Debug\Microsoft.Owin.Host.SystemWeb.dll
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\a\sb-admin.web.Tests\bin\Debug\sb-admin.web.pdb
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\a\sb-admin.web.Tests\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.xml
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\a\sb-admin.web.Tests\bin\Debug\Newtonsoft.Json.xml
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\a\sb-admin.web.Tests\bin\Debug\System.Web.Helpers.xml
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\a\sb-admin.web.Tests\bin\Debug\System.Web.Mvc.xml
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\a\sb-admin.web.Tests\bin\Debug\System.Web.Razor.xml
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\a\sb-admin.web.Tests\bin\Debug\System.Web.WebPages.xml
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\a\sb-admin.web.Tests\bin\Debug\System.Web.WebPages.Deployment.xml
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\a\sb-admin.web.Tests\bin\Debug\System.Web.WebPages.Razor.xml
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\a\sb-admin.web.Tests\bin\Debug\Microsoft.Owin.xml
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\a\sb-admin.web.Tests\bin\Debug\System.Web.Optimization.xml
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\a\sb-admin.web.Tests\bin\Debug\Microsoft.AspNet.SignalR.Core.xml
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\a\sb-admin.web.Tests\bin\Debug\EntityFramework.xml
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\a\sb-admin.web.Tests\bin\Debug\PagedList.xml
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\a\sb-admin.web.Tests\bin\Debug\Microsoft.Owin.Security.Cookies.xml
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\a\sb-admin.web.Tests\bin\Debug\Microsoft.Owin.Security.xml
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\a\sb-admin.web.Tests\bin\Debug\Microsoft.Owin.Host.SystemWeb.xml
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\a\sb-admin.web.Tests\obj\Debug\sb-admin.web.Tests.csprojResolveAssemblyReference.cache
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\a\sb-admin.web.Tests\obj\Debug\sb-admin.web.Tests.dll
+C:\Users\AdminPC\Desktop\sb-admin-bootstrap-template-asp-mvc-authentication-master\a\sb-admin.web.Tests\obj\Debug\sb-admin.web.Tests.pdb
+C:\Users\A17817\Downloads\a\sb-admin.web.Tests\bin\Debug\sb-admin.web.Tests.dll.config
+C:\Users\A17817\Downloads\a\sb-admin.web.Tests\bin\Debug\sb-admin.web.Tests.dll
+C:\Users\A17817\Downloads\a\sb-admin.web.Tests\bin\Debug\sb-admin.web.Tests.pdb
+C:\Users\A17817\Downloads\a\sb-admin.web.Tests\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Users\A17817\Downloads\a\sb-admin.web.Tests\bin\Debug\Microsoft.Web.Infrastructure.dll
+C:\Users\A17817\Downloads\a\sb-admin.web.Tests\bin\Debug\Newtonsoft.Json.dll
+C:\Users\A17817\Downloads\a\sb-admin.web.Tests\bin\Debug\sb-admin.web.dll
+C:\Users\A17817\Downloads\a\sb-admin.web.Tests\bin\Debug\System.Web.Helpers.dll
+C:\Users\A17817\Downloads\a\sb-admin.web.Tests\bin\Debug\System.Web.Mvc.dll
+C:\Users\A17817\Downloads\a\sb-admin.web.Tests\bin\Debug\System.Web.Razor.dll
+C:\Users\A17817\Downloads\a\sb-admin.web.Tests\bin\Debug\System.Web.WebPages.Deployment.dll
+C:\Users\A17817\Downloads\a\sb-admin.web.Tests\bin\Debug\System.Web.WebPages.dll
+C:\Users\A17817\Downloads\a\sb-admin.web.Tests\bin\Debug\System.Web.WebPages.Razor.dll
+C:\Users\A17817\Downloads\a\sb-admin.web.Tests\bin\Debug\Microsoft.Owin.dll
+C:\Users\A17817\Downloads\a\sb-admin.web.Tests\bin\Debug\System.Web.Optimization.dll
+C:\Users\A17817\Downloads\a\sb-admin.web.Tests\bin\Debug\Owin.dll
+C:\Users\A17817\Downloads\a\sb-admin.web.Tests\bin\Debug\Microsoft.AspNet.SignalR.Core.dll
+C:\Users\A17817\Downloads\a\sb-admin.web.Tests\bin\Debug\EntityFramework.dll
+C:\Users\A17817\Downloads\a\sb-admin.web.Tests\bin\Debug\Microsoft.Owin.Security.Cookies.dll
+C:\Users\A17817\Downloads\a\sb-admin.web.Tests\bin\Debug\Microsoft.Owin.Security.dll
+C:\Users\A17817\Downloads\a\sb-admin.web.Tests\bin\Debug\Microsoft.Owin.Host.SystemWeb.dll
+C:\Users\A17817\Downloads\a\sb-admin.web.Tests\bin\Debug\sb-admin.web.pdb
+C:\Users\A17817\Downloads\a\sb-admin.web.Tests\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.xml
+C:\Users\A17817\Downloads\a\sb-admin.web.Tests\bin\Debug\Newtonsoft.Json.xml
+C:\Users\A17817\Downloads\a\sb-admin.web.Tests\bin\Debug\System.Web.Helpers.xml
+C:\Users\A17817\Downloads\a\sb-admin.web.Tests\bin\Debug\System.Web.Mvc.xml
+C:\Users\A17817\Downloads\a\sb-admin.web.Tests\bin\Debug\System.Web.Razor.xml
+C:\Users\A17817\Downloads\a\sb-admin.web.Tests\bin\Debug\System.Web.WebPages.xml
+C:\Users\A17817\Downloads\a\sb-admin.web.Tests\bin\Debug\System.Web.WebPages.Deployment.xml
+C:\Users\A17817\Downloads\a\sb-admin.web.Tests\bin\Debug\System.Web.WebPages.Razor.xml
+C:\Users\A17817\Downloads\a\sb-admin.web.Tests\bin\Debug\Microsoft.Owin.xml
+C:\Users\A17817\Downloads\a\sb-admin.web.Tests\bin\Debug\System.Web.Optimization.xml
+C:\Users\A17817\Downloads\a\sb-admin.web.Tests\bin\Debug\Microsoft.AspNet.SignalR.Core.xml
+C:\Users\A17817\Downloads\a\sb-admin.web.Tests\bin\Debug\EntityFramework.xml
+C:\Users\A17817\Downloads\a\sb-admin.web.Tests\bin\Debug\Microsoft.Owin.Security.Cookies.xml
+C:\Users\A17817\Downloads\a\sb-admin.web.Tests\bin\Debug\Microsoft.Owin.Security.xml
+C:\Users\A17817\Downloads\a\sb-admin.web.Tests\bin\Debug\Microsoft.Owin.Host.SystemWeb.xml
+C:\Users\A17817\Downloads\a\sb-admin.web.Tests\obj\Debug\sb-admin.web.Tests.csprojResolveAssemblyReference.cache
+C:\Users\A17817\Downloads\a\sb-admin.web.Tests\obj\Debug\sb-admin.web.Tests.dll
+C:\Users\A17817\Downloads\a\sb-admin.web.Tests\obj\Debug\sb-admin.web.Tests.pdb
+C:\Users\A17817\Desktop\task\a\sb-admin.web.Tests\obj\Debug\sb-admin.web.Tests.csprojResolveAssemblyReference.cache
+C:\Users\A17817\Desktop\task\a\sb-admin.web.Tests\obj\Debug\sb-admin.web.Tests.dll
+C:\Users\A17817\Desktop\task\a\sb-admin.web.Tests\obj\Debug\sb-admin.web.Tests.pdb
+C:\Users\A17817\Desktop\task\a\sb-admin.web.Tests\bin\Debug\sb-admin.web.Tests.dll.config
+C:\Users\A17817\Desktop\task\a\sb-admin.web.Tests\bin\Debug\sb-admin.web.Tests.dll
+C:\Users\A17817\Desktop\task\a\sb-admin.web.Tests\bin\Debug\sb-admin.web.Tests.pdb
+C:\Users\A17817\Desktop\task\a\sb-admin.web.Tests\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Users\A17817\Desktop\task\a\sb-admin.web.Tests\bin\Debug\Microsoft.Web.Infrastructure.dll
+C:\Users\A17817\Desktop\task\a\sb-admin.web.Tests\bin\Debug\Newtonsoft.Json.dll
+C:\Users\A17817\Desktop\task\a\sb-admin.web.Tests\bin\Debug\sb-admin.web.dll
+C:\Users\A17817\Desktop\task\a\sb-admin.web.Tests\bin\Debug\System.Web.Helpers.dll
+C:\Users\A17817\Desktop\task\a\sb-admin.web.Tests\bin\Debug\System.Web.Mvc.dll
+C:\Users\A17817\Desktop\task\a\sb-admin.web.Tests\bin\Debug\System.Web.Razor.dll
+C:\Users\A17817\Desktop\task\a\sb-admin.web.Tests\bin\Debug\System.Web.WebPages.Deployment.dll
+C:\Users\A17817\Desktop\task\a\sb-admin.web.Tests\bin\Debug\System.Web.WebPages.dll
+C:\Users\A17817\Desktop\task\a\sb-admin.web.Tests\bin\Debug\System.Web.WebPages.Razor.dll
+C:\Users\A17817\Desktop\task\a\sb-admin.web.Tests\bin\Debug\Microsoft.Owin.dll
+C:\Users\A17817\Desktop\task\a\sb-admin.web.Tests\bin\Debug\System.Web.Optimization.dll
+C:\Users\A17817\Desktop\task\a\sb-admin.web.Tests\bin\Debug\Owin.dll
+C:\Users\A17817\Desktop\task\a\sb-admin.web.Tests\bin\Debug\Microsoft.AspNet.SignalR.Core.dll
+C:\Users\A17817\Desktop\task\a\sb-admin.web.Tests\bin\Debug\EntityFramework.dll
+C:\Users\A17817\Desktop\task\a\sb-admin.web.Tests\bin\Debug\Microsoft.Owin.Security.Cookies.dll
+C:\Users\A17817\Desktop\task\a\sb-admin.web.Tests\bin\Debug\Microsoft.Owin.Security.dll
+C:\Users\A17817\Desktop\task\a\sb-admin.web.Tests\bin\Debug\sb-admin.web.pdb
+C:\Users\A17817\Desktop\task\a\sb-admin.web.Tests\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.xml
+C:\Users\A17817\Desktop\task\a\sb-admin.web.Tests\bin\Debug\Newtonsoft.Json.xml
+C:\Users\A17817\Desktop\task\a\sb-admin.web.Tests\bin\Debug\System.Web.Helpers.xml
+C:\Users\A17817\Desktop\task\a\sb-admin.web.Tests\bin\Debug\System.Web.Mvc.xml
+C:\Users\A17817\Desktop\task\a\sb-admin.web.Tests\bin\Debug\System.Web.Razor.xml
+C:\Users\A17817\Desktop\task\a\sb-admin.web.Tests\bin\Debug\System.Web.WebPages.xml
+C:\Users\A17817\Desktop\task\a\sb-admin.web.Tests\bin\Debug\System.Web.WebPages.Deployment.xml
+C:\Users\A17817\Desktop\task\a\sb-admin.web.Tests\bin\Debug\System.Web.WebPages.Razor.xml
+C:\Users\A17817\Desktop\task\a\sb-admin.web.Tests\bin\Debug\Microsoft.Owin.xml
+C:\Users\A17817\Desktop\task\a\sb-admin.web.Tests\bin\Debug\System.Web.Optimization.xml
+C:\Users\A17817\Desktop\task\a\sb-admin.web.Tests\bin\Debug\Microsoft.AspNet.SignalR.Core.xml
+C:\Users\A17817\Desktop\task\a\sb-admin.web.Tests\bin\Debug\EntityFramework.xml
+C:\Users\A17817\Desktop\task\a\sb-admin.web.Tests\bin\Debug\Microsoft.Owin.Security.Cookies.xml
+C:\Users\A17817\Desktop\task\a\sb-admin.web.Tests\bin\Debug\Microsoft.Owin.Security.xml

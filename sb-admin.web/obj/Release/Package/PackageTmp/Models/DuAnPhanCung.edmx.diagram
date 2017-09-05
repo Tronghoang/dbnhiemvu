@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="2fdec8578d104c3395548f3e64ff7750" Name="Diagram1">
+        <EntityTypeShape EntityType="DuAnPhanCungModel.Benh" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DuAnPhanCungModel.BenhVeNam" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DuAnPhanCungModel.CayTrong" Width="1.5" PointX="0.75" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="DuAnPhanCungModel.ChatGroup" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DuAnPhanCungModel.DichBenhPhoBien" Width="1.5" PointX="3" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DuAnPhanCungModel.Form" Width="1.5" PointX="8" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="DuAnPhanCungModel.Map" Width="1.5" PointX="2.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DuAnPhanCungModel.NguoiLam" Width="1.5" PointX="7.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DuAnPhanCungModel.PhanBon" Width="1.5" PointX="4.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DuAnPhanCungModel.Phanhoi" Width="1.5" PointX="6.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DuAnPhanCungModel.PhanTich" Width="1.5" PointX="8.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DuAnPhanCungModel.ThanhVien" Width="1.5" PointX="5.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="DuAnPhanCungModel.ThuocTruSau" Width="1.5" PointX="9.75" PointY="4.75" IsExpanded="true" />
+        <AssociationConnector Association="DuAnPhanCungModel.FK_BenhVeNam_CayTrong" ManuallyRouted="false" />
+        <AssociationConnector Association="DuAnPhanCungModel.FK_DichBenhPhoBien_CayTrong" ManuallyRouted="false" />
+        <AssociationConnector Association="DuAnPhanCungModel.FK_Form_ThanhVien" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
