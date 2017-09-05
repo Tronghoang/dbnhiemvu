@@ -12,116 +12,211 @@
 <script src="~/Helper/jquery-validation-1.17.0/dist/jquery.validate.min.js"></script>
 
     <script>
-    $("#frmThemProject").validate({
-        rules: {
-            vTenProject: {
-                required: true
-            },
-            vMoTa: {
-                required: true
-            }
-        },
-        messages: {
-            vTenNhiemVu: "Không được bỏ trống !",
-            vMoTa: "Không được bỏ trống !",
-        },
-        errorClass: "form-control-feedback",
-        highlight: function (element) {
-            $(element).addClass("form-control-danger");
-            $(element).closest("div").addClass("has-danger");
-        },
-        unhighlight: function (element) {
-            $(element).removeClass('form-control-danger');
-            $(element).closest("div").removeClass("has-danger");
+        function closeModal() {
+            $(".w3-modal").css("display", "none");
+
         }
-    });
-
-    $(function () {
-        loadList();
-    });
-
-    function loadList() {
-        $.ajax({
-            url: "@Url.Action("GetProject","Project")",
-            type: 'post',
-            dataType: 'json',
-            data: {
-                'index': $("#index").val(),
-                'search': $("#search").val(),
-                'iNgayLap': $("#selNgayLap").val(),
+        function openModal(curModal, nextModal,iMaProjectCode) {
+            if (nextModal == "#modal-ChinhSuaProject" || nextModal == "#modal-XoaProject")
+            {
+                $("#modal-ChinhSuaProject input[name='iMaProjectCode']").val(iMaProjectCode);
+                $.ajax({
+                    url:"@Url.Action("GetInfoProject", "Project")",
+                    type:"post",
+                    dateType: "json",
+                    data: {"iMaProjectCode":iMaProjectCode},
+                    success: function (result) {
+                        if (nextModal == "#modal-ChinhSuaProject") {
+                            $("#modal-ChinhSuaProject input[name='vTenProject']").val(result["vTenProject"]);
+                            $("#modal-ChinhSuaProject input[name='vMoTa']").val(result["vMoTa"]);
+                        } else {
+                            $("#vTenProject").text(result["vTenProject"]);
+                        }
+                        
+                    }
+                });
+            }
+            $(curModal).css("display", "none");
+            $(nextModal).css("display", "block");
+        }
+        $("#frmThemProject").validate({
+            rules: {
+                vTenProject: {
+                    required: true
+                },
+                vMoTa: {
+                    required: true
+                }
             },
-            success: function (result) {
-
-                createItemList(result)
+            messages: {
+                vTenProject: "Không được bỏ trống !",
+                vMoTa: "Không được bỏ trống !",
             }
         });
-    }
+        $("#frmChinhSuaProject").validate({
+            rules: {
+                vTenProject: {
+                    required: true
+                },
+                vMoTa: {
+                    required: true
+                }
+            },
+            messages: {
+                vTenProject: "Không được bỏ trống !",
+                vMoTa: "Không được bỏ trống !",
+            }
+        });
 
-    function createItemList(result) {
-        var html = '';
-        for (i = 0; i < result.length; i++) {
-            html = '<div class="input-group w3-margin">';
+        $(function () {
+            loadList();
+        });
 
-            html += '</div>';
-            $(".my-list").append(html);
-        }
-    }
-
-    function detailsItem(iMaProjectCode) {
-        $.get("@Url.Action("ChiTietProject","Project")", { iMaProjectCode: iMaProjectCode });
-    }
-
-    $("#search").keyup(function () {
-        $(".my-list").empty();
-        $("#index").val(0);
-        loadList();
-    });
-
-
-
-    $("#selNgayLap").change(function () {
-        $(".my-list").empty();
-        $("#index").val(0);
-        loadList();
-    });
-
-
-
-    function taiThem() {
-        var index = $("#index").val();
-        index++;
-        $("#index").val(index);
-        loadList();
-    }
-
-    function frmThemProjectSubmit(event) {
-        if ($("#frmThemProject").valid() == true) {
+        function loadList() {
             $.ajax({
-                url: "@Url.Action("ThemProject","Account")",
-                type: "post",
-                dataType: "text",
+                url: "@Url.Action("GetProject","Project")",
+                type: 'post',
+                dataType: 'json',
                 data: {
-                    "vTenProject": $("input[name='vTenProject']").val(),
-                    "vMoTa": $("input[name='vMoTa']").val(),
-                    },
+                    'index': $("#index").val(),
+                    'search': $("#search").val(),
+                    'iNgayLap': $("#selNgayLap").val(),
+                },
                 success: function (result) {
-                    var html = '';
-                    $(".main-thongbao").empty();
-                    if (result != 0) {
-                        html = '<h2 id="thongbao" class="w3-center">Đã thêm nhiệm vụ thất bại</h2>';
-                    }
-                    else {
-                        html = '<h2 id="thongbao" class="w3-center">Đã thêm nhiệm vụ thất bại</h2>';
-                    }
-                    html += '<center><a class="w3-btn w3-padding-large w3-teal w3-hover-green w3-center" onclick="closeModal()">OK</a></center>';
-                    $(".main-thongbao").append(html);
-                    openModal('#modal-ThemProject', '#modal-ThongBao');
+                    createItemList(result)
                 }
             });
-
         }
 
-    }
+        function createItemList(result) {
+            var html = '';
+            for (i = 0; i < result.length; i++) {
+                html = '<div class="input-group w3-margin">';
+                html+='<div class="w3-row w3-border-bottom">';
+                html += '    <h2><a href="/Project/ChiTietProject/?iMaProjectCode="' + result[i]["iMaProjectCode"] + '>' + result[i]["vTenProject"] + '</a></h2>';
+                html += '    <p>' + result[i]["vMoTa"] + '</p>';
+                html += '    <p>Ngày tạo : ' + result[i]["dNgayLap"] + '</p>';
+                html += '<button onclick="'+"openModal('','#modal-ChinhSuaProject',"+result[i]["iMaProjectCode"]+')" class="w3-button w3-pale-blue">Chỉnh sửa</button>';
+                html += '<button onclick="' + "openModal('','#modal-XoaProject'," + result[i]["iMaProjectCode"] + ')" class="w3-button w3-pale-red">Xóa</button>';
+                html += '</div>';
+                html += '</div>';
+                $(".my-list").append(html);
+            }
+        }
+
+        $("#search").keyup(function () {
+            $(".my-list").empty();
+            $("#index").val(0);
+            loadList();
+        });
+
+
+
+        $("#selNgayLap").change(function () {
+            $(".my-list").empty();
+            $("#index").val(0);
+            loadList();
+        });
+
+
+
+        function taiThem() {
+            var index = $("#index").val();
+            index++;
+            $("#index").val(index);
+            loadList();
+        }
+
+        function frmThemProjectSubmit(event) {
+            if ($("#frmThemProject").valid() == true) {
+                $.ajax({
+                    url: "@Url.Action("ThemProject", "Project")",
+                    type: "post",
+                    dataType: "text",
+                    data: {
+                        "vTenProject": $("input[name='vTenProject']").val(),
+                        "vMoTa": $("input[name='vMoTa']").val(),
+                    },
+                    success: function (result) {
+                        var html = '';
+                        $(".main-thongbao").empty();
+                        if (result != 0) {
+                            html = '<h2 id="thongbao" class="w3-center">Đã thêm project thành công</h2>';
+                        }
+                        else {
+                            html = '<h2 id="thongbao" class="w3-center">Đã thêm project thất bại</h2>';
+                        }
+                        html += '<center><a class="w3-btn w3-padding-large w3-teal w3-hover-green w3-center" onclick="closeModal()">OK</a></center>';
+                        $(".main-thongbao").append(html);
+                        openModal('#modal-ThemProject', '#modal-ThongBao');
+                        $(".my-list").empty();
+                        $("#index").val(0);
+                        loadList();
+                    }
+                });
+
+            }
+        }
+
+        function frmChinhSuaProjectSubmit() {
+            if ($("#frmThemProject").valid() == true) {
+                $.ajax({
+                    url: "@Url.Action("ChinhSuaProject", "Project")",
+                    type: "post",
+                    dataType: "text",
+                    data: {
+                        "iMaProjectCode": $("input[name='iMaProjectCode']").val(),
+                        "vTenProject": $("#modal-ChinhSuaProject input[name='vTenProject']").val(),
+                        "vMoTa": $("#modal-ChinhSuaProject input[name='vMoTa']").val(),
+                    },
+                    success: function (result) {
+                        var html = '';
+                        $(".main-thongbao").empty();
+                        if (result === 'True') {
+                            html = '<h2 id="thongbao" class="w3-center">Đã chỉnh sửa project thành công</h2>';
+                        }
+                        else {
+                            html = '<h2 id="thongbao" class="w3-center">Đã chỉnh sửa project thất bại</h2>';
+                        }
+                        html += '<center><a class="w3-btn w3-padding-large w3-teal w3-hover-green w3-center" onclick="closeModal()">OK</a></center>';
+                        $(".main-thongbao").append(html);
+                        openModal('#modal-ChinhSuaProject', '#modal-ThongBao');
+                        $(".my-list").empty();
+                        $("#index").val(0);
+                        loadList();
+                    }
+                });
+            }
+        }
+
+        function frmXoaProjectSubmit() {
+            if ($("#frmThemProject").valid() == true) {
+                $.ajax({
+                    url: "@Url.Action("XoaProject", "Project")",
+                    type: "post",
+                    dataType: "text",
+                    data: {
+                        "iMaProjectCode": $("input[name='iMaProjectCode']").val(),
+                        },
+                    success: function (result) {
+                        var html = '';
+                        $(".main-thongbao").empty();
+                        if (result === 'True') {
+                            html = '<h2 id="thongbao" class="w3-center">Đã xóa project thành công</h2>';
+                        }
+                        else {
+                            html = '<h2 id="thongbao" class="w3-center">Đã xóa project thất bại</h2>';
+                        }
+                        html += '<center><a class="w3-btn w3-padding-large w3-teal w3-hover-green w3-center" onclick="closeModal()">OK</a></center>';
+                        $(".main-thongbao").append(html);
+                        openModal('#modal-XoaProject', '#modal-ThongBao');
+                        $(".my-list").empty();
+                        $("#index").val(0);
+                        loadList();
+                    }
+                });
+            }
+        }
     </script>
 }
 
@@ -156,6 +251,16 @@
         </div>
         <input hidden id="index" value="0" />
         <div class="my-list w3-margin-left">
+            <div class="w3-row w3-border-bottom">
+                <h2>Project 1</h2>
+                <p>Mo ta project 1</p>
+                <p>Ngay lap : 12/123/123</p>
+            </div>
+            <div class="w3-row w3-border-bottom">
+                <h2>Project 1</h2>
+                <p>Mo ta project 1</p>
+                <p>Ngay lap : 12/123/123</p>
+            </div>
         </div>
         <div class="w3-row" id="btntaithem">
             <button onclick="taiThem()" class="w3-btn w3-block w3-teal w3-padding-large">Tải thêm...</button>
@@ -170,7 +275,7 @@
                     @Html.AntiForgeryToken()
                     <header class="w3-container w3-teal">
                         <span onclick="closeModal()" class="w3-button w3-display-topright">&times;</span>
-                        <h2 id="title-modal">Thêm project mới</h2>
+                        <h2 id="title-modal" class="w3-text-white">Thêm project mới</h2>
                     </header>
                     <div class="modal-main comfrim">
                         <table class="w3-table-all comfrim" align="center">
@@ -186,7 +291,7 @@
                                 </td>
                                 <td>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="Nhập tên nhiệm vụ ở đây..." name="vTenProject" />
+                                        <input type="text" class="form-control" placeholder="Nhập tên project ở đây..." name="vTenProject" />
                                     </div>
                                 </td>
                             </tr>
@@ -207,6 +312,72 @@
                         <a class="w3-btn w3-padding-large w3-hover-white w3-right" onclick="frmThemProjectSubmit()">Lưu</a>
                     </footer>
                 </form>
+            </div>
+        </div>
+    </div>
+    <div id="modal-ChinhSuaProject" class="w3-modal">
+        <div class="w3-modal-content w3-animate-right w3-card-4">
+            <div class="w3-display-container">
+                <form id="frmChinhSuaProject" method="post" enctype="multipart/form-data">
+                    <input hidden name="iMaProjectCode"/>
+                    @Html.AntiForgeryToken()
+                    <header class="w3-container w3-teal">
+                        <span onclick="closeModal()" class="w3-button w3-display-topright">&times;</span>
+                        <h2 id="title-modal" class="w3-text-white">Chỉnh sửa project</h2>
+                    </header>
+                    <div class="modal-main comfrim">
+                        <table class="w3-table-all comfrim" align="center">
+                            <thead>
+                                <tr>
+                                    <th width="20%"></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tr>
+                                <td>
+                                    Tên project
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Nhập tên project ở đây..." name="vTenProject" />
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Mô tả
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Nhập mô tả ở đây..." name="vMoTa" />
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <footer id="footer-modal" class="w3-container w3-teal">
+                        <a class="w3-btn w3-padding-large w3-hover-white" onclick="closeModal()">Quay lại</a>
+                        <a class="w3-btn w3-padding-large w3-hover-white w3-right" onclick="frmChinhSuaProjectSubmit()">Lưu</a>
+                    </footer>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div id="modal-XoaProject" class="w3-modal">
+        <div class="w3-modal-content w3-animate-right w3-card-4">
+            <div class="w3-display-container">
+                    @Html.AntiForgeryToken()
+                    <header class="w3-container w3-teal">
+                        <span onclick="closeModal()" class="w3-button w3-display-topright">&times;</span>
+                        <h2 id="title-modal" class="w3-text-white">Xóa project</h2>
+                    </header>
+                    <div class="modal-main comfrim">
+                        <center><h2>Bạn có chắc chắn muốn xóa project <span id="vTenProject" class="w3-text-blue"></span> ?</h2></center>
+                    </div>
+                    <footer id="footer-modal" class="w3-container w3-teal">
+                        <a class="w3-btn w3-padding-large w3-hover-white" onclick="closeModal()">Quay lại</a>
+                        <a class="w3-btn w3-padding-large w3-hover-white w3-right" onclick="frmXoaProjectSubmit()">Xóa</a>
+                    </footer>
             </div>
         </div>
     </div>
