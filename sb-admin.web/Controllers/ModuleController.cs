@@ -11,11 +11,11 @@ namespace sb_admin.web.Controllers
     public class ModuleController : Controller
     {
         // GET: Module
-        public ActionResult Index(int? iMaProjectCode)
+        public ActionResult ByProject(int? iMaProjectCode)
         {
             if (!iMaProjectCode.HasValue)
             {
-                return RedirectToAction("ThanhVien", "Home");
+                return RedirectToAction("Index", "Project");
             }
             ViewBag.iMaProjectCode = iMaProjectCode;
             using (var db = new dbnhiemvuEntities())
@@ -25,10 +25,6 @@ namespace sb_admin.web.Controllers
                 return View();
             }
                 
-        }
-        public ActionResult ChiTietProject()
-        {
-            return View();
         }
         public ActionResult GetInfoModule(int iMaModuleCode)
         {

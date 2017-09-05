@@ -93,7 +93,7 @@
             for (i = 0; i < result.length; i++) {
                 html = '<div class="input-group w3-margin">';
                 html+='<div class="w3-row w3-border-bottom">';
-                html += '    <h2><a href="/Module/Index/?iMaProjectCode=' + result[i]["iMaProjectCode"] + '">' + result[i]["vTenProject"] + '</a></h2>';
+                html += '    <h2><a href="/Module/ByProject/?iMaProjectCode=' + result[i]["iMaProjectCode"] + '">' + result[i]["vTenProject"] + '</a></h2>';
                 html += '    <p>' + result[i]["vMoTa"] + '</p>';
                 html += '    <p>Ngày tạo : ' + result[i]["dNgayLap"] + '</p>';
                 html += '<button onclick="'+"openModal('','#modal-ChinhSuaProject',"+result[i]["iMaProjectCode"]+')" class="w3-button w3-pale-blue">Chỉnh sửa</button>';
@@ -249,16 +249,11 @@
         </div>
         <input hidden id="index" value="0" />
         <div class="my-list w3-margin-left">
-            <div class="w3-row w3-border-bottom">
+            @*<div class="w3-row w3-border-bottom">
                 <h2>Project 1</h2>
                 <p>Mo ta project 1</p>
                 <p>Ngay lap : 12/123/123</p>
-            </div>
-            <div class="w3-row w3-border-bottom">
-                <h2>Project 1</h2>
-                <p>Mo ta project 1</p>
-                <p>Ngay lap : 12/123/123</p>
-            </div>
+            </div>*@
         </div>
         <div class="w3-row" id="btntaithem">
             <button onclick="taiThem()" class="w3-btn w3-block w3-teal w3-padding-large">Tải thêm...</button>

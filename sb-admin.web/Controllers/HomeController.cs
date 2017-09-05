@@ -21,7 +21,7 @@ namespace sb_admin.web.Controllers
            
             return View();
         }
-       public ActionResult NhiemVu()
+        public ActionResult NhiemVu()
         {
 
             dbnhiemvuEntities db = new dbnhiemvuEntities();
