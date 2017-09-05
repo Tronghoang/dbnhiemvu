@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\A17817\Desktop\task\a\sb-admin.web\Models\NhiemVu.edmx'. 
+﻿// T4 code generation is enabled for model 'D:\project\task\sb-admin.web\Models\NhiemVu.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

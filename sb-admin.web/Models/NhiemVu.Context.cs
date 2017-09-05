@@ -26,10 +26,14 @@ namespace sb_admin.web.Models
         }
     
         public virtual DbSet<BaoCao> BaoCaos { get; set; }
+        public virtual DbSet<Chat> Chats { get; set; }
         public virtual DbSet<ChiTietLoi> ChiTietLois { get; set; }
         public virtual DbSet<Hinh> Hinhs { get; set; }
+        public virtual DbSet<Module> Modules { get; set; }
         public virtual DbSet<NhiemVu> NhiemVus { get; set; }
+        public virtual DbSet<Project> Projects { get; set; }
         public virtual DbSet<Quyen> Quyens { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<TapTin> TapTins { get; set; }
         public virtual DbSet<TapTinBaoCao> TapTinBaoCaos { get; set; }
         public virtual DbSet<ThanhVien> ThanhViens { get; set; }

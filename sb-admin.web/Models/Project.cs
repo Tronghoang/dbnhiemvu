@@ -12,17 +12,12 @@ namespace sb_admin.web.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class NhiemVu
+    public partial class Project
     {
-        public int iMaNhiemVuCode { get; set; }
-        public string vTenNhiemVu { get; set; }
+        public int iMaProjectCode { get; set; }
+        public string vTenProject { get; set; }
         public string vMoTa { get; set; }
         public Nullable<System.DateTime> dNgayLap { get; set; }
-        public Nullable<System.DateTime> dNgayBD { get; set; }
-        public Nullable<System.DateTime> dNgayKT { get; set; }
-        public Nullable<int> iMaNguoiDangCode { get; set; }
-        public Nullable<int> iMaNguoiDuocGiaoCode { get; set; }
-        public Nullable<int> iMaTrangThaiCode { get; set; }
-        public Nullable<int> iMaModuleCode { get; set; }
+        public Nullable<int> iTrangThai { get; set; }
     }
 }
