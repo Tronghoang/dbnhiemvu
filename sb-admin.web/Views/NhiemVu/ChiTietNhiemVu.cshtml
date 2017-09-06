@@ -72,7 +72,7 @@
             doiMauTenTrangThai(@Model.iMaTrangThaiCode);
 
             $.ajax({
-                url:"@Url.Action("GetTapTinNhiemVu", "Account")",
+                url:"@Url.Action("GetTapTinNhiemVu", "NhiemVu")",
                 type:"post",
                 dataType:"json",
                 data:{"iMaNhiemVuCode":@Model.iMaNhiemVuCode},
@@ -122,7 +122,7 @@
 
         function thayDoiTrangThai(curModal,iMaTrangThaiCode){
             $.ajax({
-                url:"@Url.Action("ThayDoiTrangThai", "Account")",
+                url:"@Url.Action("ThayDoiTrangThai", "NhiemVu")",
                 type:"post",
                 dataType:"text",
                 data:{"iMaNhiemVuCode":@Model.iMaNhiemVuCode},
@@ -248,7 +248,7 @@
                 }
             }
             $.ajax({
-                url: "/Account/UploadFileBaoCao?iMaBaoCaoCode=" + iMaBaoCaoCode,
+                url: "/NhiemVu/UploadFileBaoCao?iMaBaoCaoCode=" + iMaBaoCaoCode,
                 type: "POST",
                 contentType: false,
                 processData: false,
@@ -273,7 +273,7 @@
         function frmBaoCaoNhiemVuSubmit(){
             if ($("#countErrTapTin").val() == 0 && $("#frmBaoCaoNhiemVu").valid()) {
                 $.ajax({
-                    url:"@Url.Action("BaoCaoNhiemVu", "Account")",
+                    url:"@Url.Action("BaoCaoNhiemVu", "NhiemVu")",
                     type:"post",
                     dataType:"text",
                     data:{
@@ -310,27 +310,6 @@
                 openModal('','#modal-baocao');
             }
         }
-        //function xoaLink(event){
-        //    $(event.target).closest('.input-group').remove();
-        //}
-
-        //function themLink(event){
-        //    var current = $(event.target);
-        //    var html = '<div class="input-group">';
-        //    html+=' <span class="input-group-addon" id="basic-addon1">Link:</span>';
-        //    html+='    <input type="text" name="linkfile" class="form-control" placeholder="Coppy link file vào đây..." aria-describedby="basic-addon1">';
-        //    html+='    <span class="input-group-btn">';
-        //    html+='        <button class="btn w3-teal" onclick="themLink(event)" type="button">+</button>';
-        //    html+='    </span>';
-        //    html+='</div>';
-        //    current.closest('.input-group').after(html);
-        //    html='';
-        //    html+='    <span class="input-group-btn">';
-        //    html+='        <button class="btn" onclick="xoaLink(event)" type="button">x</button>';
-        //    html+='    </span>';
-        //    current.closest('span').after(html);
-        //    current.closest('span').remove();
-        //}
     </script>
 
 }

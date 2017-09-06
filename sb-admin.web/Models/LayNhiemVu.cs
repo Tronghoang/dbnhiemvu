@@ -13,6 +13,7 @@ namespace sb_admin.web.Models
         public string vMoTa { get; set; }
         public Nullable<System.DateTime> dNgayBD { get; set; }
         public Nullable<System.DateTime> dNgayKT { get; set; }
+        public Nullable<System.DateTime> dNgayLap { get; set; }
         public string vNguoiDang { get; set; }
         public string vNguoiDuocGiaoCode { get; set; }
         public int? iMaTrangThaiCode { get; set; }

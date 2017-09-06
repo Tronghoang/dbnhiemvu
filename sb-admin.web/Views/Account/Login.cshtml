@@ -1,88 +1,155 @@
-﻿@model sb_admin.web.Models.LoginViewModel
-@{
-    Layout = null;
-}
+﻿@{ Layout = "";}
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Login</title>
-    @*<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>*@
-    <link href="~/Content/style.css" rel="stylesheet" type="text/css" media="all" />
-    <link href='//fonts.googleapis.com/css?family=Text+Me+One' rel='stylesheet' type='text/css'>
-
-    <script src="~/Scripts/jquery.min.js"></script>
-    <script src="~/Scripts/easyResponsiveTabs.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#horizontalTab').easyResponsiveTabs({
-                type: 'default', //Types: default, vertical, accordion
-                width: 'auto', //auto or any width like 600px
-                fit: true   // 100% fit in a container
-            });
-        });
-    </script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <script src="~/Scripts/jquery-3.2.1.min.js"></script>
+    <script src="~/Helper/tether-1.3.3/dist/js/tether.min.js"></script>
+    <script src="~/Helper/jquery-validation-1.17.0/dist/jquery.validate.min.js"></script>
+    <link href="~/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/plugins/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/font-awesome-4.1.0/css/font-awesome.css" rel="stylesheet" />
+    <link href="~/Content/w3csss.css" rel="stylesheet" />
 </head>
-<body>
-    <div class="main">
-        <h1>Innovative Login Form</h1>
-        <div class="main-info">
-            <div class="sap_tabs">
-                <div id="horizontalTab" style="display: block; width: 100%; margin: 0px;">
-                    <ul class="resp-tabs-list">
-                        <li class="resp-tab-item" aria-controls="tab_item-0"><h2><span>Login</span></h2></li>
-                    </ul>
-                    <div class="clear"> </div>
-                    <div class="resp-tabs-container">
+<body class="w3-teal">
 
-                        <div class="tab-1 resp-tab-content" aria-labelledby="tab_item-0">
-                            <div class="agileits-login">
+    <center>
+        <span class="w3-xxxlarge w3-margin-top"><i class="fa fa-user-circle" aria-hidden="true"></i></span>
 
-                                @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "form-signin", role = "form", ReturnUrl = ViewBag.ReturnUrl }))
-                                {
-                                    @Html.AntiForgeryToken()
-                                    @Html.ValidationSummary(true, "", new { @style = "color:red" })
-                                    @Html.ValidationMessageFor(m => m.TaiKhoan, "", new { @class = "text-danger",@style="color:red" })
-                                    @Html.TextBoxFor(m => m.TaiKhoan, new { @class = "form-control", placeholder = "TaiKhoan" })
-                                    
-                                    <br />
-                                    @Html.ValidationMessageFor(m => m.MatKhau, "", new { @class = "text-danger",@style="color:red" })
-                                    @Html.PasswordFor(m => m.MatKhau, new { @class = "form-control", placeholder = "MatKhau" })
-
-
-                                    <br />
-                                    <a href="@Url.Action("QuenMatKhau", "Account")" class="elements">
-                                        <span style="color:cyan;margin-left:50px">Quên Mật Khẩu</span>
-                                    </a>
-                                    <div class="row">
-
-                                        <div class="w3ls-submit">
-                                            <div class="submit-text">
-                                                <input type="submit" value="Log in" class="btn btn-lg btn-primary btn-block" />
-                                                </div>
-                                            </div>
-                                                    
-                                                
-                                         
-                                        </div>
-
-                                }
-                                                <br />
-                                                <br />
-                                                <br />
-                                                <br />
-                                                <br />
-                                                <br />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+        <div class="my-content w3-container col-md-5 my-top">
+            @if (ViewBag.Msg != null)
+            {
+                <div class="alert alert-danger alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    @ViewBag.Msg
                 </div>
+            }
+            <form action="@Url.Action("Login","Account")" method="post" class="w3-container">
+                <div class="w3-section">
+                    <label><b>Tên đăng nhập</b></label>
+                    <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Nhập tên đăng nhập ở đây..." name="vTenDangNhap" required>
+                    <label><b>Mật khẩu</b></label>
+                    <input class="w3-input w3-border" type="password" placeholder="Nhập mật khẩu ở đây..." name="vMatKhau" required>
+                    <button class="w3-button w3-block w3-green w3-section w3-padding" type="submit">Đăng nhập</button>
+                    <input class="w3-check w3-margin-top" name="bGhiNho" type="checkbox" checked="checked"> Ghi nhớ
+                    <br />
+                    <a id="register" class="w3-button w3-teal w3-border w3-pale-blue w3-border-blue w3-round-large w3-margin-top">Đăng ký</a>
+                </div>
+            </form>
+        </div>
+    </center>
+    <div id="modal-register" class="w3-modal">
+        <div class="w3-modal-content w3-animate-right w3-card-4 col-md-6">
+            <div class="w3-display-container">
+                <form id="frmRegister">
+                    <header class="w3-container w3-teal">
+                        <h2 id="title-modal">Đăng ký</h2>
+                    </header>
+                    <div class="align-content-center w3-margin">
+                        <div class="w3-section">
+                            <label class="w3-block"><b class="w3-text-black">Tên đăng nhập</b></label>
+                            <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Nhập tên đăng nhập ở đây..." name="username">
+                            <label class="w3-block"><b class="w3-text-black">Mật khẩu</b></label>
+                            <input class="w3-input w3-border" type="password" placeholder="Nhập mật khẩu ở đây..." id="pwd" name="pwd">
+                            <label class="w3-block"><b class="w3-text-black">Nhập lại mật khẩu</b></label>
+                            <input class="w3-input w3-border" type="password" placeholder="Nhập lại mật khẩu ở đây..." name="repwd">
+                            <br />
+                        </div>
+                    </div>
+                    <footer id="footer-modal" class="w3-container w3-teal">
+                        <a class="w3-btn w3-padding-large w3-hover-white" onclick="closeModal()">Hủy</a>
+                        <a onclick="frmRegisterSubmit()" class="w3-btn w3-padding-large w3-hover-white w3-right">Đăng ký</a>
+                    </footer>
+                </form>
             </div>
         </div>
+    </div>
+    <script>
+        function frmRegisterSubmit()
+        {
+            if ($("#frmRegister").valid())
+            {
+                $.ajax({
+                    url: "@Url.Action("Register","Account")",
+                    type: "post",
+                    dateType: "text",
+                    data:{
+                        "vTenDangNhap": $("input[name='username']").val(),
+                        "vMatKhau":$("input[name='pwd']").val()
+                    },
+                    success: function (result) {
+                        var html = '';
+                        if (result === 'True')
+                        {
+                        
+                            html='<div class="alert alert-danger alert-dismissible" role="alert">';
+                            html+='    <button type="button" class="close" data-dismiss="alert" aria-label="Close">';
+                            html+='        <span aria-hidden="true">&times;</span>';
+                            html+='    </button>';
+                            html+='        Đăng ký thành công';
+                            html+='</div>';
+                        } else {
+                            html = '<div class="alert alert-danger alert-dismissible" role="alert">';
+                            html += '    <button type="button" class="close" data-dismiss="alert" aria-label="Close">';
+                            html += '        <span aria-hidden="true">&times;</span>';
+                            html += '    </button>';
+                            html += '        Đăng ký thất bại';
+                            html += '</div>';
+                        }
+                        closeModal();
+                        $(".my-content").prepend(html);
+                    }
+                });
+            }
+            
+        }
+
+        $("#frmRegister").validate({
+            rules: {
+                username: {
+                    required: true
+                },
+                pwd: {
+                    required: true,
+                    minlength: 6
+                },
+                repwd: {
+                    required: true,
+                    equalTo: "#pwd"
+                }
+            },
+            messages: {
+                username: "Không được bỏ trống !",
+                pwd: {
+                    required: "Không được bỏ trống !",
+                    minlength: "Mật khẩu tối thiểu 6 ký tự !"
+                },
+                repwd: {
+                    required: "Không được bỏ trống !",
+                    equalTo: "Nhập lại mật khẩu không đúng !"
+                },
+            },
+            errorClass: "form-control-feedback",
+            highlight: function (element) {
+                $(element).addClass("form-control-danger");
+                $(element).closest("div").addClass("has-danger");
+            },
+            unhighlight: function (element) {
+                $(element).removeClass('form-control-danger');
+                $(element).closest("div").removeClass("has-danger");
+            }
+        });
+        function closeModal() {
+            $('.w3-modal').css("display", "none");
+        }
+
+        $("#register").click(function () {
+            $("#modal-register").css("display", "block");
+        });
+    </script>
 </body>
 </html>
-<!-- /.container-fluid -->
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}

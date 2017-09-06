@@ -43,4 +43,10 @@ namespace sb_admin.web.Models
         public Nullable<System.DateTime> dNgayKT { get; set; }
         public Nullable<int> iMaNguoiDuocGiaoCode { get; set; }
     }
+    public class BaoCaoNhiemVuViewModel
+    {
+        public int iMaNhiemVuCode { get; set; }
+        public string vMoTa { get; set; }
+        public string vDuongDanTapTin { get; set; }
+    }
 }

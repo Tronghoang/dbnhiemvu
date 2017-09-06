@@ -258,7 +258,7 @@
                                 openModal('#modal-ThemNhiemVu', '#modal-ThongBao');
                                 $(".my-list").empty();
                                 $("#index").val(0);
-                                loadList();
+                                loadTable();
                             }
                         }
                     });
@@ -380,7 +380,7 @@
                     eStart = endday.getDate() + '/' + (endday.getMonth() + 1) + '/' + endday.getFullYear();
                     if (res[i].iMaTrangThaiCode == 4 || res[i].iMaTrangThaiCode == 3) {
                         dataTable1.row.add([
-                     '' + res[i].vTenNhiemVu + '',
+                     '<a href="/NhiemVu/ChiTietNhiemVu?iMaNhiemVuCode=' + res[i].iMaNhiemVuCode + '">' + res[i].vTenNhiemVu + '</a>',
                      '' + res[i].vMoTa + '',
                      '' + res[i].vNguoiDuocGiaoCode + '',
                      '' + fStart + '',
@@ -391,7 +391,7 @@
                     }
                     else {
                         dataTable1.row.add([
-                     '' + res[i].vTenNhiemVu + '',
+                     '<a href="/NhiemVu/ChiTietNhiemVu?iMaNhiemVuCode=' + res[i].iMaNhiemVuCode + '">' + res[i].vTenNhiemVu + '</a>',
                      '' + res[i].vMoTa + '',
                      '' + res[i].vNguoiDuocGiaoCode + '',
                      '' + fStart + '',

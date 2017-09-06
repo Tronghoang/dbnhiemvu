@@ -1,0 +1,11 @@
+﻿ul, li {
+    display: list-item;
+    list-style: none;
+}
+
+.truncate {
+  width: 100px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

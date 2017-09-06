@@ -166,18 +166,18 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Common\MessageDetail.cs" />
     <Compile Include="Common\UserDetail.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ModuleController.cs" />
-    <Compile Include="Controllers\NavbarController.cs" />
     <Compile Include="Controllers\NhiemVuController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
-    <Compile Include="Controllers\ViewController.cs" />
-    <Compile Include="Filters\AuthActionFilter.cs" />
+    <Compile Include="Filters\CheckLoginAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helper\CurrentContext.cs" />
     <Compile Include="Helper\StringUtils.cs" />
+    <Compile Include="Models\AccountViewModel.cs" />
     <Compile Include="Models\BaoCao.cs">
       <DependentUpon>NhiemVu.tt</DependentUpon>
     </Compile>
@@ -192,7 +192,6 @@
     </Compile>
     <Compile Include="Models\LayDanhSachLoi.cs" />
     <Compile Include="Models\LayNhiemVu.cs" />
-    <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\Module.cs">
       <DependentUpon>NhiemVu.tt</DependentUpon>
     </Compile>
@@ -221,7 +220,6 @@
       <DependentUpon>NhiemVu.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ProjectViewModel.cs" />
-    <Compile Include="Models\QuenMatKhau.cs" />
     <Compile Include="Models\Quyen.cs">
       <DependentUpon>NhiemVu.tt</DependentUpon>
     </Compile>
@@ -275,6 +273,7 @@
     <Content Include="Content\Image\delete.png" />
     <Content Include="Content\jquery.min.js" />
     <Content Include="Content\myslideshow.css" />
+    <Content Include="Content\mystyle.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\plugins\morris.css" />
     <Content Include="Content\sb-admin.css" />
@@ -886,8 +885,6 @@
     <Content Include="Views\Shared\_navbar.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Shared\_admin.cshtml" />
-    <Content Include="Views\Account\Index.cshtml" />
-    <Content Include="Views\Account\QuenMatKhau.cshtml" />
     <Content Include="Views\Shared\_admin2.cshtml" />
     <Content Include="Views\View.cshtml" />
     <Content Include="Views\View\Index.cshtml" />
@@ -907,6 +904,7 @@
     <Content Include="Views\NhiemVu\ByModule.cshtml" />
     <Content Include="Views\NhiemVu\ChiTietNhiemVu.cshtml" />
     <Content Include="Views\NhiemVu\_HinhNhiemVuPartial.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

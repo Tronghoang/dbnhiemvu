@@ -7,9 +7,10 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using sb_admin.web.Helper;
-
+using sb_admin.web.Filters;
 namespace sb_admin.web.Controllers
 {
+   [CheckLogin]
     public class NhiemVuController : Controller
     {
         // GET: NhiemVu
@@ -53,10 +54,11 @@ namespace sb_admin.web.Controllers
                                   vMoTa = nv.vMoTa,
                                   vTenNhiemVu = nv.vTenNhiemVu,
                                   iMaTrangThaiCode = nv.iMaTrangThaiCode,
+                                  dNgayLap = nv.dNgayLap,
                                   dNgayBD = nv.dNgayBD,
                                   dNgayKT = nv.dNgayKT,
                                   vTenTrangThai=tt.vTenTrangThai
-                              }).ToList();
+                              }).OrderByDescending(m=>m.dNgayLap).ToList();
                 return Json(result);
             }
         }
@@ -72,10 +74,12 @@ namespace sb_admin.web.Controllers
         }
         public ActionResult GetThongTinThanhVien()
         {
+            var iMaThanhVienCode = CurrentContext.GetUser().iMaThanhVienCode;
             using (var db = new dbnhiemvuEntities())
             {
                 var result = (from t in db.ThanhViens
                             join n in db.NhiemVus on t.iMaThanhVienCode equals n.iMaNguoiDuocGiaoCode
+                            where t.iMaThanhVienCode != 14 && t.iMaThanhVienCode != iMaThanhVienCode
                             group new { n.iMaTrangThaiCode, n.iMaNhiemVuCode } by new { t.iMaThanhVienCode, t.vTenDangNhap } into g
                             select new NhiemVuThanhVienViewModel
                             {
@@ -257,6 +261,99 @@ namespace sb_admin.web.Controllers
             {
                 return false;
             }
+        }
+        public ActionResult GetTapTinNhiemVu(int iMaNhiemVuCode)
+        {
+            using (var db = new dbnhiemvuEntities())
+            {
+                var result = db.TapTins.Where(m => m.iMaNhiemVuCode == iMaNhiemVuCode).ToList();
+                return Json(result);
+            }
+
+        }
+        public bool ThayDoiTrangThai(int iMaNhiemVuCode, int? iMaTrangThaiCode)
+        {
+            try
+            {
+                using (var db = new dbnhiemvuEntities())
+                {
+                    var task = db.NhiemVus.Find(iMaNhiemVuCode);
+                    if (task.iMaTrangThaiCode < 3)
+                    {
+                        task.iMaTrangThaiCode += 1;
+                    }
+                    else {
+                        task.iMaTrangThaiCode = iMaTrangThaiCode;
+                    }
+                    db.SaveChanges();
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+
+        }
+        public bool UploadFileBaoCao(int iMaBaoCaoCode)
+        {
+            try
+            {
+                for (int i = 0; i < Request.Files.Count; i++)
+                {
+                    var file = Request.Files[i];
+                    if (file != null && file.ContentLength > 0)
+                    {
+                        string[] extFile = new string[] { ".xls", ".xlsx", ".doc", ".docx", ".txt", ".zip", ".rar", ".sql", ".cs", ".js", ".css" };
+                        using (var db = new dbnhiemvuEntities())
+                        {
+                            if (extFile.Contains(Path.GetExtension(file.FileName).ToLower()))
+                            {
+                                // tạo thư mục lưu file
+                                var spDirPath = Server.MapPath("~/Content/FileReports");
+                                var targetDirpath = Path.Combine(spDirPath, iMaBaoCaoCode.ToString());
+                                Directory.CreateDirectory(targetDirpath);
+                                // lấy tên file
+                                var fileName = Path.GetFileName(file.FileName);
+                                // tạo đường dẫn và lưu hình ảnh
+                                var path = Path.Combine(Server.MapPath($"~/Content/FileReports/{iMaBaoCaoCode}/"), fileName);
+                                file.SaveAs(path);
+                                // lưu hình ảnh vào cơ sở dữ liệu
+                                var taptin = new TapTinBaoCao();
+                                taptin.vDuongDan = $"/Content/FileReports/{iMaBaoCaoCode}/{fileName}";
+                                taptin.iMaBaoCaoCode = iMaBaoCaoCode;
+                                taptin.vTenTapTinBaoCao = fileName;
+                                taptin.iTrangThai = 1;
+                                db.TapTinBaoCaos.Add(taptin);
+                                db.SaveChanges();
+                            }
+                        }
+                    }
+                }
+                return true;
+            }
+            catch { return false; }
+        }
+        public int BaoCaoNhiemVu(BaoCaoNhiemVuViewModel model)
+        {
+            try
+            {
+                using (var db = new dbnhiemvuEntities())
+                {
+                    var baocao = new BaoCao();
+                    baocao.iMaNhiemVuCode = model.iMaNhiemVuCode;
+                    baocao.vMoTa = model.vMoTa;
+                    baocao.vDuongDanTapTin = model.vDuongDanTapTin;
+                    db.BaoCaos.Add(baocao);
+                    db.SaveChanges();
+                    return baocao.iMaBaoCaoCode;
+                }
+            }
+            catch
+            {
+                return 0;
+            }
+
         }
     }
 }

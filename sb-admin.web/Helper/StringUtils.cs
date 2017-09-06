@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Web;
 
-namespace NhiemVu.Helper
+namespace sb_admin.web.Helper
 {
     public class StringUtils
     {
