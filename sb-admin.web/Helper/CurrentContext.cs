@@ -4,7 +4,7 @@ using System.Linq;
 using sb_admin.web.Models;
 using System.Web;
 
-namespace NhiemVu.Helper
+namespace sb_admin.web.Helper
 {
     public class CurrentContext
     {

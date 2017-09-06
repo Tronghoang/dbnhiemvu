@@ -9,6 +9,7 @@ namespace sb_admin.web.Models
     {
         public int iMaNhiemVuCode { get; set; }
         public string vTenNhiemVu { get; set; }
+        public string vTenTrangThai { get; set; }
         public string vMoTa { get; set; }
         public Nullable<System.DateTime> dNgayBD { get; set; }
         public Nullable<System.DateTime> dNgayKT { get; set; }

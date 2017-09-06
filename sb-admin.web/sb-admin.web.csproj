@@ -274,6 +274,7 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\Image\delete.png" />
     <Content Include="Content\jquery.min.js" />
+    <Content Include="Content\myslideshow.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\plugins\morris.css" />
     <Content Include="Content\sb-admin.css" />
@@ -281,6 +282,7 @@
     <Content Include="Content\style1.css" />
     <Content Include="Content\stylebenh.css" />
     <Content Include="Content\sweetalert.css" />
+    <Content Include="Content\w3csss.css" />
     <Content Include="Content\weather.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -842,6 +844,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\MyScripts\myslideshow.js" />
     <Content Include="Scripts\NewFolder1\bootstrap.min.js" />
     <Content Include="Scripts\pace.min.js" />
     <Content Include="Scripts\perfect-scrollbar.min.js" />
@@ -902,6 +905,8 @@
     <Content Include="Views\Project\ChiTietProject.cshtml" />
     <Content Include="Views\Module\ByProject.cshtml" />
     <Content Include="Views\NhiemVu\ByModule.cshtml" />
+    <Content Include="Views\NhiemVu\ChiTietNhiemVu.cshtml" />
+    <Content Include="Views\NhiemVu\_HinhNhiemVuPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

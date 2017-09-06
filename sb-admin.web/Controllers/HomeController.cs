@@ -11,6 +11,7 @@ using PagedList;
 using System.Data.Entity.Validation;
 using System.IO;
 using System.Drawing;
+using sb_admin.web.Helper;
 
 namespace sb_admin.web.Controllers
 {
@@ -367,6 +368,7 @@ namespace sb_admin.web.Controllers
         }
         public ActionResult LayNhiemVuDangChoDuyet()
         {
+            var iMaNguoiDuocGiaoCode = CurrentContext.GetUser().iMaThanhVienCode;
             dbnhiemvuEntities db = new dbnhiemvuEntities();
             List<LayNhiemVu> nhiemvu = new List<LayNhiemVu>();
             try
@@ -374,7 +376,7 @@ namespace sb_admin.web.Controllers
                 nhiemvu = (from nv in db.NhiemVus
                            join tv in db.ThanhViens on nv.iMaNguoiDangCode equals tv.iMaThanhVienCode
                            join tv1 in db.ThanhViens on nv.iMaNguoiDuocGiaoCode equals tv1.iMaThanhVienCode
-                           where tv1.iMaThanhVienCode == 2 && nv.iMaTrangThaiCode == 3
+                           where tv1.iMaThanhVienCode == iMaNguoiDuocGiaoCode && nv.iMaTrangThaiCode == 3
                            select new LayNhiemVu
                            {
                                iMaNhiemVuCode = nv.iMaNhiemVuCode,
@@ -533,13 +535,14 @@ namespace sb_admin.web.Controllers
                 int hoatdong=0;
                 foreach (var item in thanhvien)
                 {
-                     nvloi = db.NhiemVus.Where(m => m.iMaTrangThaiCode == 5 && m.iMaNguoiDuocGiaoCode == item.iMaThanhVienCode).Count();
-                     nhiemvudahoanthanh = db.NhiemVus.Where(x => x.iMaNguoiDuocGiaoCode == item.iMaThanhVienCode && x.iMaTrangThaiCode == 4).Count();
-                     nhiemvuduocgiao = db.NhiemVus.Where(x => x.iMaNguoiDuocGiaoCode == item.iMaThanhVienCode).Count();
-                     hoatdong = db.NhiemVus.Where(x => x.iMaNguoiDuocGiaoCode == item.iMaThanhVienCode && x.iMaTrangThaiCode == 2).Count();
-                    thongtinthanhvien1.Add(new ThongTinThanhVien {
-                        iMaThanhVienCode=item.iMaThanhVienCode,
-                        vTenDangNhap=item.vTenDangNhap,
+                    nvloi = db.NhiemVus.Where(m => m.iMaTrangThaiCode == 5 && m.iMaNguoiDuocGiaoCode == item.iMaThanhVienCode).Count();
+                    nhiemvudahoanthanh = db.NhiemVus.Where(x => x.iMaNguoiDuocGiaoCode == item.iMaThanhVienCode && x.iMaTrangThaiCode == 4).Count();
+                    nhiemvuduocgiao = db.NhiemVus.Where(x => x.iMaNguoiDuocGiaoCode == item.iMaThanhVienCode).Count();
+                    hoatdong = db.NhiemVus.Where(x => x.iMaNguoiDuocGiaoCode == item.iMaThanhVienCode && x.iMaTrangThaiCode == 2).Count();
+                    thongtinthanhvien1.Add(new ThongTinThanhVien
+                    {
+                        iMaThanhVienCode = item.iMaThanhVienCode,
+                        vTenDangNhap = item.vTenDangNhap,
                         iSoNhiemVuDaHoanThanh = nhiemvudahoanthanh,
                         iSoNhiemVuDuocGiao = nhiemvuduocgiao,
                         iSoLoiPhaiSua = nvloi,
