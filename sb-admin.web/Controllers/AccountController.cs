@@ -54,7 +54,7 @@ namespace sb_admin.web.Controllers
                         Response.Cookies["userID"].Value = user.iMaThanhVienCode.ToString();
                         Response.Cookies["userID"].Expires = DateTime.Now.AddDays(7);
                     }
-                    return RedirectToAction("ThanhVien", "Home");
+                    return RedirectToAction("Index", "Project");
                     //return RedirectToAction("Index", "Home");
                 }
                 else

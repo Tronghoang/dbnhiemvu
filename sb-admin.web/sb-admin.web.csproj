@@ -910,6 +910,8 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\NhiemVu\_ChiTietLoiPartial.cshtml" />
     <Content Include="Views\NhiemVu\_HinhLoiPartial.cshtml" />
+    <Content Include="Views\NhiemVu\_BaoCaoPartial.cshtml" />
+    <Content Include="Views\NhiemVu\_TapTinBaoCaoPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

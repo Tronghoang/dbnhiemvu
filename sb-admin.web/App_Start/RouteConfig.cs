@@ -15,7 +15,7 @@ namespace sb_admin.web
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "NhiemVu", id = UrlParameter.Optional }
+                defaults: new { controller = "Project", action = "Index", id = UrlParameter.Optional }
             );
            
         }

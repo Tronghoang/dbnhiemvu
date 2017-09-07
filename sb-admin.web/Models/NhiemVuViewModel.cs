@@ -50,6 +50,7 @@ namespace sb_admin.web.Models
     {
         public int iMaNhiemVuCode { get; set; }
         public string vMoTa { get; set; }
+        public Nullable<int> iMaChiTietLoiCode { get; set; }
         public string vDuongDanTapTin { get; set; }
     }
     public class ThemLoiViewModel {

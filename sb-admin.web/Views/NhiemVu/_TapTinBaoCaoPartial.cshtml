@@ -1,0 +1,7 @@
+﻿@using sb_admin.web.Models
+@model List<TapTinBaoCao>
+
+@foreach (var item in Model)
+{
+    <a href="@Url.Content(item.vDuongDan)" download>@item.vTenTapTinBaoCao</a>
+}

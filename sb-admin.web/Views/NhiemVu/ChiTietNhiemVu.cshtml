@@ -76,8 +76,6 @@
 
         $(function () {
 
-            doiTenbtnTrangThai(@Model.iMaTrangThaiCode);
-
             doiMauTenTrangThai(@Model.iMaTrangThaiCode);
 
             $.ajax({
@@ -118,17 +116,7 @@
                     }
                 }
             });
-        })
-
-        function doiTenbtnTrangThai(iMaTrangThaiCode){
-            if(iMaTrangThaiCode==2)
-            {
-                $("#btnTrangThai").text("Trả nhiệm vụ");
-            }else if(iMaTrangThaiCode==5)
-            {
-                $("#btnTrangThai").text("Sửa lỗi");
-            }
-        }
+        });
 
         function thayDoiTrangThai(curModal,iMaTrangThaiCode){
             $.ajax({
@@ -150,14 +138,12 @@
                             $("#btnTrangThai").text("Giao nhiệm vụ");
                             $("#vTenTrangThai").text("Đang thực hiện");
                             $("#btnTrangThai").attr("onclick","btnTrangThaiClick("+iMaTrangThaiCode+")");
-                        }else if(iMaTrangThaiCode == 3){
-                            html += '<h2 id="thongbao" class="w3-center">Đã báo cáo thành công !</h2>';
-                            $("#vTenTrangThai").text("Đang chờ duyệt");
-                            $("#btnTrangThai").hide();
                         }else if(iMaTrangThaiCode == 4){
                             html += '<h2 id="thongbao" class="w3-center">Đã duyệt thành công !</h2>';
                             $("#vTenTrangThai").text("Đã hoàn thành");
                             $(".btnTrangThai").hide();
+                        }else if(iMaTrangThaiCode == 3){
+                            html += '<h2 id="thongbao" class="w3-center">Đã sữa lỗi thành công !</h2>';
                         }
 
                     }else{
@@ -203,7 +189,7 @@
             html += '</div>';
             $(this).closest(".w3-bar-item").before(html);
 
-        
+
         });
 
         function refresh() {
@@ -353,6 +339,7 @@
                     data:{
                         "iMaNhiemVuCode":@Model.iMaNhiemVuCode,
                         "vMoTa":$("#vMoTa").val(),
+                        "iMaChiTietLoiCode":$("#iMaChiTietLoiCode").val(),
                         "vDuongDanTapTin":$("input[type='linkfile']").val()
                     },
                     success: function(result){
@@ -376,7 +363,7 @@
             else{}
         }
 
-        function btnTrangThaiClick(iMaTrangThaiCode,iSuaLoi){
+        function btnTrangThaiClick(iMaTrangThaiCode,iSuaLoi,iMaChiTietLoiCode){
             if(iSuaLoi==1)
             {
                 thayDoiTrangThai('',4);
@@ -386,7 +373,11 @@
                 if(iMaTrangThaiCode == 1)
                 {
                     openModal('','#modal-comfirm');
-                }else if(iMaTrangThaiCode == 2 || iMaTrangThaiCode==5){
+                }else if(iMaTrangThaiCode == 2){
+                    $("#iMaChiTietLoiCode").val(0);
+                    openModal('','#modal-BaoCao');
+                }else if(iMaTrangThaiCode == 5){
+                    $("#iMaChiTietLoiCode").val(iMaChiTietLoiCode);
                     openModal('','#modal-BaoCao');
                 }
             }
@@ -396,26 +387,26 @@
                 $.ajax({
                     url:"@Url.Action("ThemLoi", "NhiemVu")",
                     type:"post",
-                dataType:"text",
-                data:{
-                    "iMaNhiemVuCode":@Model.iMaNhiemVuCode,
-                    "vTenLoi":$("input[name='vTenLoi']").val(),
-                    "vChiTietLoi":$("input[name='vChiTietLoi']").val(),
-                },
-                success: function(result){
-                    if(result!=0)
-                    {
-                        uploadfile(result);
-                    }else{
-                        var html = '<h2 id="thongbao" class="w3-center">Đã báo cáo thất bại !</h2>';
-                        html += '<center><a class="w3-btn w3-padding-large w3-teal w3-hover-green w3-center" onclick="closeModal()">OK</a></center>';
-                        $(".main-thongbao").append(html);
-                        openModal('#modal-ThemLoi', '#modal-ThongBao');
+                    dataType:"text",
+                    data:{
+                        "iMaNhiemVuCode":@Model.iMaNhiemVuCode,
+                        "vTenLoi":$("input[name='vTenLoi']").val(),
+                        "vChiTietLoi":$("input[name='vChiTietLoi']").val(),
+                    },
+                    success: function(result){
+                        if(result!=0)
+                        {
+                            uploadfile(result);
+                        }else{
+                            var html = '<h2 id="thongbao" class="w3-center">Đã báo cáo thất bại !</h2>';
+                            html += '<center><a class="w3-btn w3-padding-large w3-teal w3-hover-green w3-center" onclick="closeModal()">OK</a></center>';
+                            $(".main-thongbao").append(html);
+                            openModal('#modal-ThemLoi', '#modal-ThongBao');
+                        }
                     }
-                }
-            });
-        }
-        else{}
+                });
+            }
+            else{}
         }
 
         function uploadfile(iMaChiTietLoiCode) {
@@ -457,7 +448,7 @@
 @using sb_admin.web.Models
 @using sb_admin.web.Helper
 @model ChiTietNhiemVuViewModel
-
+    <input id="iMaChiTietLoiCode"/>
 <div class="w3-white w3-margin-top w3-container w3-border w3-border-green" style="padding:0px">
 
     <div class="w3-bar w3-teal">
@@ -504,9 +495,13 @@
                         <td colspan="2" class="w3-center">
                             @if (CurrentContext.GetUser().iMaThanhVienCode != Model.iMaNguoiDangCode && CurrentContext.GetUser().iMaThanhVienCode == Model.iMaNguoiDuocGiaoCode)
                             {
-                                if (Model.iMaTrangThaiCode != 3 && Model.iMaTrangThaiCode != 4)
+                                if (Model.iMaTrangThaiCode == 1)
                                 {
                                     <button id="btnTrangThai" class="btnTrangThai w3-button w3-white w3-border w3-border-blue w3-round-large" onclick="btnTrangThaiClick(@Model.iMaTrangThaiCode)">Nhận nhiệm vụ</button>
+                                }
+                                else if (Model.iMaTrangThaiCode == 2)
+                                {
+                                    <button id="btnTrangThai" class="btnTrangThai w3-button w3-white w3-border w3-border-blue w3-round-large" onclick="btnTrangThaiClick(@Model.iMaTrangThaiCode)">Trả nhiệm vụ</button>
                                 }
                             }
                             else if (CurrentContext.GetUser().iMaThanhVienCode == Model.iMaNguoiDangCode && Model.iMaTrangThaiCode == 3)
@@ -536,14 +531,11 @@
             }
         </div>
 
-        @*<div class="w3-half w3-margin">
+        <div class="w3-half w3-margin">
             <h2>Báo cáo</h2>
             @Html.Action("GetBaoCao", "NhiemVu", new { iMaNhiemVuCode = Model.iMaNhiemVuCode })
-        </div>*@
+        </div>
 
-        
-        
-        
     </div>
 
     <div id="modal-comfirm" class="w3-modal">

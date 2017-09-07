@@ -280,7 +280,21 @@ namespace sb_admin.web.Controllers
                 using (var db = new dbnhiemvuEntities())
                 {
                     var task = db.NhiemVus.Find(iMaNhiemVuCode);
-                    task.iMaTrangThaiCode = iMaTrangThaiCode;
+                    if (task.iMaTrangThaiCode == 5)
+                    {
+                        var loi = db.ChiTietLois.Where(m => m.iMaNhiemVuCode == iMaNhiemVuCode && m.iTrangThai==1).ToList();
+                        if (loi.Count==0)
+                        {
+                            task.iMaTrangThaiCode = iMaTrangThaiCode;
+                        }
+                        else {
+                        }
+                    }
+                    else
+                    {
+                        task.iMaTrangThaiCode = iMaTrangThaiCode;
+                    }
+                    
                     db.SaveChanges();
                     return true;
                 }
@@ -342,6 +356,13 @@ namespace sb_admin.web.Controllers
                     baocao.vDuongDanTapTin = model.vDuongDanTapTin;
                     db.BaoCaos.Add(baocao);
                     db.SaveChanges();
+                    if (model.iMaChiTietLoiCode != 0)
+                    {
+                        var loi = db.ChiTietLois.Find(model.iMaChiTietLoiCode);
+                        loi.iTrangThai = 2;
+                        db.SaveChanges();
+                    }
+                    
                     return baocao.iMaBaoCaoCode;
                 }
             }
@@ -417,7 +438,7 @@ namespace sb_admin.web.Controllers
         public ActionResult GetChiTietLoi(int iMaNhiemVuCode)
         {
             using (var db = new dbnhiemvuEntities()) {
-                var result = db.ChiTietLois.Where(m => m.iMaNhiemVuCode == iMaNhiemVuCode).ToList();
+                var result = db.ChiTietLois.Where(m => m.iMaNhiemVuCode == iMaNhiemVuCode && m.iTrangThai == 1).ToList();
                 return PartialView("_ChiTietLoiPartial", result);
 
             }
@@ -437,10 +458,20 @@ namespace sb_admin.web.Controllers
         {
             using (var db = new dbnhiemvuEntities())
             {
-                var result = db.ChiTietLois.Where(m => m.iMaNhiemVuCode == iMaNhiemVuCode).ToList();
+                var result = db.BaoCaos.Where(m => m.iMaNhiemVuCode == iMaNhiemVuCode).ToList();
                 return PartialView("_BaoCaoPartial", result);
 
             }
+        }
+        public ActionResult TapTinBaoCaoPartial(int iMaBaoCaoCode)
+        {
+            using (var db = new dbnhiemvuEntities())
+            {
+                var result = db.TapTinBaoCaos.Where(m => m.iMaBaoCaoCode == iMaBaoCaoCode).ToList();
+                return PartialView("_TapTinBaoCaoPartial", result);
+                //return Json(result);
+            }
+
         }
     }
 }

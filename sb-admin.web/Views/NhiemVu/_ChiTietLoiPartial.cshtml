@@ -6,6 +6,7 @@
         <h3>@item.vTenLoi</h3>
         <p>@item.vChiTietLoi</p>
         @Html.Action("HinhLoiPartial", "NhiemVu", new { iMaChiTietLoiCode = item.iMaChiTietLoiCode })
+        <button id="btnTrangThai" class="btnTrangThai w3-button w3-white w3-border w3-border-blue w3-round-large" onclick="btnTrangThaiClick(5,0,@item.iMaChiTietLoiCode)">Sữa lỗi</button>
     </div>
     
     
