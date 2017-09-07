@@ -117,7 +117,7 @@
                     }
                 }
             });
-            
+
         }
 
         function doiMauTenTrangThai(iMaTrangThaiCode){
@@ -148,6 +148,10 @@
         $(function () {
 
             doiMauTenTrangThai(@Model.iMaTrangThaiCode);
+            if(@Model.iMaTrangThaiCode==5)
+            {
+                loadDanhSachChiTietLoi(@Model.iMaNguoiDangCode,@CurrentContext.GetUser().iMaThanhVienCode);
+            }
 
             $.ajax({
                 url:"@Url.Action("GetTapTinNhiemVu", "NhiemVu")",
@@ -534,6 +538,7 @@
                     if (result === 'True') {
                         html = '<h2 id="thongbao" class="w3-center">Đã chỉnh sửa lỗi thành công !</h2>';
                         $(".main-thongbao").append(html);
+                        loadDanhSachChiTietLoi(@Model.iMaNguoiDangCode,@CurrentContext.GetUser().iMaThanhVienCode);
                     }
                     else {
                         html = '<h2 id="thongbao" class="w3-center">Đã chỉnh sưa lỗi thất bại !</h2>';
@@ -541,7 +546,7 @@
                     }
                     html = '<center><a class="w3-btn w3-padding-large w3-teal w3-hover-green w3-center" onclick="closeModal()">OK</a></center>';
                     $(".main-thongbao").append(html);
-                    openModal('#modal-ThemLoi', '#modal-ThongBao');
+                    openModal('#modal-ChinhSuaLoi', '#modal-ThongBao');
                 }
             });
         }
@@ -566,9 +571,9 @@
                             html = '<h2 id="thongbao" class="w3-center">Đã chỉnh sửa chi tiết lỗi  thất bại</h2>';
                             html += '<center><a class="w3-btn w3-padding-large w3-teal w3-hover-green w3-center" onclick="closeModal()">OK</a></center>';
                             $(".main-thongbao").append(html);
-                            openModal('#modal-ChinhSuaModule', '#modal-ThongBao');
+                            openModal('#modal-ChinhSuaLoi', '#modal-ThongBao');
                         }
-                        
+
                     }
                 });
             }
@@ -587,13 +592,69 @@
                     $(".main-thongbao").empty();
                     if (result === 'True') {
                         html = '<h2 id="thongbao" class="w3-center">Đã xóa lỗi thành công</h2>';
+                        loadDanhSachChiTietLoi(@Model.iMaNguoiDangCode,@CurrentContext.GetUser().iMaThanhVienCode);
                     }
                     else {
                         html = '<h2 id="thongbao" class="w3-center">Đã xóa lỗi thất bại</h2>';
                     }
                     html += '<center><a class="w3-btn w3-padding-large w3-teal w3-hover-green w3-center" onclick="closeModal()">OK</a></center>';
                     $(".main-thongbao").append(html);
-                    openModal('#modal-XoaModule', '#modal-ThongBao');
+                    openModal('#modal-XoaLoi', '#modal-ThongBao');
+                }
+            });
+        }
+        function loadDanhSachChiTietLoi(iMaNguoiDangCode,iCurrentUser){
+            $("#DanhSachChiTietLoi").empty();
+            $.ajax({
+                url:"/NhiemVu/GetChiTietLoi/",
+                type:"post",
+                dataType:"json",
+                data:{"iMaNhiemVuCode":@Model.iMaNhiemVuCode},
+                success:function(result){
+
+                    for(i=0;i<result.length;i++)
+                    {
+                        var html='';
+                        html='<div class="w3-row w3-border-bottom">';
+                        html+='    <h3>'+result[i].vTenLoi+'</h3>';
+                        html+='    <p>'+result[i].vChiTietLoi+'</p>';
+                        html+='    <button class="w3-button w3-pale-blue" onclick="xemHinhLoi(event,'+result[i].iMaChiTietLoiCode+')">Xem hình</button>';
+                        if (iMaNguoiDangCode != iCurrentUser)
+                        {
+                            html+='<button id="btnTrangThai" class="btnTrangThai w3-button w3-white w3-border w3-border-blue w3-round-large" onclick="btnTrangThaiClick(5,0,'+result[i].iMaChiTietLoiCode+')">Sửa lỗi</button>';
+                        }
+                        else {
+                            html+='<button onclick="openModal('+"''"+','+"'#modal-ChinhSuaLoi',"+result[i].iMaChiTietLoiCode+')" class="w3-button w3-pale-blue">Chỉnh sửa lỗi</button>';
+                            html+='<button onclick="openModal('+"''"+','+"'#modal-XoaLoi',"+result[i].iMaChiTietLoiCode+')" class="w3-button w3-pale-blue">Xóa lỗi</button>';
+                        }
+                        html+='<div class="w3-container w3-hide"></div></div>';
+                        $("#DanhSachChiTietLoi").prepend(html);
+                    }
+                }
+            });
+        }
+        function xemHinhLoi(event,iMaChiTietLoiCode){
+            $.ajax({
+                url:"/NhiemVu/HinhLoiPartial/",
+                type:"post",
+                dataType:"json",
+                data:{"iMaChiTietLoiCode":iMaChiTietLoiCode},
+                success:function(res){
+                    var html ='<div class="w3-content w3-display-container w3-margin w3-padding" style="max-width:400px">';
+                    for(i=0;i<res.length;i++)
+                    {
+                        html+='<img  style="width:50%" src="'+res[i].vDuongDan+'" />';
+                    }
+                    html +='</div>';
+                    //$("#modal-XemHinh .w3-modal-content .modal-main").empty();
+                    //$("#modal-XemHinh .w3-modal-content .modal-main").append(html);
+                    //openModal("","#modal-XemHinh");
+                    var el = $(event.target).closest(".w3-row").find(".w3-container");
+                    el.empty();
+                    el.append(html);
+                    el.toggleClass("w3-hide");
+
+
                 }
             });
         }
@@ -603,7 +664,7 @@
 @using sb_admin.web.Models
 @using sb_admin.web.Helper
 @model ChiTietNhiemVuViewModel
-    <input id="iMaChiTietLoiCode" hidden/>
+<input id="iMaChiTietLoiCode" hidden/>
 <div class="w3-white w3-margin-top w3-container w3-border w3-border-green" style="padding:0px">
 
     <div class="w3-bar w3-teal">
@@ -680,10 +741,9 @@
 
         <div class="w3-half w3-margin">
             <h2>Chi tiết lỗi</h2>
-            @if (Model.iMaTrangThaiCode == 5)
-            {
-                @Html.Action("GetChiTietLoi", "NhiemVu", new { iMaNhiemVuCode = Model.iMaNhiemVuCode })
-            }
+            <div id="DanhSachChiTietLoi">
+            </div>
+            
         </div>
 
         <div class="w3-half w3-margin">
@@ -834,6 +894,97 @@
                         <a class="w3-btn w3-padding-large w3-hover-white w3-right" onclick="frmThemLoiSubmit()">Lưu</a>
                     </footer>
                 </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-ChinhSuaLoi" class="w3-modal">
+        <div class="w3-modal-content w3-animate-right w3-card-4">
+            <div class="w3-display-container">
+                <form id="frmChinhSuaLoi" method="post" enctype="multipart/form-data">
+                    <input hidden name="iMaChiTietLoiCode" />
+                    @Html.AntiForgeryToken()
+                    <header class="w3-container w3-teal">
+                        <span onclick="closeModal()" class="w3-button w3-display-topright">&times;</span>
+                        <h2 id="title-modal" class="w3-text-white">Chỉnh sửa Module</h2>
+                    </header>
+                    <div class="modal-main comfrim">
+                        <table class="w3-table-all comfrim" align="center">
+                            <thead>
+                                <tr>
+                                    <th width="20%"></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tr>
+                                <td>
+                                    Tên lỗi
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Nhập tên nhiệm vụ ở đây..." name="vTenLoi">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Hình
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        <input id="countErrHinh" hidden value="0" />
+                                        <div class="w3-bar bar-hinh" id="danhsachhinh">
+
+                                        </div>
+
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Mô tả
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Nhập mô tả ở đây..." name="vChiTietLoi" />
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <footer id="footer-modal" class="w3-container w3-teal">
+                        <a class="w3-btn w3-padding-large w3-hover-white" onclick="closeModal()">Quay lại</a>
+                        <a class="w3-btn w3-padding-large w3-hover-white w3-right" onclick="frmChinhSuaLoiSubmit()">Lưu</a>
+                    </footer>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div id="modal-XoaLoi" class="w3-modal">
+        <div class="w3-modal-content w3-animate-right w3-card-4">
+            <div class="w3-display-container">
+                @Html.AntiForgeryToken()
+                <header class="w3-container w3-teal">
+                    <span onclick="closeModal()" class="w3-button w3-display-topright">&times;</span>
+                    <h2 id="title-modal" class="w3-text-white">Xóa Lỗi</h2>
+                </header>
+                <div class="modal-main comfrim">
+                    <center><h2>Bạn có chắc chắn muốn xóa lỗi <span id="vTenLoi" class="w3-text-blue"></span> ?</h2></center>
+                </div>
+                <footer id="footer-modal" class="w3-container w3-teal">
+                    <a class="w3-btn w3-padding-large w3-hover-white" onclick="closeModal()">Quay lại</a>
+                    <a class="w3-btn w3-padding-large w3-hover-white w3-right" onclick="frmXoaLoiSubmit()">Xóa</a>
+                </footer>
+            </div>
+        </div>
+    </div>
+    <div id="modal-XemHinh" class="w3-modal">
+        <div class="w3-modal-content w3-animate-right w3-card-4">
+            <header class="w3-container w3-teal">
+                <span onclick="closeModal()" class="w3-button w3-display-topright">&times;</span>
+            </header>
+            <div class="modal-main comfrim">
+
             </div>
         </div>
     </div>

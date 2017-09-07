@@ -449,7 +449,8 @@ namespace sb_admin.web.Controllers
                 }
                 
                 ViewBag.iMaNguoiDangCode = db.NhiemVus.Find(iMaNhiemVuCode).iMaNguoiDangCode;
-                return PartialView("_ChiTietLoiPartial", result);
+                return Json(result);
+                //return PartialView("_ChiTietLoiPartial", result);
 
             }
 
@@ -459,8 +460,8 @@ namespace sb_admin.web.Controllers
             using (var db = new dbnhiemvuEntities())
             {
                 var result = db.HinhLois.Where(m => m.iMaChiTietLoiCode == iMaChiTietLoiCode && m.iTrangThai==1).ToList();
-                return PartialView("_HinhLoiPartial", result);
-                //return Json(result);
+                //return PartialView("_HinhLoiPartial", result);
+                return Json(result);
             }
 
         }
