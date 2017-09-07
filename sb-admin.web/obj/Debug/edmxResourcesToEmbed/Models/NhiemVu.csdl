@@ -154,5 +154,15 @@
     <EntitySet Name="ThanhViens" EntityType="Self.ThanhVien" />
     <EntitySet Name="ThanhVien_Quyen" EntityType="Self.ThanhVien_Quyen" />
     <EntitySet Name="TrangThais" EntityType="Self.TrangThai" />
+    <EntitySet Name="HinhLois" EntityType="dbnhiemvuModel.HinhLoi" />
   </EntityContainer>
+  <EntityType Name="HinhLoi">
+    <Key>
+      <PropertyRef Name="iMaHinhLoiCode" />
+    </Key>
+    <Property Name="iMaHinhLoiCode" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="vDuongDan" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="iTrangThai" Type="Int32" />
+    <Property Name="iMaChiTietLoiCode" Type="Int32" />
+  </EntityType>
 </Schema>

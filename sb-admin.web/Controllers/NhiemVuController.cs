@@ -10,7 +10,7 @@ using sb_admin.web.Helper;
 using sb_admin.web.Filters;
 namespace sb_admin.web.Controllers
 {
-   [CheckLogin]
+    [CheckLogin]
     public class NhiemVuController : Controller
     {
         // GET: NhiemVu
@@ -33,7 +33,7 @@ namespace sb_admin.web.Controllers
                                          vTenDangNhap = t.vTenDangNhap
                                      }).ToList();
                 ViewBag.TrangThai = db.TrangThais.ToList();
-                
+
                 return View();
             }
         }
@@ -57,8 +57,8 @@ namespace sb_admin.web.Controllers
                                   dNgayLap = nv.dNgayLap,
                                   dNgayBD = nv.dNgayBD,
                                   dNgayKT = nv.dNgayKT,
-                                  vTenTrangThai=tt.vTenTrangThai
-                              }).OrderByDescending(m=>m.dNgayLap).ToList();
+                                  vTenTrangThai = tt.vTenTrangThai
+                              }).OrderByDescending(m => m.dNgayLap).ToList();
                 return Json(result);
             }
         }
@@ -78,20 +78,20 @@ namespace sb_admin.web.Controllers
             using (var db = new dbnhiemvuEntities())
             {
                 var result = (from t in db.ThanhViens
-                            join n in db.NhiemVus on t.iMaThanhVienCode equals n.iMaNguoiDuocGiaoCode
-                            where t.iMaThanhVienCode != 14 && t.iMaThanhVienCode != iMaThanhVienCode
-                            group new { n.iMaTrangThaiCode, n.iMaNhiemVuCode } by new { t.iMaThanhVienCode, t.vTenDangNhap } into g
-                            select new NhiemVuThanhVienViewModel
-                            {
-                                vTenDangNhap = g.Key.vTenDangNhap,
-                                iMaThanhVienCode = g.Key.iMaThanhVienCode,
-                                iSoNhiemVuMoi = g.Where(m => m.iMaTrangThaiCode == 1).Count(),
-                                iSoNhiemVuDangThucHien = g.Where(m => m.iMaTrangThaiCode == 2).Count(),
-                                iSoNhiemVuDangChoDuyet = g.Where(m => m.iMaTrangThaiCode == 3).Count(),
-                                iSoNhiemVuDaHoanThanh = g.Where(m => m.iMaTrangThaiCode == 4).Count(),
-                                iSoNhiemVuDangSuaLoi = g.Where(m => m.iMaTrangThaiCode == 5).Count(),
-                                iSoNhiemVuDuocGiao = g.Count()
-                            }).ToList();
+                              join n in db.NhiemVus on t.iMaThanhVienCode equals n.iMaNguoiDuocGiaoCode
+                              where t.iMaThanhVienCode != 14 && t.iMaThanhVienCode != iMaThanhVienCode
+                              group new { n.iMaTrangThaiCode, n.iMaNhiemVuCode } by new { t.iMaThanhVienCode, t.vTenDangNhap } into g
+                              select new NhiemVuThanhVienViewModel
+                              {
+                                  vTenDangNhap = g.Key.vTenDangNhap,
+                                  iMaThanhVienCode = g.Key.iMaThanhVienCode,
+                                  iSoNhiemVuMoi = g.Where(m => m.iMaTrangThaiCode == 1).Count(),
+                                  iSoNhiemVuDangThucHien = g.Where(m => m.iMaTrangThaiCode == 2).Count(),
+                                  iSoNhiemVuDangChoDuyet = g.Where(m => m.iMaTrangThaiCode == 3).Count(),
+                                  iSoNhiemVuDaHoanThanh = g.Where(m => m.iMaTrangThaiCode == 4).Count(),
+                                  iSoNhiemVuDangSuaLoi = g.Where(m => m.iMaTrangThaiCode == 5).Count(),
+                                  iSoNhiemVuDuocGiao = g.Count()
+                              }).ToList();
                 return Json(result);
             }
         }
@@ -110,6 +110,8 @@ namespace sb_admin.web.Controllers
                               where t.iMaNhiemVuCode == iMaNhiemVuCode
                               select new ChiTietNhiemVuViewModel
                               {
+                                  iMaNguoiDangCode = t.iMaNguoiDangCode,
+                                  iMaNguoiDuocGiaoCode = t.iMaNguoiDuocGiaoCode,
                                   iMaNhiemVuCode = t.iMaNhiemVuCode,
                                   iMaTrangThaiCode = t.iMaTrangThaiCode,
                                   dNgayBD = t.dNgayBD,
@@ -271,20 +273,14 @@ namespace sb_admin.web.Controllers
             }
 
         }
-        public bool ThayDoiTrangThai(int iMaNhiemVuCode, int? iMaTrangThaiCode)
+        public bool ThayDoiTrangThai(int iMaNhiemVuCode, int iMaTrangThaiCode)
         {
             try
             {
                 using (var db = new dbnhiemvuEntities())
                 {
                     var task = db.NhiemVus.Find(iMaNhiemVuCode);
-                    if (task.iMaTrangThaiCode < 3)
-                    {
-                        task.iMaTrangThaiCode += 1;
-                    }
-                    else {
-                        task.iMaTrangThaiCode = iMaTrangThaiCode;
-                    }
+                    task.iMaTrangThaiCode = iMaTrangThaiCode;
                     db.SaveChanges();
                     return true;
                 }
@@ -354,6 +350,97 @@ namespace sb_admin.web.Controllers
                 return 0;
             }
 
+        }
+        public int ThemLoi(ThemLoiViewModel model)
+        {
+            var loi = new ChiTietLoi();
+            loi.vChiTietLoi = model.vChiTietLoi;
+            loi.vTenLoi = model.vTenLoi;
+            loi.iMaNhiemVuCode = model.iMaNhiemVuCode;
+            loi.iTrangThai = 1;
+            try {
+                using (var db = new dbnhiemvuEntities())
+                {
+                    var nv = db.NhiemVus.Find(model.iMaNhiemVuCode);
+                    nv.iMaTrangThaiCode = 5;
+                    db.ChiTietLois.Add(loi);
+                    db.SaveChanges();
+                    return loi.iMaChiTietLoiCode;
+                }
+            } catch {
+                return 0;
+            }
+
+        }
+        public bool UploadHinhLoi(int iMaChiTietLoiCode)
+        {
+            try
+            {
+                for (int i = 0; i < Request.Files.Count; i++)
+                {
+                    var file = Request.Files[i];
+                    if (file != null && file.ContentLength > 0)
+                    {
+                        string[] extHinh = new string[] { ".jpg", ".png" };
+                        using (var db = new dbnhiemvuEntities())
+                        {
+                            // kiểm tra định dạng file là .jpg hoặc .png
+                            if (extHinh.Contains(Path.GetExtension(file.FileName).ToLower()))
+                            {
+                                // tạo thư mục lưu hình
+                                string spDirPath = Server.MapPath("~/Content/ImageErr");
+                                string targetDirpath = Path.Combine(spDirPath, iMaChiTietLoiCode.ToString());
+                                Directory.CreateDirectory(targetDirpath);
+                                // lấy tên file
+                                var fileName = Path.GetFileName(file.FileName);
+                                // tạo đường dẫn và lưu hình ảnh
+                                var path = Path.Combine(Server.MapPath($"~/Content/ImageErr/{iMaChiTietLoiCode}/"), fileName);
+                                file.SaveAs(path);
+                                // lưu hình ảnh vào cơ sở dữ liệu
+                                var image = new HinhLoi();
+                                image.vDuongDan = $"/Content/ImageErr/{iMaChiTietLoiCode}/{fileName}";
+                                image.iMaChiTietLoiCode = iMaChiTietLoiCode;
+                                image.iTrangThai = 1;
+                                db.HinhLois.Add(image);
+                                db.SaveChanges();
+                            }
+                        }
+                    }
+                }
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public ActionResult GetChiTietLoi(int iMaNhiemVuCode)
+        {
+            using (var db = new dbnhiemvuEntities()) {
+                var result = db.ChiTietLois.Where(m => m.iMaNhiemVuCode == iMaNhiemVuCode).ToList();
+                return PartialView("_ChiTietLoiPartial", result);
+
+            }
+
+        }
+        public ActionResult HinhLoiPartial(int iMaChiTietLoiCode)
+        {
+            using (var db = new dbnhiemvuEntities())
+            {
+                var result = db.HinhLois.Where(m => m.iMaChiTietLoiCode == iMaChiTietLoiCode).ToList();
+                return PartialView("_HinhLoiPartial", result);
+                //return Json(result);
+            }
+
+        }
+        public ActionResult GetBaoCao(int iMaNhiemVuCode)
+        {
+            using (var db = new dbnhiemvuEntities())
+            {
+                var result = db.ChiTietLois.Where(m => m.iMaNhiemVuCode == iMaNhiemVuCode).ToList();
+                return PartialView("_BaoCaoPartial", result);
+
+            }
         }
     }
 }

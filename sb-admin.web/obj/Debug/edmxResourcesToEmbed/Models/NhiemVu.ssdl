@@ -40,6 +40,15 @@
     <Property Name="vDuongDan" Type="nvarchar(max)" />
     <Property Name="iTrangThai" Type="int" />
   </EntityType>
+  <EntityType Name="HinhLoi">
+    <Key>
+      <PropertyRef Name="iMaHinhLoiCode" />
+    </Key>
+    <Property Name="iMaHinhLoiCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="vDuongDan" Type="nvarchar(max)" />
+    <Property Name="iMaChiTietLoiCode" Type="int" />
+    <Property Name="iTrangThai" Type="int" />
+  </EntityType>
   <EntityType Name="Module">
     <Key>
       <PropertyRef Name="iMaModuleCode" />
@@ -144,6 +153,7 @@
     <EntitySet Name="Chat" EntityType="Self.Chat" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ChiTietLoi" EntityType="Self.ChiTietLoi" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Hinh" EntityType="Self.Hinh" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HinhLoi" EntityType="Self.HinhLoi" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Module" EntityType="Self.Module" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="NhiemVu" EntityType="Self.NhiemVu" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Project" EntityType="Self.Project" Schema="dbo" store:Type="Tables" />

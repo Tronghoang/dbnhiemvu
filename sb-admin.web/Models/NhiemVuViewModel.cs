@@ -23,6 +23,7 @@ namespace sb_admin.web.Models
     }
     public class ChiTietNhiemVuViewModel
     {
+        
         public int iMaNhiemVuCode { get; set; }
         public string vTenNhiemVu { get; set; }
         public string vMoTa { get; set; }
@@ -31,6 +32,8 @@ namespace sb_admin.web.Models
         public Nullable<System.DateTime> dNgayBD { get; set; }
         public Nullable<System.DateTime> dNgayKT { get; set; }
         public Nullable<int> iMaTrangThaiCode { get; set; }
+        public Nullable<int> iMaNguoiDangCode { get; set; }
+        public Nullable<int> iMaNguoiDuocGiaoCode { get; set; }
         public string vTenTrangThai { get; set; }
         public Nullable<System.DateTime> dNgayLap { get; set; }
     }
@@ -48,5 +51,10 @@ namespace sb_admin.web.Models
         public int iMaNhiemVuCode { get; set; }
         public string vMoTa { get; set; }
         public string vDuongDanTapTin { get; set; }
+    }
+    public class ThemLoiViewModel {
+        public Nullable<int> iMaNhiemVuCode { get; set; }
+        public string vTenLoi { get; set; }
+        public string vChiTietLoi { get; set; }
     }
 }

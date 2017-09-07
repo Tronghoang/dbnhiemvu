@@ -190,6 +190,9 @@
     <Compile Include="Models\Hinh.cs">
       <DependentUpon>NhiemVu.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\HinhLoi.cs">
+      <DependentUpon>NhiemVu.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\LayDanhSachLoi.cs" />
     <Compile Include="Models\LayNhiemVu.cs" />
     <Compile Include="Models\Module.cs">
@@ -905,6 +908,8 @@
     <Content Include="Views\NhiemVu\ChiTietNhiemVu.cshtml" />
     <Content Include="Views\NhiemVu\_HinhNhiemVuPartial.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\NhiemVu\_ChiTietLoiPartial.cshtml" />
+    <Content Include="Views\NhiemVu\_HinhLoiPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

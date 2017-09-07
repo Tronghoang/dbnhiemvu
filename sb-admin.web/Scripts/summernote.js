@@ -4150,7 +4150,7 @@
                 data: data,
                 success: function (result) {
                     debugger;
-                    src = "http://localhost:16187/" + result + "";
+                    src = "/" + result + "";
                     console.log(src);
                     return async.createImage(src, param).then(function ($image) {
                         beforeCommand();

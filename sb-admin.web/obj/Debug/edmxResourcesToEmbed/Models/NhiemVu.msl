@@ -153,5 +153,15 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="HinhLois">
+      <EntityTypeMapping TypeName="dbnhiemvuModel.HinhLoi">
+        <MappingFragment StoreEntitySet="HinhLoi">
+          <ScalarProperty Name="iMaChiTietLoiCode" ColumnName="iMaChiTietLoiCode" />
+          <ScalarProperty Name="iTrangThai" ColumnName="iTrangThai" />
+          <ScalarProperty Name="vDuongDan" ColumnName="vDuongDan" />
+          <ScalarProperty Name="iMaHinhLoiCode" ColumnName="iMaHinhLoiCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

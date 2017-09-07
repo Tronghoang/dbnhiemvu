@@ -39,5 +39,6 @@ namespace sb_admin.web.Models
         public virtual DbSet<ThanhVien> ThanhViens { get; set; }
         public virtual DbSet<ThanhVien_Quyen> ThanhVien_Quyen { get; set; }
         public virtual DbSet<TrangThai> TrangThais { get; set; }
+        public virtual DbSet<HinhLoi> HinhLois { get; set; }
     }
 }

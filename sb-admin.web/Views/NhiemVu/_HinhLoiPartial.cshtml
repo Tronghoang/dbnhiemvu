@@ -1,0 +1,13 @@
+﻿@using sb_admin.web.Models
+@model List<HinhLoi>
+
+@if (Model != null)
+{
+    <div class="w3-content w3-display-container w3-margin w3-padding" style="max-width:400px">
+        @foreach (var item in Model)
+        {
+            <img  style="width:20%" src="@Url.Content(item.vDuongDan)" />
+        }
+    </div>
+}
+
