@@ -38,15 +38,86 @@
                 vTenLoi: "Không được bỏ trống !",
             }
         });
+        $("#frmChinhSuaLoi").validate({
+            rules: {
+                vTenLoi: {
+                    required: true
+                },
+                vChiTietLoi: {
+                    required: true
+                }
+            },
+            messages: {
+                vChiTietLoi: "Không được bỏ trống !",
+                vTenLoi: "Không được bỏ trống !",
+            }
+        });
 
         function closeModal() {
             $(".w3-modal").css("display", "none");
 
         }
-        function openModal(curModal, nextModal) {
+        function openModal(curModal, nextModal,iMaChiTietLoiCode) {
             refresh();
+            if (nextModal == "#modal-ChinhSuaLoi" || nextModal == "#modal-XoaLoi")
+            {
+                $("#modal-ChinhSuaLoi input[name='iMaChiTietLoiCode']").val(iMaChiTietLoiCode);
+                $.ajax({
+                    url:"@Url.Action("GetInfoChiTietLoi", "NhiemVu")",
+                    type:"post",
+                    dateType: "json",
+                    data: {"iMaChiTietLoiCode":iMaChiTietLoiCode},
+                    success: function (result) {
+                        if (nextModal == "#modal-ChinhSuaLoi") {
+                            $("#modal-ChinhSuaLoi input[name='vTenLoi']").val(result["vTenLoi"]);
+                            $("#modal-ChinhSuaLoi input[name='vChiTietLoi']").val(result["vChiTietLoi"]);
+                        } else {
+                            $("#vTenLoi").text(result["vTenLoi"]);
+                        }
+
+                    }
+                });
+                if(nextModal == "#modal-ChinhSuaLoi")
+                {
+                    $.ajax({
+                        url:"@Url.Action("GetHinhLoiChinhSua", "NhiemVu")",
+                        type:"post",
+                        dateType: "json",
+                        data: {"iMaChiTietLoiCode":iMaChiTietLoiCode},
+                        success: function (result) {
+                            for(i=0;i<result.length;i++)
+                            {
+                                var html='';
+                                html += '<div class="w3-margin-right w3-bar-item w3-border w3-border-gray w3-pale-blue w3-display-container">';
+                                html += '<a onclick="removeHinhLoi(event,'+result[i].iMaHinhLoiCode+')" class="w3-transparent w3-hover-gray w3-display-topright">&times;</a>';
+                                html += '<h3><label><img style="width:63px;height:43px" src="'+result[i].vDuongDan+'" /></label></h3>';
+                                html += '</div>';
+                                $(".bar-hinh").append(html);
+                            }
+                        }
+                    });
+                }
+
+            }
             $(curModal).css("display", "none");
             $(nextModal).css("display", "block");
+        }
+
+        function removeHinhLoi(event,iMaHinhLoiCode)
+        {
+            $.ajax({
+                url:"@Url.Action("XoaHinhLoi", "NhiemVu")",
+                type:"post",
+                dateType: "json",
+                data: {"iMaHinhLoiCode":iMaHinhLoiCode},
+                success: function (result) {
+                    if(result==='True')
+                    {
+                        event.target.closest(".w3-bar-item").remove();
+                    }
+                }
+            });
+            
         }
 
         function doiMauTenTrangThai(iMaTrangThaiCode){
@@ -440,7 +511,91 @@
                     openModal('#modal-ThemLoi', '#modal-ThongBao');
                 }
             });
+        }
 
+        function uploadHinhLoi(iMaChiTietLoiCode) {
+            var inputfile = $("input[type='file']");
+            var data = new FormData();
+            for (i = 0; i < inputfile.length; i++) {
+                var files = inputfile[i].files;
+                for (var j = 0; j < files.length; j++) {
+                    var file = files[j];
+                    data.append("FileUpload" + i, file);
+                }
+            }
+            $.ajax({
+                url: "/NhiemVu/UploadHinhLoi?iMaChiTietLoiCode=" + iMaChiTietLoiCode,
+                type: "POST",
+                contentType: false,
+                processData: false,
+                data: data,
+                success: function (result) {
+                    var html = '';
+                    if (result === 'True') {
+                        html = '<h2 id="thongbao" class="w3-center">Đã chỉnh sửa lỗi thành công !</h2>';
+                        $(".main-thongbao").append(html);
+                    }
+                    else {
+                        html = '<h2 id="thongbao" class="w3-center">Đã chỉnh sưa lỗi thất bại !</h2>';
+                        $(".main-thongbao").append(html);
+                    }
+                    html = '<center><a class="w3-btn w3-padding-large w3-teal w3-hover-green w3-center" onclick="closeModal()">OK</a></center>';
+                    $(".main-thongbao").append(html);
+                    openModal('#modal-ThemLoi', '#modal-ThongBao');
+                }
+            });
+        }
+        function frmChinhSuaLoiSubmit() {
+            if ($("#frmChinhSuaLoi").valid() == true) {
+                $.ajax({
+                    url: "@Url.Action("ChinhSuaLoi", "NhiemVu")",
+                    type: "post",
+                    dataType: "text",
+                    data: {
+                        "iMaChiTietLoiCode": $("input[name='iMaChiTietLoiCode']").val(),
+                        "vTenLoi": $("#modal-ChinhSuaLoi input[name='vTenLoi']").val(),
+                        "vChiTietLoi": $("#modal-ChinhSuaLoi input[name='vChiTietLoi']").val(),
+                    },
+                    success: function (result) {
+                        var html = '';
+                        $(".main-thongbao").empty();
+                        if (result === 'True') {
+                            uploadHinhLoi($("input[name='iMaChiTietLoiCode']").val());
+                        }
+                        else {
+                            html = '<h2 id="thongbao" class="w3-center">Đã chỉnh sửa chi tiết lỗi  thất bại</h2>';
+                            html += '<center><a class="w3-btn w3-padding-large w3-teal w3-hover-green w3-center" onclick="closeModal()">OK</a></center>';
+                            $(".main-thongbao").append(html);
+                            openModal('#modal-ChinhSuaModule', '#modal-ThongBao');
+                        }
+                        
+                    }
+                });
+            }
+        }
+
+        function frmXoaLoiSubmit() {
+            $.ajax({
+                url: "@Url.Action("XoaLoi", "NhiemVu")",
+                type: "post",
+                dataType: "text",
+                data: {
+                    "iMaChiTietLoiCode": $("input[name='iMaChiTietLoiCode']").val(),
+                },
+                success: function (result) {
+                    var html = '';
+                    $(".main-thongbao").empty();
+                    if (result === 'True') {
+                        html = '<h2 id="thongbao" class="w3-center">Đã xóa lỗi thành công</h2>';
+                    }
+                    else {
+                        html = '<h2 id="thongbao" class="w3-center">Đã xóa lỗi thất bại</h2>';
+                    }
+                    html += '<center><a class="w3-btn w3-padding-large w3-teal w3-hover-green w3-center" onclick="closeModal()">OK</a></center>';
+                    $(".main-thongbao").append(html);
+                    openModal('#modal-XoaModule', '#modal-ThongBao');
+                }
+            });
         }
     </script>
 }
@@ -448,7 +603,7 @@
 @using sb_admin.web.Models
 @using sb_admin.web.Helper
 @model ChiTietNhiemVuViewModel
-    <input id="iMaChiTietLoiCode"/>
+    <input id="iMaChiTietLoiCode" hidden/>
 <div class="w3-white w3-margin-top w3-container w3-border w3-border-green" style="padding:0px">
 
     <div class="w3-bar w3-teal">

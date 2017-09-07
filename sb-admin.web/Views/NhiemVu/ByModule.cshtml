@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = ViewBag.vTenModule+" / "+ViewBag.vTenProject;
+    ViewBag.Title = ViewBag.vTenProject+" / "+ ViewBag.vTenModule;
     Layout = "~/Views/Shared/_admin.cshtml";
 }
 
@@ -21,13 +21,12 @@
 
 @section js{
 <script src="~/Scripts/datatables.min.js"></script>
-    <script src="~/Helper/jquery-validation-1.17.0/dist/jquery.validate.min.js"></script>
+<script src="~/Helper/jquery-validation-1.17.0/dist/jquery.validate.min.js"></script>
 <script src="~/Helper/boostrap-datetimepicker/js/bootstrap-datepicker.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-notify/0.2.0/js/bootstrap-notify.js"></script>
     <script>
         function closeModal() {
             $(".w3-modal").css("display", "none");
-
         }
         function openModal(curModal, nextModal, iMaNhiemVuCode) {
             refresh();
@@ -69,7 +68,6 @@
                 if (countTapTin == 0) {
                     $("#errTapTin").remove();
                 }
-
             }
             event.target.closest(".w3-bar-item").remove();
         }
@@ -153,8 +151,6 @@
             html += '       <h3><label for="' + index + 'Hinh"><i class="fa fa-camera w3-button w3-padding-large w3-text-teal" aria-hidden="true"></i></label></h3>';
             html += '</div>';
             $(this).closest(".w3-bar-item").before(html);
-
-
         });
 
         $('.datepicker').datepicker({

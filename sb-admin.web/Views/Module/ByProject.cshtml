@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Quản lý module project " + ViewBag.vTenProject;
+    ViewBag.Title = ViewBag.vTenProject;
     Layout = "~/Views/Shared/_admin.cshtml";
 }
 
@@ -200,10 +200,10 @@
                     var html = '';
                     $(".main-thongbao").empty();
                     if (result === 'True') {
-                        html = '<h2 id="thongbao" class="w3-center">Đã xóa Module thành công</h2>';
+                        html = '<h2 id="thongbao" class="w3-center">Đã xóa module thành công</h2>';
                     }
                     else {
-                        html = '<h2 id="thongbao" class="w3-center">Đã xóa Module thất bại</h2>';
+                        html = '<h2 id="thongbao" class="w3-center">Đã xóa module thất bại</h2>';
                     }
                     html += '<center><a class="w3-btn w3-padding-large w3-teal w3-hover-green w3-center" onclick="closeModal()">OK</a></center>';
                     $(".main-thongbao").append(html);
@@ -247,16 +247,6 @@
         </div>
         <input hidden id="index" value="0" />
         <div class="my-list w3-margin-left">
-            <div class="w3-row w3-border-bottom">
-                <h2>Module 1</h2>
-                <p>Mo ta Module 1</p>
-                <p>Ngay lap : 12/123/123</p>
-            </div>
-            <div class="w3-row w3-border-bottom">
-                <h2>Module 1</h2>
-                <p>Mo ta Module 1</p>
-                <p>Ngay lap : 12/123/123</p>
-            </div>
         </div>
         <div class="w3-row" id="btntaithem">
             <button onclick="taiThem()" class="w3-btn w3-block w3-teal w3-padding-large">Tải thêm...</button>

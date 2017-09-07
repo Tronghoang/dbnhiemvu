@@ -158,7 +158,7 @@ namespace sb_admin.web.Controllers
                 return Json(result);
             }
         }
-        public int ThemNhiemVu(ThemNhiemVuMoel model)
+        public int ThemNhiemVu(ThemNhiemViewModel model)
         {
             var iMaNguoiDangCode = CurrentContext.GetUser().iMaThanhVienCode;
             var task = new Models.NhiemVu();
@@ -438,7 +438,17 @@ namespace sb_admin.web.Controllers
         public ActionResult GetChiTietLoi(int iMaNhiemVuCode)
         {
             using (var db = new dbnhiemvuEntities()) {
-                var result = db.ChiTietLois.Where(m => m.iMaNhiemVuCode == iMaNhiemVuCode && m.iTrangThai == 1).ToList();
+                var iMaNguoiDangCode = db.NhiemVus.Find(iMaNhiemVuCode).iMaNguoiDangCode;
+                var result = db.ChiTietLois.Where(m => m.iMaNhiemVuCode == iMaNhiemVuCode).ToList();
+                if (iMaNguoiDangCode == CurrentContext.GetUser().iMaThanhVienCode)
+                {
+                    result = result.Where(m=>m.iTrangThai != 0).ToList();
+                }
+                else {
+                    result = result.Where(m => m.iTrangThai == 1).ToList();
+                }
+                
+                ViewBag.iMaNguoiDangCode = db.NhiemVus.Find(iMaNhiemVuCode).iMaNguoiDangCode;
                 return PartialView("_ChiTietLoiPartial", result);
 
             }
@@ -448,7 +458,7 @@ namespace sb_admin.web.Controllers
         {
             using (var db = new dbnhiemvuEntities())
             {
-                var result = db.HinhLois.Where(m => m.iMaChiTietLoiCode == iMaChiTietLoiCode).ToList();
+                var result = db.HinhLois.Where(m => m.iMaChiTietLoiCode == iMaChiTietLoiCode && m.iTrangThai==1).ToList();
                 return PartialView("_HinhLoiPartial", result);
                 //return Json(result);
             }
@@ -470,6 +480,77 @@ namespace sb_admin.web.Controllers
                 var result = db.TapTinBaoCaos.Where(m => m.iMaBaoCaoCode == iMaBaoCaoCode).ToList();
                 return PartialView("_TapTinBaoCaoPartial", result);
                 //return Json(result);
+            }
+
+        }
+        public ActionResult GetInfoChiTietLoi(int iMaChiTietLoiCode) {
+            using (var db = new dbnhiemvuEntities())
+            {
+                var result = db.ChiTietLois.Find(iMaChiTietLoiCode);
+                return Json(result);
+
+            }
+        }
+        public bool ChinhSuaLoi(ChinhSuaLoiViewModel model)
+        {
+            try
+            {
+                using (var db = new dbnhiemvuEntities())
+                {
+                    var p = db.ChiTietLois.Find(model.iMaChiTietLoiCode);
+                    p.vTenLoi = model.vTenLoi;
+                    p.vChiTietLoi = model.vChiTietLoi;
+                    db.SaveChanges();
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+
+        }
+        public bool XoaLoi(int iMaChiTietLoiCode)
+        {
+            try
+            {
+                using (var db = new dbnhiemvuEntities())
+                {
+                    var p = db.ChiTietLois.Find(iMaChiTietLoiCode);
+                    p.iTrangThai = 0;
+                    db.SaveChanges();
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+
+        }
+        public ActionResult GetHinhLoiChinhSua(int iMaChiTietLoiCode)
+        {
+            using (var db = new dbnhiemvuEntities())
+            {
+                var result = db.HinhLois.Where(m => m.iMaChiTietLoiCode == iMaChiTietLoiCode && m.iTrangThai==1).ToList();
+                return Json(result);
+            }
+        }
+        public bool XoaHinhLoi(int iMaHinhLoiCode)
+        {
+            try
+            {
+                using (var db = new dbnhiemvuEntities())
+                {
+                    var p = db.HinhLois.Find(iMaHinhLoiCode);
+                    p.iTrangThai = 0;
+                    db.SaveChanges();
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
             }
 
         }
