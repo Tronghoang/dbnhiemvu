@@ -150,9 +150,9 @@
             doiMauTenTrangThai(@Model.iMaTrangThaiCode);
             if(@Model.iMaTrangThaiCode==5)
             {
-                loadDanhSachChiTietLoi(@Model.iMaNguoiDangCode,@CurrentContext.GetUser().iMaThanhVienCode);
+                loadDanhSachChiTietLoi(@Model.iMaNguoiDangCode,@CurrentContext.GetUser().iMaThanhVienCode,0);
             }
-
+            loadDanhSachBaoCao(0);
             $.ajax({
                 url:"@Url.Action("GetTapTinNhiemVu", "NhiemVu")",
                 type:"post",
@@ -603,18 +603,19 @@
                 }
             });
         }
-        function loadDanhSachChiTietLoi(iMaNguoiDangCode,iCurrentUser){
+        function loadDanhSachChiTietLoi(iMaNguoiDangCode,iCurrentUser,index){
             $("#DanhSachChiTietLoi").empty();
             $.ajax({
                 url:"/NhiemVu/GetChiTietLoi/",
                 type:"post",
                 dataType:"json",
-                data:{"iMaNhiemVuCode":@Model.iMaNhiemVuCode},
+                data:{"iMaNhiemVuCode":@Model.iMaNhiemVuCode,
+                    "index":index},
                 success:function(result){
-
+                    var html='';
                     for(i=0;i<result.length;i++)
                     {
-                        var html='';
+
                         html='<div class="w3-row w3-border-bottom">';
                         html+='    <h3>'+result[i].vTenLoi+'</h3>';
                         html+='    <p>'+result[i].vChiTietLoi+'</p>';
@@ -628,8 +629,22 @@
                             html+='<button onclick="openModal('+"''"+','+"'#modal-XoaLoi',"+result[i].iMaChiTietLoiCode+')" class="w3-button w3-pale-blue">Xóa lỗi</button>';
                         }
                         html+='<div class="w3-container w3-hide"></div></div>';
-                        $("#DanhSachChiTietLoi").prepend(html);
+                        $("#DanhSachChiTietLoi").append(html);
                     }
+                    var SoTrangChiTietLoi=@ViewBag.SoTrangChiTietLoi;
+                    var pre = index - 1 < 1 ? 0 : index - 1;
+                    var next =index + 1 > SoTrangChiTietLoi-1 ? SoTrangChiTietLoi-1 : index + 1;
+                    html='';
+                    html+='<div class="w3-bar">';
+                    html+='<button onclick="loadDanhSachChiTietLoi('+iMaNguoiDangCode+','+iCurrentUser+','+pre+')" class="w3-button">&laquo;</button>';
+                    for(i=0;i<SoTrangChiTietLoi;i++)
+                    {
+                        html+='<button id="'+i+'ChiTietLoi" onclick="loadDanhSachChiTietLoi('+iMaNguoiDangCode+','+iCurrentUser+','+i+')" class="w3-button">'+(i+1)+'</button>';
+                    }
+                    html+='<button onclick="loadDanhSachChiTietLoi('+iMaNguoiDangCode+','+iCurrentUser+','+next+')" class="w3-button">&raquo;</button>';
+                    html+='</div>';
+                    $("#DanhSachChiTietLoi").append(html);
+                    $("#"+index+"ChiTietLoi").addClass("w3-indigo");
                 }
             });
         }
@@ -643,18 +658,74 @@
                     var html ='<div class="w3-content w3-display-container w3-margin w3-padding" style="max-width:400px">';
                     for(i=0;i<res.length;i++)
                     {
-                        html+='<img  style="width:50%" src="'+res[i].vDuongDan+'" />';
+                        html+='<img style="width:50%" src="'+res[i].vDuongDan+'" />';
                     }
                     html +='</div>';
-                    //$("#modal-XemHinh .w3-modal-content .modal-main").empty();
-                    //$("#modal-XemHinh .w3-modal-content .modal-main").append(html);
-                    //openModal("","#modal-XemHinh");
                     var el = $(event.target).closest(".w3-row").find(".w3-container");
                     el.empty();
                     el.append(html);
                     el.toggleClass("w3-hide");
+                }
+            });
+        }
+        function loadDanhSachBaoCao(index){
+            
+            $("#DanhSachBaoCao").empty();
+            $.ajax({
+                url:"/NhiemVu/GetBaoCao/",
+                type:"post",
+                dataType:"json",
+                data:{"iMaNhiemVuCode":@Model.iMaNhiemVuCode,
+                    "index":index},
+                success:function(result){
+                    var html='';
+                    for(i=0;i<result.length;i++)
+                    {
 
-
+                        html='<div class="w3-row w3-border-bottom">';
+                        html+='    <h3>Báo cáo lần '+(i+1)+'</h3>';
+                        html+='    <p>'+result[i].vMoTa+'</p>';
+                        if(result[i].vDuongDanTapTin != null)
+                        {
+                            html+='<a href="'+result[i].vDuongDanTapTin+'">Link tập tin</a>';
+                        }
+                        html+='    <button class="w3-button w3-pale-blue" onclick="xemTapTinBaoCao(event,'+result[i].iMaBaoCaoCode+')">Xem tập tin báo cáo</button>';
+                        html+='<div class="w3-container w3-hide"></div></div>';
+                        $("#DanhSachBaoCao").append(html);
+                    }
+                    var SoTrangBaoCao=@ViewBag.SoTrangBaoCao;
+                    var pre = index - 1 < 1 ? 0 : index - 1;
+                    var next =index + 1 > SoTrangBaoCao-1 ? SoTrangBaoCao-1 : index + 1;
+                    html='';
+                    html+='<div class="w3-bar">';
+                    html+='<button onclick="loadDanhSachBaoCao('+pre+')" class="w3-button">&laquo;</button>';
+                    for(i=0;i<SoTrangBaoCao;i++)
+                    {
+                        html+='<button id="'+i+'BaoCao" onclick="loadDanhSachBaoCao('+i+')" class="w3-button my-page">'+(i+1)+'</button>';
+                    }
+                    html+='<button onclick="loadDanhSachBaoCao('+next+')" class="w3-button">&raquo;</button>';
+                    html+='</div>';
+                    $("#DanhSachBaoCao").append(html);
+                    $("#"+index+"BaoCao").addClass("w3-indigo");
+                }
+            });
+        }
+        function xemTapTinBaoCao(event,iMaBaoCaoCode){
+            $.ajax({
+                url:"/NhiemVu/TapTinBaoCaoPartial/",
+                type:"post",
+                dataType:"json",
+                data:{"iMaBaoCaoCode":iMaBaoCaoCode},
+                success:function(res){
+                    var html='';
+                    for(i=0;i<res.length;i++)
+                    {
+                        html+='<a href="'+res[i].vDuongDan+'" download>'+res[i].vTenTapTinBaoCao+'</a>';
+                    }
+                    var el = $(event.target).closest(".w3-row").find(".w3-container");
+                    el.empty();
+                    el.append(html);
+                    el.toggleClass("w3-hide");
                 }
             });
         }
@@ -665,6 +736,7 @@
 @using sb_admin.web.Helper
 @model ChiTietNhiemVuViewModel
 <input id="iMaChiTietLoiCode" hidden/>
+<p>@ViewBag.iMaNguoiDangCode</p>
 <div class="w3-white w3-margin-top w3-container w3-border w3-border-green" style="padding:0px">
 
     <div class="w3-bar w3-teal">
@@ -748,7 +820,9 @@
 
         <div class="w3-half w3-margin">
             <h2>Báo cáo</h2>
-            @Html.Action("GetBaoCao", "NhiemVu", new { iMaNhiemVuCode = Model.iMaNhiemVuCode })
+            <div id="DanhSachBaoCao">
+            </div>
+            @*@Html.Action("GetBaoCao", "NhiemVu", new { iMaNhiemVuCode = Model.iMaNhiemVuCode })*@
         </div>
 
     </div>

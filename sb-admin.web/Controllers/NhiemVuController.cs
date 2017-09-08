@@ -123,6 +123,18 @@ namespace sb_admin.web.Controllers
                                   vTenNhiemVu = t.vTenNhiemVu,
                                   vTenTrangThai = tt.vTenTrangThai
                               }).FirstOrDefault();
+                var loi = db.ChiTietLois.Where(m => m.iMaNhiemVuCode == iMaNhiemVuCode).ToList();
+                if (result.iMaNguoiDangCode == CurrentContext.GetUser().iMaThanhVienCode)
+                {
+                    loi = loi.Where(m => m.iTrangThai != 0).ToList();
+                }
+                else {
+                    loi = loi.Where(m => m.iTrangThai == 1).ToList();
+                }
+                var item = 5;
+                var baocao = db.BaoCaos.Where(m => m.iMaNhiemVuCode == iMaNhiemVuCode).ToList();
+                ViewBag.SoTrangChiTietLoi = Math.Ceiling((double)loi.Count / item);
+                ViewBag.SoTrangBaoCao = Math.Ceiling((double)baocao.Count / item);
                 return View(result);
             }
 
@@ -435,8 +447,12 @@ namespace sb_admin.web.Controllers
                 return false;
             }
         }
-        public ActionResult GetChiTietLoi(int iMaNhiemVuCode)
+        public ActionResult GetChiTietLoi(int iMaNhiemVuCode,int? index)
         {
+            if (!index.HasValue)
+            {
+                index = 0;
+            }
             using (var db = new dbnhiemvuEntities()) {
                 var iMaNguoiDangCode = db.NhiemVus.Find(iMaNhiemVuCode).iMaNguoiDangCode;
                 var result = db.ChiTietLois.Where(m => m.iMaNhiemVuCode == iMaNhiemVuCode).ToList();
@@ -447,11 +463,9 @@ namespace sb_admin.web.Controllers
                 else {
                     result = result.Where(m => m.iTrangThai == 1).ToList();
                 }
-                
-                ViewBag.iMaNguoiDangCode = db.NhiemVus.Find(iMaNhiemVuCode).iMaNguoiDangCode;
+                var item = 1;
+                result = result.OrderByDescending(m => m.iMaChiTietLoiCode).Skip(item * index.Value).Take(item).ToList();
                 return Json(result);
-                //return PartialView("_ChiTietLoiPartial", result);
-
             }
 
         }
@@ -465,13 +479,18 @@ namespace sb_admin.web.Controllers
             }
 
         }
-        public ActionResult GetBaoCao(int iMaNhiemVuCode)
+        public ActionResult GetBaoCao(int iMaNhiemVuCode,int? index=0)
         {
+            if(!index.HasValue)
+            {
+                index = 0;
+            }
             using (var db = new dbnhiemvuEntities())
             {
                 var result = db.BaoCaos.Where(m => m.iMaNhiemVuCode == iMaNhiemVuCode).ToList();
-                return PartialView("_BaoCaoPartial", result);
-
+                var item = 1;
+                result = result.OrderByDescending(m => m.iMaBaoCaoCode).Skip(item * index.Value).Take(item).ToList();
+                return Json(result);
             }
         }
         public ActionResult TapTinBaoCaoPartial(int iMaBaoCaoCode)
@@ -479,8 +498,8 @@ namespace sb_admin.web.Controllers
             using (var db = new dbnhiemvuEntities())
             {
                 var result = db.TapTinBaoCaos.Where(m => m.iMaBaoCaoCode == iMaBaoCaoCode).ToList();
-                return PartialView("_TapTinBaoCaoPartial", result);
-                //return Json(result);
+                //return PartialView("_TapTinBaoCaoPartial", result);
+                return Json(result);
             }
 
         }
