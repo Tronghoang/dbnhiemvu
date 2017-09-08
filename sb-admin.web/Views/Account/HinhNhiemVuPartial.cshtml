@@ -1,0 +1,17 @@
+﻿@using NhiemVu.Models
+@model List<Hinh>
+
+<div class="w3-content w3-display-container w3-margin w3-padding" style="max-width:800px">
+    @foreach (var item in Model)
+    {
+        <img class="mySlides" style="width:100%" src="@Url.Content(item.vDuongDan)" />
+    }
+    <div class="w3-center w3-container w3-section w3-large w3-text-white w3-display-bottommiddle" style="width:100%">
+        <div class="w3-left w3-hover-text-khaki" onclick="plusDivs(-1)">&#10094;</div>
+        <div class="w3-right w3-hover-text-khaki" onclick="plusDivs(1)">&#10095;</div>
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(@(i+1))"></span>
+        }
+    </div>
+</div>

@@ -1,0 +1,367 @@
+﻿
+@{
+    ViewBag.Title = "Bảng nhiệm vụ";
+}
+@section css{
+<link href="~/Helper/boostrap-datetimepicker/css/bootstrap-datepicker3.min.css" rel="stylesheet" />
+<script src="~/Helper/jquery-validation-1.17.0/dist/jquery.validate.min.js"></script>
+<script src="~/Helper/jquery-validation-1.17.0/dist/additional-methods.min.js"></script>
+    }
+
+<div class="w3-white w3-margin-top w3-container w3-border w3-border-green" style="padding:0px">
+
+    <div class="w3-bar w3-teal">
+        <div class="w3-bar-item">@ViewBag.Title</div>
+    </div>
+    <div class="w3-container">
+        <div class="w3-bar">
+            <div class="w3-bar-item col-md-4">
+                <div class="input-group">
+                    <input type="text" id="search" class="form-control" placeholder="Search for..." aria-label="Search for...">
+                    <span class="input-group-btn">
+                        <button class="btn w3-teal" id="btnsearch" type="button"><i class="fa fa-search" aria-hidden="true"></i></button>
+                    </span>
+                </div>
+            </div>
+            <div class="w3-bar-item col-md-4">
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1">Người nhận</span>
+                    <select class="form-control" id="selthanhvien">
+                        <option value="0">Tất cả</option>
+                        @foreach (var item in ViewBag.ThanhVien)
+                        {
+                            <option value="@item.iMaThanhVienCode">@item.vTenDangNhap</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="w3-bar-item col-md-3">
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1">Trạng thái</span>
+                    <select class="form-control" id="seltrangthai">
+                        <option value="0">Tất cả</option>
+                        @foreach (var item in ViewBag.TrangThai)
+                        {
+                            <option value="@item.iMaTrangThaiCode">@item.vTenTrangThai</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="w3-bar-item col-md-1">
+                <button onclick="openModal('', '#modal-themnhiemvu')" class="w3-button w3-teal"><i class="fa fa-calendar-plus-o" aria-hidden="true"></i></button>
+            </div>
+        </div>
+        <input hidden id="index" value="0"/>
+        <div class="bang-nhiem-vu w3-margin-left">
+        </div>
+        <div class="w3-row" id="btntaithem">
+            <button onclick="taiThemNhiemVu()" class="w3-btn w3-block w3-teal w3-padding-large">Tải thêm...</button>
+        </div>
+    </div>
+
+
+    <div id="modal-themnhiemvu" class="w3-modal">
+        <div class="w3-modal-content w3-animate-right w3-card-4">
+            <div class="w3-display-container">
+                <form id="frmthemnhiemvu" method="post" enctype="multipart/form-data">
+                    @Html.AntiForgeryToken()
+                    <header class="w3-container w3-teal">
+                        <span onclick="closeModal()" class="w3-button w3-display-topright">&times;</span>
+                        <h2 id="title-modal">Thêm nhiệm vụ mới</h2>
+                    </header>
+                    <div class="modal-main comfrim">
+                        <table class="w3-table-all comfrim" align="center">
+                            <thead>
+                                <tr>
+                                    <th width="20%"></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tr>
+                                <td>
+                                    Tên nhiệm vụ
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Nhập tên nhiệm vụ ở đây..." name="vTenNhiemVu">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Hình
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        <input id="countErrHinh" hidden value="0" />
+                                        <div class="w3-bar" id="bar-hinh">
+
+                                        </div>
+                                        
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Tập tin đính kèm
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        <input id="countErrTapTin" hidden value="0" />
+                                        <div class="w3-bar" id="bar-taptin">
+
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Mô tả
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        <textarea class="form-control" placeholder="Nhập mô tả ở đây..." name="vMoTa"></textarea>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Người được giao
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        <select class="form-control" id="selNguoiDuocGiao">
+                                            @foreach (var item in ViewBag.ThanhVien)
+                                            {
+                                                <option value="@item.iMaThanhVienCode">@item.vTenDangNhap</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Ngày bắt đầu
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control datepicker" name="dNgayBD">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Ngày kết thúc
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control datepicker" name="dNgayKT">
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <footer id="footer-modal" class="w3-container w3-teal">
+                        <a class="w3-btn w3-padding-large w3-hover-white" onclick="closeModal()">Quay lại</a>
+                        <a class="w3-btn w3-padding-large w3-hover-white w3-right" onclick="frmthemnhiemvuSubmit()">Lưu</a>
+                    </footer>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div id="modal-thongbao" class="w3-modal">
+        <div class="w3-modal-content w3-animate-right w3-card-4">
+            <div class="w3-display-container">
+                <header class="w3-container w3-teal">
+                    <h2 id="title-modal">Thông báo</h2>
+                </header>
+                <div class="main-thongbao align-content-center">
+                </div>
+                <footer id="footer-modal" class="w3-container w3-teal"></footer>
+            </div>
+        </div>
+    </div>
+</div>
+@section js{
+<script src="~/Helper/boostrap-datetimepicker/js/bootstrap-datepicker.min.js"></script>
+<script src="~/Scripts/MyScripts/account-index.js"></script>
+<script>
+    $("#frmthemnhiemvu").validate({
+        ignore: ":hidden:not('.validate')",
+        rules: {
+            vTenNhiemVu: {
+                required: true
+            },
+            Hinh: {
+                extension: "png|jpg"
+            },
+            TapTin: {
+                extension: "xls|xlsx|doc|docs|txt|zip|rar"
+            },
+            vMoTa: {
+                required: true
+            }
+        },
+        messages: {
+            vTenNhiemVu: "Không được bỏ trống !",
+            vMoTa: "Không được bỏ trống !",
+            Hinh: "Vui lòng chọn định dạng file là png hoặc jpg",
+            TapTin: "Vui lòng chọn định dạng file là xls, xlsx, doc, docs, txt, zip, rar",
+        },
+        errorClass: "form-control-feedback",
+        highlight: function (element) {
+            $(element).addClass("form-control-danger");
+            $(element).closest("div").addClass("has-danger");
+        },
+        unhighlight: function (element) {
+            $(element).removeClass('form-control-danger');
+            $(element).closest("div").removeClass("has-danger");
+        }
+    });
+
+    $(function () {
+        locbangnhiemvu();
+    });
+
+    function chiTietNhiemVu(iMaNhiemVuCode) {
+        $.get("@Url.Action("ChiTietNhiemVu","Account")", { iMaNhiemVuCode: iMaNhiemVuCode });
+    }
+
+    $("#search").keyup(function () {
+        $(".bang-nhiem-vu").empty();
+        $("#index").val(0);
+        locbangnhiemvu();
+    });
+
+    function locbangnhiemvu() {
+        //$("#btntaithem").remove();
+        $.ajax({
+            url: "@Url.Action("GetBangNhiemVu","Account")",
+            type: 'post',
+            dataType: 'json',
+            data: {
+                'index': $("#index").val(),
+                'search':$("#search").val(),
+                'iMaNguoiDuocGiaoCode': $("#selthanhvien").val(),
+                'iMaTrangThaiCode': $("#seltrangthai").val()
+            },
+            success: function (result) {
+                
+                taoDanhSachNhiemVu(result)
+            }
+        });
+    }
+
+    $("#selthanhvien,#seltrangthai").change(function () {
+        $(".bang-nhiem-vu").empty();
+        $("#index").val(0);
+        locbangnhiemvu();
+    });
+
+    function taoDanhSachNhiemVu(result)
+    {
+        var html = '';
+        for (i = 0; i < result.length; i++) {
+            html = '<div class="input-group w3-margin">';
+            html += '<span class="w3-col input-group-addon w3-pale-red" style="width:15%" id="basic-addon1">';
+            html += result[i]["dNgayKT"]+'</span>';
+            //date = new Date(parseInt(result[i]["dNgayKT"].substr(6)));
+            //html += date.toLocaleDateString() + '</span>';
+            if (result[i]['iMaTrangThaiCode'] == 1) {
+                html += '<a href="/Account/ChiTietNhiemVu?iMaNhiemVuCode=' + result[i]["iMaNhiemVuCode"] + '" class="w3-col w3-input w3-hover-gray col-md-7  w3-border w3-border-blue" style="width:65%">' + '<span class="w3-text-indigo">' + result[i]['vNguoiDuocGiao'] + '</span> : ' + result[i]['vTenNhiemVu'] + '</a>';
+                html += '<span class="w3-col input-group-addon w3-blue" style="width:20%" id="basic-addon1">' + result[i]['vTenTrangThai'] + '</span>';
+            } else if (result[i]['iMaTrangThaiCode'] == 2) {
+                html += '<a href="/Account/ChiTietNhiemVu?iMaNhiemVuCode=' + result[i]["iMaNhiemVuCode"] + '" class="w3-col w3-input w3-hover-gray col-md-7 w3-border" style="width:65%">' + '<span class="w3-text-indigo">' + result[i]['vNguoiDuocGiao'] + '</span> : ' + result[i]['vTenNhiemVu'] + '</a>';
+                html += '<span class="w3-col input-group-addon w3-khaki" style="width:20%" id="basic-addon1">' + result[i]['vTenTrangThai'] + '</span>';
+            } else if (result[i]['iMaTrangThaiCode'] == 3) {
+                html += '<a href="/Account/ChiTietNhiemVu?iMaNhiemVuCode=' + result[i]["iMaNhiemVuCode"] + '" class="w3-col w3-input w3-hover-gray col-md-7 w3-border w3-border-green" style="width:65%">' + '<span class="w3-text-indigo">' + result[i]['vNguoiDuocGiao'] + '</span> : ' + result[i]['vTenNhiemVu'] + '</a>';
+                html += '<span class="w3-col input-group-addon w3-green" style="width:20%" id="basic-addon1">' + result[i]['vTenTrangThai'] + '</span>';
+            } else if (result[i]['iMaTrangThaiCode'] == 4) {
+                html += '<a href="/Account/ChiTietNhiemVu?iMaNhiemVuCode=' + result[i]["iMaNhiemVuCode"] + '" class="w3-col w3-input w3-hover-gray col-md-7 w3-border w3-border-green" style="width:65%">' + '<span class="w3-text-indigo">' + result[i]['vNguoiDuocGiao'] + '</span> : ' + result[i]['vTenNhiemVu'] + '</a>';
+                html += '<span class="w3-col input-group-addon w3-teal" style="width:20%" id="basic-addon1">' + result[i]['vTenTrangThai'] + '</span>';
+            } else if (result[i]['iMaTrangThaiCode'] == 5) {
+                html += '<a href="/Account/ChiTietNhiemVu?iMaNhiemVuCode=' + result[i]["iMaNhiemVuCode"] + '" class="w3-col w3-input w3-hover-gray col-md-7 w3-border w3-border-red" style="width:65%">' + '<span class="w3-text-indigo">' + result[i]['vNguoiDuocGiao'] + '</span> : ' + result[i]['vTenNhiemVu'] + '</a>';
+                html += '<span class="w3-col input-group-addon w3-red" style="width:20%" id="basic-addon1">' + result[i]['vTenTrangThai'] + '</span>';
+            }
+            html += '</div>';
+            $(".bang-nhiem-vu").append(html);
+        }
+    }
+
+    function taiThemNhiemVu() {
+        var index = $("#index").val();
+        index++;
+        $("#index").val(index);
+        locbangnhiemvu();
+    }
+    function frmthemnhiemvuSubmit(event) {
+        if ($("#frmthemnhiemvu").valid() == true) {
+            if ($("#countErrTapTin").val() == 0 && $("#countErrHinh").val() == 0) {
+                $.ajax({
+                    url: "@Url.Action("ThemNhiemVu","Account")",
+                    type: "post",
+                    dataType: "text",
+                    data: {
+                        "vTenNhiemVu": $("input[name='vTenNhiemVu']").val(),
+                        "vMoTa": $("textarea[name='vMoTa']").val(),
+                        "iMaNguoiDuocGiaoCode": $("#selNguoiDuocGiao").val(),
+                        "dNgayBD": $("input[name='dNgayBD']").val(),
+                        "dNgayKT": $("input[name='dNgayKT']").val(),
+                    },
+                    success: function (result) {
+                        var html = '';
+                        $(".main-thongbao").empty();
+                        if (result != 0) {
+                            uploadfile(result);
+                        }
+                        else {
+                            html = '<h2 id="thongbao" class="w3-center">Đã thêm nhiệm vụ thất bại</h2>';
+                            $(".main-thongbao").append(html);
+                            html = '<center><a class="w3-btn w3-padding-large w3-teal w3-hover-green w3-center" onclick="closeModal()">OK</a></center>';
+                            $(".main-thongbao").append(html);
+                            openModal('#modal-themnhiemvu', '#modal-thongbao');
+                        }
+                    }
+                });
+            }
+
+        }
+
+    }
+
+    function uploadfile(iMaNhiemVuCode) {
+        var inputfile = $("input[type='file']");
+        var data = new FormData();
+        for (i = 0; i < inputfile.length; i++) {
+            var files = inputfile[i].files;
+            for (var j = 0; j < files.length; j++) {
+                var file = files[j];
+                data.append("FileUpload" + i, file);
+            }
+        }
+        $.ajax({
+            url: "/Account/UploadFile?iMaNhiemVuCode=" + iMaNhiemVuCode,
+            type: "POST",
+            contentType: false,
+            processData: false,
+            data: data,
+            success: function (result) {
+                var html = '';
+                if (result === 'True') {
+                    html = '<h2 id="thongbao" class="w3-center">Đã thêm nhiệm vụ thành công !</h2>';
+                    $(".main-thongbao").append(html);
+                }
+                else {
+                    html = '<h2 id="thongbao" class="w3-center">Đã thêm nhiệm vụ thất bại !</h2>';
+                    $(".main-thongbao").append(html);
+                }
+                html = '<center><a class="w3-btn w3-padding-large w3-teal w3-hover-green w3-center" onclick="closeModal()">OK</a></center>';
+                $(".main-thongbao").append(html);
+                openModal('#modal-themnhiemvu', '#modal-thongbao');
+            }
+        });
+
+    }
+
+</script>
+    }

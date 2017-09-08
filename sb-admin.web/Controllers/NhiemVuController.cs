@@ -213,6 +213,23 @@ namespace sb_admin.web.Controllers
                 return false;
             }
         }
+        public bool XoaNhiemVu(int id)
+        {
+            try
+            {
+                using (var db = new dbnhiemvuEntities())
+                {
+                    var n = db.NhiemVus.Find(id);
+                    n.iMaTrangThaiCode = 0;
+                    db.SaveChanges();
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
         public bool UploadFile(int iMaNhiemVuCode)
         {
             try
@@ -226,6 +243,7 @@ namespace sb_admin.web.Controllers
                         string[] extFile = new string[] { ".xls", ".xlsx", ".doc", ".docx", ".txt", ".zip", ".rar", ".sql", ".cs", ".js", ".css" };
                         using (var db = new dbnhiemvuEntities())
                         {
+                          
                             // kiểm tra định dạng file là .jpg hoặc .png
                             if (extHinh.Contains(Path.GetExtension(file.FileName).ToLower()))
                             {
@@ -248,6 +266,7 @@ namespace sb_admin.web.Controllers
                             }
                             else if (extFile.Contains(Path.GetExtension(file.FileName).ToLower()))
                             {
+
                                 // tạo thư mục lưu file
                                 var spDirPath = Server.MapPath("~/Content/Files");
                                 var targetDirpath = Path.Combine(spDirPath, iMaNhiemVuCode.ToString());
@@ -259,12 +278,21 @@ namespace sb_admin.web.Controllers
                                 file.SaveAs(path);
                                 // lưu hình ảnh vào cơ sở dữ liệu
                                 var taptin = new TapTin();
-                                taptin.vDuongDan = $"/Content/Files/{iMaNhiemVuCode}/{fileName}";
-                                taptin.iMaNhiemVuCode = iMaNhiemVuCode;
-                                taptin.vTenTapTin = fileName;
-                                taptin.iTrangThai = 1;
-                                db.TapTins.Add(taptin);
-                                db.SaveChanges();
+                                //kiểm tra xem tập tin này đã tồn tại hay chưa
+                                var checktaptin = db.TapTins.Where(x => x.vTenTapTin == fileName).Count();
+                                if(checktaptin != 0)
+                                {
+                                    return true;
+                                }
+                                else
+                                {
+                                    taptin.vDuongDan = $"/Content/Files/{iMaNhiemVuCode}/{fileName}";
+                                    taptin.iMaNhiemVuCode = iMaNhiemVuCode;
+                                    taptin.vTenTapTin = fileName;
+                                    taptin.iTrangThai = 1;
+                                    db.TapTins.Add(taptin);
+                                    db.SaveChanges();
+                                }
                             }
                         }
                     }

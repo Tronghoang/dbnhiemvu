@@ -1,0 +1,483 @@
+﻿
+@{
+    ViewBag.Title = "Chi tiết nhiệm vụ";
+}
+@section css{
+<link href="~/Content/myslideshow.css" rel="stylesheet" />
+<script src="~/Helper/jquery-validation-1.17.0/dist/jquery.validate.min.js"></script>
+    }
+@section js{
+<script src="~/Scripts/MyScripts/myslideshow.js"></script>
+    <script>
+        $("#frmBaoCaoNhiemVu").validate({
+            rules: {
+                vMoTa: {
+                    required: true
+                }
+            },
+            messages: {
+                vMoTa: "Không được bỏ trống !",
+            },
+            errorClass: "form-control-feedback",
+            highlight: function (element) {
+                $(element).addClass("form-control-danger");
+                $(element).closest("div").addClass("has-danger");
+            },
+            unhighlight: function (element) {
+                $(element).removeClass('form-control-danger');
+                $(element).closest("div").removeClass("has-danger");
+            }
+        });
+
+        function closeModal() {
+            $(".w3-modal").css("display", "none");
+
+        }
+        function openModal(curModal, nextModal) {
+            $(curModal).css("display", "none");
+            $(nextModal).css("display", "block");
+        }
+
+        function doiMauTenTrangThai(iMaTrangThaiCode){
+            if(iMaTrangThaiCode==1)
+            {
+                $("#vTenTrangThai").addClass("w3-text-blue");
+            }else if(iMaTrangThaiCode==2){
+                if($("#vTenTrangThai").hasClass("w3-text-blue")){
+                    $("#vTenTrangThai").removeClass("w3-text-blue");
+                }
+                if($("#vTenTrangThai").hasClass("w3-text-red")){
+                    $("#vTenTrangThai").removeClass("w3-text-red");
+                }
+                $("#vTenTrangThai").addClass("w3-text-khaki");
+            }else if(iMaTrangThaiCode==3){
+                $("#vTenTrangThai").removeClass("w3-text-khaki");
+                $("#vTenTrangThai").addClass("w3-text-green");
+            }else if(iMaTrangThaiCode==4){
+                $("#vTenTrangThai").removeClass("w3-text-green");
+                $("#vTenTrangThai").addClass("w3-text-teal");
+            }else if(iMaTrangThaiCode==5){
+                $("#vTenTrangThai").removeClass("w3-text-green");
+                $("#vTenTrangThai").addClass("w3-text-red");
+            }
+        }
+
+
+        $(function () {
+
+            doiTenbtnTrangThai(@Model.iMaTrangThaiCode);
+
+            doiMauTenTrangThai(@Model.iMaTrangThaiCode);
+
+            $.ajax({
+                url:"@Url.Action("GetTapTinNhiemVu", "Account")",
+                type:"post",
+                dataType:"json",
+                data:{"iMaNhiemVuCode":@Model.iMaNhiemVuCode},
+                success:function(result){
+                    for(i=0;i<result.length;i++)
+                    {
+                        var html='';
+                        html+='<li class="w3-content w3-display-container w3-margin w3-padding" style="max-width:100px;float:left">';
+                        html+='<a href="'+result[i]["vDuongDan"]+'" download>';
+
+                        var extDoc = ['doc', 'docx'];
+                        var extExcel = ['xls', 'xlsx'];
+                        var extZip = ['zip', 'rar'];
+                        var extSQL = ['sql'];
+                        var extCode = ['js', 'css','cs'];
+                        var fileName = result[i]["vTenTapTin"];
+                        var fileNameExt = fileName.substr(fileName.lastIndexOf('.') + 1);
+                        if ($.inArray(fileNameExt, extDoc) != -1) {
+                            html+='<i class="fa fa-file-word-o w3-jumbo w3-button w3-text-blue" aria-hidden="true"></i></a>';
+                        } else if ($.inArray(fileNameExt, extExcel) != -1)
+                        {
+                            html+='<i class="fa fa-file-excel-o w3-jumbo w3-button w3-text-teal" aria-hidden="true"></i></a>';
+                        } else if ($.inArray(fileNameExt, extZip) != -1) {
+                            html+='<i class="fa fa-file-archive-o w3-jumbo w3-button w3-text-purple" aria-hidden="true"></i></a>';
+                        } else if ($.inArray(fileNameExt, extSQL) != -1) {
+                            html+='<i class="fa fa-file-text-o w3-jumbo w3-button w3-text-orange" aria-hidden="true"></i></a>';
+                        } else if ($.inArray(fileNameExt, extCode) != -1) {
+                            html+='<i class="fa fa-file-code-o w3-jumbo w3-button w3-text-teal" aria-hidden="true"></i></a>';
+                        }
+
+                        html+='<p class="w3-margin-top truncate" data-toggle="tooltip" data-placement="bottom" title="'+fileName+'">'+fileName+'</p>';
+                        html+='</li>';
+                        $("#taptin").append(html);
+                    }
+                }
+            });
+        })
+        function doiTenbtnTrangThai(iMaTrangThaiCode){
+            if(iMaTrangThaiCode==2)
+            {
+                $("#btnTrangThai").text("Trả nhiệm vụ");
+            }else if(iMaTrangThaiCode==5)
+            {
+                $("#btnTrangThai").text("Sửa lỗi");
+            }
+        }
+
+        function thayDoiTrangThai(curModal,iMaTrangThaiCode){
+            $.ajax({
+                url:"@Url.Action("ThayDoiTrangThai", "Account")",
+                type:"post",
+                dataType:"text",
+                data:{"iMaNhiemVuCode":@Model.iMaNhiemVuCode},
+                success:function(result){
+                    $(".main-thongbao").empty();
+                    var html ='';
+                    if(result==='True'){
+                        doiMauTenTrangThai(iMaTrangThaiCode);
+                        if(iMaTrangThaiCode == 2)
+                        {
+                            html += '<h2 id="thongbao" class="w3-center">Đã nhận nhiệm vụ thành công !</h2>';
+                            $("#btnTrangThai").text("Giao nhiệm vụ");
+                            $("#vTenTrangThai").text("Đang thực hiện");
+                            $("#btnTrangThai").attr("onclick","btnTrangThaiClick("+iMaTrangThaiCode+")");
+                        }else if(iMaTrangThaiCode == 3){
+                            html += '<h2 id="thongbao" class="w3-center">Đã báo cáo thành công !</h2>';
+                            $("#vTenTrangThai").text("Đang chờ duyệt");
+                            $("#btnTrangThai").hide();
+                        }
+
+                    }else{
+                        html += '<h2 id="thongbao" class="w3-center">Yêu cầu thất bại vui lòng thử lại sau.</h2>';
+                    }
+                    html += '<center><button class="w3-btn w3-padding-large w3-teal w3-hover-green w3-center" onclick="closeModal()">OK</button><center>';
+                    $('.main-thongbao').append(html);
+                    openModal(curModal,"#modal-thongbao")
+                }
+            });
+        }
+
+        $(".main-modal").on('change','input[name="TapTin"]',function () {
+            var index = $(this).attr("id");
+            index++;
+            $(this).siblings().eq(0).remove();
+            var html = '';
+            html += '<a onclick="removefile(event)" class="w3-transparent w3-hover-gray w3-display-topright">&times;</a>';
+
+            var extDoc = ['doc', 'docx'];
+            var extExcel = ['xls', 'xlsx'];
+            var extZip = ['zip', 'rar'];
+            var extSQL = ['sql'];
+            var extCode = ['js', 'css','cs'];
+            var fileName = event.target.files[0].name;
+            var fileNameExt = fileName.substr(fileName.lastIndexOf('.') + 1);
+            if ($.inArray(fileNameExt, extDoc) != -1) {
+                html += '<h3><label><i class="fa fa-file-word-o w3-button w3-padding-large w3-text-blue" aria-hidden="true"></i></label></h3>';
+            } else if ($.inArray(fileNameExt, extExcel) != -1)
+            {
+                html += '<h3><label><i class="fa fa-file-excel-o w3-button w3-padding-large w3-text-teal" aria-hidden="true"></i></label></h3>';
+            } else if ($.inArray(fileNameExt, extZip) != -1) {
+                html += '<h3><label><i class="fa fa-file-archive-o w3-button w3-padding-large w3-text-purple" aria-hidden="true"></i></label></h3>';
+            } else if ($.inArray(fileNameExt, extSQL) != -1) {
+                html += '<h3><label><i class="fa fa-file-text-o w3-button w3-padding-large w3-text-orange" aria-hidden="true"></i></label></h3>';
+            } else if ($.inArray(fileNameExt, extCode) != -1) {
+                html += '<h3><label><i class="fa fa-file-code-o w3-button w3-padding-large w3-text-teal" aria-hidden="true"></i></label></h3>';
+            }else{
+                html = '';
+                html += '<a onclick="removefile(event,2)" class="w3-transparent w3-hover-gray w3-display-topright">&times;</a>';
+                html += '<h3><label><i class="fa fa-file-o w3-button w3-padding-large" aria-hidden="true"></i></label></h3>';
+                var count = $("#countErrTapTin").val();
+                count++;
+                $("#countErrTapTin").val(count);
+                if ($("#errTapTin").length == 0)
+                {
+                    $("#bar-taptin").after('<p id="errTapTin" class="w3-text-red">Vui lòng chọn định dạng file là xls, xlsx, doc, docs, txt, zip, rar, js, css, cs, sql !</p>');
+                }
+
+            }
+
+            $(this).after(html);
+
+            html = '<div class="w3-margin-right w3-bar-item w3-border w3-border-gray w3-pale-blue w3-display-container">';
+            html += '       <input type="file" hidden class="form-control validate" id="' + index + 'TapTin" name="TapTin">';
+            html+='       <h3><label for="'+index+'TapTin"><i class="fa fa-file w3-button w3-padding-large w3-text-teal" aria-hidden="true"></i></label></h3>';
+            html += '</div>';
+            $(this).closest(".w3-bar-item").before(html);
+
+        });
+
+        function refreshTapTin() {
+            $("#countErrTapTin").val(0);
+            $("#bar-taptin").empty();
+            $("#errTapTin").remove();
+            var html = '';
+            html += '<div class="w3-margin-right w3-bar-item w3-border w3-border-gray w3-pale-blue w3-display-container">';
+            html += '     <input type="file" hidden class="form-control validate" id="1TapTin" name="TapTin">';
+            html += '     <h3>';
+            html += '         <label for="1TapTin"><i class="fa fa-file w3-button w3-padding-large w3-text-teal" aria-hidden="true"></i></label>';
+            html += '     </h3>';
+            html += '</div>';
+            $("#bar-taptin").append(html);
+        }
+
+        function removefile(event, error) {
+            if (error == 1) {
+                var countHinh = $("#countErrHinh").val();
+                countHinh--;
+                $("#countErrHinh").val(countHinh);
+                if (countHinh == 0) {
+                    $("#errHinh").remove();
+                }
+                event.target.closest(".w3-bar-item").remove();
+            } else if (error == 2) {
+                var countErrTapTin = $("#countErrTapTin").val();
+                countErrTapTin--;
+                $("#countErrTapTin").val(countTapTin);
+                if (countTapTin == 0) {
+                    $("#errTapTin").remove();
+                }
+
+            }
+            event.target.closest(".w3-bar-item").remove();
+        }
+
+        function uploadfilebaocao(iMaBaoCaoCode) {
+            var inputfile = $("input[type='file']");
+            var data = new FormData();
+            for (i = 0; i < inputfile.length; i++) {
+                var files = inputfile[i].files;
+                for (var j = 0; j < files.length; j++) {
+                    var file = files[j];
+                    data.append("FileUpload" + i, file);
+                }
+            }
+            $.ajax({
+                url: "/Account/UploadFileBaoCao?iMaBaoCaoCode=" + iMaBaoCaoCode,
+                type: "POST",
+                contentType: false,
+                processData: false,
+                dataType:"text",
+                data: data,
+                success: function (result) {
+                    var html = '';
+                    if (result === 'True') {
+                        thayDoiTrangThai('#modal-baocao',3)
+                    }
+                    else {
+
+                        html = '<h2 id="thongbao" class="w3-center">Đã báo cáo thất bại !</h2>';
+                        html += '<center><a class="w3-btn w3-padding-large w3-teal w3-hover-green w3-center" onclick="closeModal()">OK</a></center>';
+                        $(".main-thongbao").append(html);
+                        openModal('#modal-baocao', '#modal-thongbao');
+                    }
+                }
+            });
+        }
+
+        function frmBaoCaoNhiemVuSubmit(){
+            if ($("#countErrTapTin").val() == 0 && $("#frmBaoCaoNhiemVu").valid()) {
+                $.ajax({
+                    url:"@Url.Action("BaoCaoNhiemVu", "Account")",
+                    type:"post",
+                    dataType:"text",
+                    data:{
+                        "iMaNhiemVuCode":@Model.iMaNhiemVuCode,
+                        "vMoTa":$("#vMoTa").val(),
+                        "vDuongDanTapTin":$("input[type='linkfile']").val()
+                    },
+                    success: function(result){
+                        if(result!=0)
+                        {
+                            if($("input[type='file']").length>1)
+                            {
+                                uploadfilebaocao(result);
+                            }else{
+                                thayDoiTrangThai('#modal-baocao',3)
+                            }
+                        }else{
+                            var html = '<h2 id="thongbao" class="w3-center">Đã báo cáo thất bại !</h2>';
+                            html += '<center><a class="w3-btn w3-padding-large w3-teal w3-hover-green w3-center" onclick="closeModal()">OK</a></center>';
+                            $(".main-thongbao").append(html);
+                            openModal('#modal-baocao', '#modal-thongbao');
+                        }
+                    }
+                });
+            }
+            else{}
+        }
+
+        function btnTrangThaiClick(iMaTrangThaiCode){
+            if(iMaTrangThaiCode == 1)
+            {
+                openModal('','#modal-comfirm');
+            }else if(iMaTrangThaiCode == 2 || iMaTrangThaiCode == 5){
+                openModal('','#modal-baocao');
+            }
+        }
+        //function xoaLink(event){
+        //    $(event.target).closest('.input-group').remove();
+        //}
+
+        //function themLink(event){
+        //    var current = $(event.target);
+        //    var html = '<div class="input-group">';
+        //    html+=' <span class="input-group-addon" id="basic-addon1">Link:</span>';
+        //    html+='    <input type="text" name="linkfile" class="form-control" placeholder="Coppy link file vào đây..." aria-describedby="basic-addon1">';
+        //    html+='    <span class="input-group-btn">';
+        //    html+='        <button class="btn w3-teal" onclick="themLink(event)" type="button">+</button>';
+        //    html+='    </span>';
+        //    html+='</div>';
+        //    current.closest('.input-group').after(html);
+        //    html='';
+        //    html+='    <span class="input-group-btn">';
+        //    html+='        <button class="btn" onclick="xoaLink(event)" type="button">x</button>';
+        //    html+='    </span>';
+        //    current.closest('span').after(html);
+        //    current.closest('span').remove();
+        //}
+    </script>
+
+    }
+
+@using NhiemVu.Models
+@model ChiTietNhiemVuViewModel
+
+<div class="w3-white w3-margin-top w3-container w3-border w3-border-green" style="padding:0px">
+
+    <div class="w3-bar w3-teal">
+        <div class="w3-bar-item">@ViewBag.Title</div>
+    </div>
+    <div class="w3-row w3-margin">
+        <div class="w3-third w3-border-right w3-border-green">
+            @Html.Action("HinhNhiemVuPartial", "Account", new { iMaNhiemVuCode = Model.iMaNhiemVuCode })
+        </div>
+        <div class="w3-twothird">
+            <div class="w3-content w3-margin w3-padding">
+                <input id="iMaTrangThaiCode" hidden value="@Model.iMaTrangThaiCode"/>
+                <table>
+                    <tr>
+                        <td><p>Ngày đăng:</p></td>
+                        <td><p>@Model.dNgayLap</p></td>
+                    </tr>
+                    <tr>
+                        <td><p>Người đăng:</p></td>
+                        <td><p>@Model.vTenNguoiDang</p></td>
+                    </tr>
+                    <tr>
+                        <td><p>Tên nhiệm vụ:</p></td>
+                        <td><p class="w3-text-blue">@Model.vTenNhiemVu</p></td>
+                    </tr>
+                    <tr>
+                        <td><p>Người được giao:</p></td>
+                        <td><p>@Model.vTenNguoiDuocGiao</p></td>
+                    </tr>
+                    <tr>
+                        <td><p>Ngày bắt đầu:</p></td>
+                        <td><p>@Model.dNgayBD</p></td>
+                    </tr>
+                    <tr>
+                        <td><p>Ngày kết thúc:</p></td>
+                        <td><p>@Model.dNgayKT</p></td>
+                    </tr>
+                    <tr>
+                        <td><p>Trạng thái:</p></td>
+                        <td><p id="vTenTrangThai">@Model.vTenTrangThai</p></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="w3-center">
+                            @if (Model.iMaTrangThaiCode != 3 && Model.iMaTrangThaiCode != 4)
+                            {
+                                <button id="btnTrangThai" class="w3-button w3-white w3-border w3-border-blue w3-round-large" onclick="btnTrangThaiClick(@Model.iMaTrangThaiCode)">Nhận nhiệm vụ</button>
+                            }
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            
+        </div>
+        <div class="w3-row w3-margin">
+            <ul id="taptin">
+            </ul>
+        </div>
+    </div>
+
+    <div id="modal-comfirm" class="w3-modal">
+        <div class="w3-modal-content w3-animate-right w3-card-4">
+            <div class="w3-display-container">
+                <header class="w3-container w3-teal">
+                    <span onclick="closeModal()" class="w3-button w3-display-topright">&times;</span>
+                    <h2 id="header-modal">Xác nhận</h2>
+                </header>
+                <div class="main-modal align-content-center">
+                    <center>
+                        <h2 id="title-modal">Bạn đã sẵn sàng nhận nhiệm vụ này chưa ?</h2>
+                        <a class="w3-btn w3-padding-large w3-teal w3-hover-green w3-center w3-margin-right" onclick="closeModal()">Quay lại</a>
+                        <a class="w3-btn w3-padding-large w3-teal w3-hover-green w3-center w3-margin-left" onclick="thayDoiTrangThai('#modal-comfirm',2)">Đã sẵn sàng</a>
+                    </center>
+                    
+                </div>
+                <footer id="footer-modal" class="w3-container w3-teal"></footer>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-baocao" class="w3-modal">
+        <div class="w3-modal-content w3-animate-right w3-card-4">
+            <div class="w3-display-container">
+                <header class="w3-container w3-teal">
+                    <span onclick="closeModal()" class="w3-button w3-display-topright">&times;</span>
+                    <h2 id="header-modal">Báo cáo</h2>
+                </header>
+                <div class="main-modal align-content-center w3-margin">
+                    <center>
+                        <form id="frmBaoCaoNhiemVu">
+                            <h2>Báo cáo nhiệm vụ</h2>
+                            <div class="form-group w3-row">
+                                <label for="vMoTa" class="w3-container w3-quarter">Mô tả báo cáo:</label>
+                                <textarea id="vMoTa" class="w3-container w3-padding-large form-control  w3-threequarter" required></textarea>
+                            </div>
+                            <div class="form-group w3-row">
+                                <label class="w3-container w3-quarter">Link file báo cáo:</label>
+                                <div class="w3-container w3-threequarter">
+                                    <div class="input-group">
+                                        <span class="input-group-addon" id="basic-addon1">Link:</span>
+                                        <input type="text" name="linkfile" class="form-control" placeholder="Coppy link file vào đây..." aria-describedby="basic-addon1">
+                                        @*<span class="input-group-btn">
+                                            <button class="btn w3-teal" onclick="themLink(event)" type="button">+</button>
+                                        </span>*@
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group w3-row">
+                                <label class="w3-container w3-quarter">File báo cáo:</label>
+                                <input id="countErrTapTin" hidden value="0" />
+                                <div class="w3-bar w3-container w3-threequarter" id="bar-taptin">
+                                    <div class="w3-margin-right w3-bar-item w3-border w3-border-gray w3-pale-blue w3-display-container">
+                                        <input type="file" hidden class="form-control validate" id="1TapTin" name="TapTin">
+                                        <h3>
+                                            <label for="1TapTin"><i class="fa fa-file w3-button w3-padding-large w3-text-teal" aria-hidden="true"></i></label>
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <a class="w3-btn w3-padding-large w3-teal w3-hover-green w3-center w3-margin-right" onclick="closeModal()">Quay lại</a>
+                            <a class="w3-btn w3-padding-large w3-teal w3-hover-green w3-center w3-margin-left" onclick="frmBaoCaoNhiemVuSubmit()">Báo cáo</a>
+                        </form>
+                    </center>
+
+                </div>
+                <footer id="footer-modal" class="w3-container w3-teal"></footer>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-thongbao" class="w3-modal">
+        <div class="w3-modal-content w3-animate-right w3-card-4">
+            <div class="w3-display-container">
+                <header class="w3-container w3-teal">
+                    <span onclick="closeModal()" class="w3-button w3-display-topright">&times;</span>
+                    <h2 id="title-modal">Thông báo</h2>
+                </header>
+                <div class="main-thongbao align-content-center">
+                    
+                </div>
+                <footer id="footer-modal" class="w3-container w3-teal"></footer>
+            </div>
+        </div>
+    </div>
+</div>

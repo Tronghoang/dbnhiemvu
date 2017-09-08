@@ -886,7 +886,6 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Shared\_navbar.cshtml" />
-    <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Shared\_admin.cshtml" />
     <Content Include="Views\Shared\_admin2.cshtml" />
     <Content Include="Views\View.cshtml" />
@@ -912,6 +911,11 @@
     <Content Include="Views\NhiemVu\_HinhLoiPartial.cshtml" />
     <Content Include="Views\NhiemVu\_BaoCaoPartial.cshtml" />
     <Content Include="Views\NhiemVu\_TapTinBaoCaoPartial.cshtml" />
+    <Content Include="Views\Account\ChiTietNhiemVu.cshtml" />
+    <Content Include="Views\Account\HinhNhiemVuPartial.cshtml" />
+    <Content Include="Views\Account\Index.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\TrangCaNhan.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

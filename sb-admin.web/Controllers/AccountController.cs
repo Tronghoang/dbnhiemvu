@@ -48,7 +48,7 @@ namespace sb_admin.web.Controllers
                 {
                     Session["isLogin"] = 1;
                     Session["user"] = user;
-
+                    Session["TaiKhoan"] = user.vTenDangNhap;
                     if (Request.Form.GetValues("bGhiNho") != null)
                     {
                         Response.Cookies["userID"].Value = user.iMaThanhVienCode.ToString();
