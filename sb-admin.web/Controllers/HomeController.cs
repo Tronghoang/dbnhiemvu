@@ -70,6 +70,28 @@ namespace sb_admin.web.Controllers
             }
             return Json(laynhiemvuvualuu);
         }
+        public ActionResult SuaNhiemVu(int id, string vTenNhiemVu, string vMoTa, DateTime dNgayBD, DateTime dNgayKT)
+        {
+            
+            dbnhiemvuEntities db = new dbnhiemvuEntities();
+            Models.NhiemVu nhiemvu = new Models.NhiemVu();
+            List<LayNhiemVu> laynhiemvuvualuu = new List<Models.LayNhiemVu>();
+            try
+            {
+                nhiemvu = db.NhiemVus.Find(id);
+                nhiemvu.vTenNhiemVu = vTenNhiemVu;
+                nhiemvu.vMoTa = vMoTa;
+                //nhiemvu.iMaNguoiDangCode = 1;
+                nhiemvu.dNgayBD = dNgayBD;
+                nhiemvu.dNgayKT = dNgayKT;
+                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return Json(true);
+        }
         [ValidateInput(false)]
         public ActionResult LuuLoiCanSua(string noidungloi, int id)
         {

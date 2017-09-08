@@ -8,9 +8,10 @@
 @{
     ViewBag.Title = "Quản lý Project";
 }
+<link href="~/Content/sweetalert.css" rel="stylesheet" />
 @section js{
 <script src="~/Helper/jquery-validation-1.17.0/dist/jquery.validate.min.js"></script>
-
+<script src="~/Scripts/sweetalert-dev.js"></script>
     <script>
         function closeModal() {
             $(".w3-modal").css("display", "none");
@@ -91,13 +92,15 @@
         function createItemList(result) {
             var html = '';
             for (i = 0; i < result.length; i++) {
-                html = '<div class="input-group w3-margin">';
+                html = '<div style="border: 1px dotted;" class="w3-margin col-md-5 class-' + result[i]["iMaProjectCode"] + '">';
+                html+= '<div class="input-group">';
                 html+='<div class="w3-row w3-border-bottom">';
                 html += '    <h2><a href="/Module/ByProject/?iMaProjectCode=' + result[i]["iMaProjectCode"] + '">' + result[i]["vTenProject"] + '</a></h2>';
                 html += '    <p>' + result[i]["vMoTa"] + '</p>';
                 html += '    <p>Ngày tạo : ' + result[i]["dNgayLap"] + '</p>';
                 html += '<button onclick="'+"openModal('','#modal-ChinhSuaProject',"+result[i]["iMaProjectCode"]+')" class="w3-button w3-pale-blue">Chỉnh sửa</button>';
-                html += '<button onclick="' + "openModal('','#modal-XoaProject'," + result[i]["iMaProjectCode"] + ')" class="w3-button w3-pale-red">Xóa</button>';
+                html += '<button onclick="frmXoaProjectSubmit('+result[i]["iMaProjectCode"]+')" class="w3-button w3-pale-red">Xóa</button>';
+                html += '</div>';
                 html += '</div>';
                 html += '</div>';
                 $(".my-list").append(html);
@@ -189,31 +192,46 @@
             }
         }
 
-        function frmXoaProjectSubmit() {
-            $.ajax({
-                url: "@Url.Action("XoaProject", "Project")",
-                type: "post",
-            dataType: "text",
-            data: {
-                "iMaProjectCode": $("input[name='iMaProjectCode']").val(),
-                },
-            success: function (result) {
-                var html = '';
-                $(".main-thongbao").empty();
-                if (result === 'True') {
-                    html = '<h2 id="thongbao" class="w3-center">Đã xóa project thành công</h2>';
-                }
-                else {
-                    html = '<h2 id="thongbao" class="w3-center">Đã xóa project thất bại</h2>';
-                }
-                html += '<center><a class="w3-btn w3-padding-large w3-teal w3-hover-green w3-center" onclick="closeModal()">OK</a></center>';
-                $(".main-thongbao").append(html);
-                openModal('#modal-XoaProject', '#modal-ThongBao');
-                $(".my-list").empty();
-                $("#index").val(0);
-                loadList();
-            }
-        });
+        function frmXoaProjectSubmit(id) {
+            debugger;
+            swal({
+                title: "Bạn Có Chác muốn xóa? ",
+                text: "Hãy suy nghỉ chắc chắn!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Xóa!",
+                closeOnConfirm: false
+            },
+                function () {
+                        $.ajax({
+                            url: "@Url.Action("XoaProject", "Project")",
+                            type: "post",
+                            dataType: "text",
+                            data: {
+                                "iMaProjectCode": id,
+                            },
+                            success: function (result) {
+                                //var html = '';
+                                //$(".main-thongbao").empty();
+                                if (result === 'True') {
+                                    //    html = '<h2 id="thongbao" class="w3-center">Đã xóa project thành công</h2>';
+                                    //}
+                                    //else {
+                                    //    html = '<h2 id="thongbao" class="w3-center">Đã xóa project thất bại</h2>';
+                                    //}
+                                    //html += '<center><a class="w3-btn w3-padding-large w3-teal w3-hover-green w3-center" onclick="closeModal()">OK</a></center>';
+                                    //$(".main-thongbao").append(html);
+                                    //openModal('#modal-XoaProject', '#modal-ThongBao');
+                                    //$(".my-list").empty();
+                                    //$("#index").val(0);
+                                    swal("Đã Xóa!", "nhiệm vụ bạn chọn đã xóa.", "success");
+                                    $(".class-"+id).remove();
+                                    //loadList();
+                                }
+                            }
+                        });
+                    })
         }
     </script>
 }
@@ -248,13 +266,13 @@
             </div>
         </div>
         <input hidden id="index" value="0" />
-        <div class="my-list w3-margin-left">
-            @*<div class="w3-row w3-border-bottom">
-                <h2>Project 1</h2>
-                <p>Mo ta project 1</p>
-                <p>Ngay lap : 12/123/123</p>
-            </div>*@
-        </div>
+            <div class="my-list w3-margin-left">
+                @*<div class="w3-row w3-border-bottom">
+                    <h2>Project 1</h2>
+                    <p>Mo ta project 1</p>
+                    <p>Ngay lap : 12/123/123</p>
+                </div>*@
+            </div>
         <div class="w3-row" id="btntaithem">
             <button onclick="taiThem()" class="w3-btn w3-block w3-teal w3-padding-large">Tải thêm...</button>
         </div>

@@ -8,13 +8,17 @@
 <link href="~/Content/datatables.min.css" rel="stylesheet" />
     <link href="~/Helper/boostrap-datetimepicker/css/bootstrap-datepicker3.min.css" rel="stylesheet" />
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-notify/0.2.0/css/bootstrap-notify.min.css" rel="stylesheet" />
+<link href="~/Content/sweetalert.css" rel="stylesheet" />
 <style>
-    .not {
+       .not {
         top: 0;
     }
 
     .myClass {
         position: relative;
+    }
+    .tdbutton{
+        display:flex;
     }
 </style>
 }
@@ -24,6 +28,7 @@
     <script src="~/Helper/jquery-validation-1.17.0/dist/jquery.validate.min.js"></script>
 <script src="~/Helper/boostrap-datetimepicker/js/bootstrap-datepicker.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-notify/0.2.0/js/bootstrap-notify.js"></script>
+<script src="~/Scripts/sweetalert-dev.js"></script>
     <script>
         function closeModal() {
             $(".w3-modal").css("display", "none");
@@ -244,12 +249,27 @@
                             "vMoTa": $("textarea[name='vMoTa']").val(),
                             "dNgayBD": $("input[name='dNgayBD']").val(),
                             "dNgayKT": $("input[name='dNgayKT']").val(),
-                            },
+                        },
                         success: function (result) {
                             var html = '';
                             $(".main-thongbao").empty();
                             if (result != 0) {
+                                debugger;
                                 uploadfile(result);
+                                var dataTable = $('#example').DataTable();
+                                var rowNode = dataTable.row.add([
+                                     '<a href="/NhiemVu/ChiTietNhiemVu?iMaNhiemVuCode=' + result + '">' + $("input[name='vTenNhiemVu']").val() + '</a>',
+                                     '' + $("textarea[name='vMoTa']").val() + '',
+                                     'Chưa được giao',
+                                     '' + $("input[name='dNgayBD']").val() + '',
+                                     '' + $("input[name='dNgayKT']").val() + '',
+                                     'Mới',
+                                     '<input type="button" onclick="giaoNhiemVu(' + result + ')" id="' + result + '" class="btn btn-success" value="Giao NV"  /><input type="button" onclick="frmXoaNhiemVuSubmit(' + result + ')"  id="xoa-' + result + '" class="btn btn-danger" value="Xóa"  /><input onclick="frmChinhSuaNhiemVuSubmit(' + result + ')" type="button"  id="sua-' + result + '" class="btn btn-info" value="Sửa"  />',
+                                ]).draw()
+                                .node();
+                                $(rowNode).find('td').eq(6).addClass('tdbutton');
+                                $(rowNode).addClass('tr-' + result);
+
                             }
                             else {
                                 html = '<h2 id="thongbao" class="w3-center">Đã thêm nhiệm vụ thất bại</h2>';
@@ -258,7 +278,7 @@
                                 openModal('#modal-ThemNhiemVu', '#modal-ThongBao');
                                 $(".my-list").empty();
                                 $("#index").val(0);
-                                loadTable();
+
                             }
                         }
                     });
@@ -267,6 +287,7 @@
         }
 
         function uploadfile(iMaNhiemVuCode) {
+            debugger;
             var inputfile = $("input[type='file']");
             var data = new FormData();
             for (i = 0; i < inputfile.length; i++) {
@@ -298,208 +319,260 @@
                 }
             });
         }
+        var d = 1;
+        function frmChinhSuaNhiemVuSubmit(id) {
+            //alert($('tr.tr-'+id).find('td').eq(3).text());
+            debugger;
+            $('#SuaNhiemVu').modal('show');
+           
+                $('#sua-vMoTa').val($('tr.tr-' + id).find('td').eq(1).text());
+                $('#sua-dNgayBD').val($('tr.tr-' + id).find('td').eq(3).text());
+                $('#sua-dNgayKT').val($('tr.tr-' + id).find('td').eq(4).text());
+                $('#sua-vTenNhiemVu').val($('tr.tr-' + id).find('td').eq(0).text());
+                $('.form-actions').html('<a onclick="luunhiemvusaukhisua(' + id + ')" id="luusuanhiemvu" class="btn btn-success"> Sửa nhiệm vụ</a><input type="button" class="btn btn-danger" value="Hủy" data-dismiss="modal">')
+        };
+        function luunhiemvusaukhisua(id) {
 
-        function frmChinhSuaNhiemVuSubmit() {
-            if ($("#frmThemNhiemVu").valid() == true) {
+            //return true;
+            //var a = $('#sua-vTenNhiemVu').val();
+            //var b = $('#sua-vMoTa').val();
+            //var c = $('#sua-dNgayBD').val();
+            //var d = $('#sua-dNgayKT').val();
+            $("#formsuanhiemvu").valid();
+            debugger;
+            if ($("#formsuanhiemvu").valid() == true) {
+                if ($("input[type='file']").length>0)
+                {
+                    uploadfile(id)
+                }
                 $.ajax({
-                    url: "@Url.Action("ChinhSuaNhiemVu", "NhiemVu")",
                     type: "post",
-                    dataType: "text",
-                    data: {
-                        "iMaNhiemVuCode": $("input[name='iMaNhiemVuCode']").val(),
-                        "vTenNhiemVu": $("#modal-ChinhSuaNhiemVu input[name='vTenNhiemVu']").val(),
-                        "vMoTa": $("#modal-ChinhSuaNhiemVu input[name='vMoTa']").val(),
+                    dataType: "json",
+                    url: "@Url.Action("SuaNhiemVu", "Home")",
+                    data: { 'id': id, 'vTenNhiemVu': $('#sua-vTenNhiemVu').val(), 'vMoTa': $('#sua-vMoTa').val(), 'dNgayBD': $('#sua-dNgayBD').val(), 'dNgayKT': $('#sua-dNgayKT').val() },
+                    success: function (res) {
+                        if (res == true) {
+                            alert("sửa thành công");
+                            //var table = $('#example').DataTable();
+                            // table
+                            //.row($('.tr-'+id))
+                            //.data(''+$('#sua-vTenNhiemVu').val()+'', ''+$('#sua-vMoTa').val()+'', ''+$('#sua-dNgayBD').val()+'', ''+$('#sua-dNgayKT').val()+'')
+                            //.draw();
+                            loadTable();
+                        }
                     },
-                    success: function (result) {
-                        var html = '';
-                        $(".main-thongbao").empty();
-                        if (result === 'True') {
-                            html = '<h2 id="thongbao" class="w3-center">Đã chỉnh sửa NhiemVu thành công</h2>';
-                        }
-                        else {
-                            html = '<h2 id="thongbao" class="w3-center">Đã chỉnh sửa NhiemVu thất bại</h2>';
-                        }
-                        html += '<center><a class="w3-btn w3-padding-large w3-teal w3-hover-green w3-center" onclick="closeModal()">OK</a></center>';
-                        $(".main-thongbao").append(html);
-                        openModal('#modal-ChinhSuaNhiemVu', '#modal-ThongBao');
-                        $(".my-list").empty();
-                        $("#index").val(0);
-                        loadList();
+                    error: function (data) {
+                        alert(data.x);
+                    }
+                })
+            }
+        }
+                $("#formsuanhiemvu").validate({
+                    rules: {
+                        vTenNhiemVu: "required",
+                        vMoTa: "required",
+                    },
+                    messages: {
+                        vTenNhiemVu: "Vui lòng nhập tên nhiệm vụ",
+                        vMoTa: "Vui lòng nhập mô tả",
                     }
                 });
-            }
-        }
-
-        function frmXoaNhiemVuSubmit() {
-            $.ajax({
-                url: "@Url.Action("XoaNhiemVu", "NhiemVu")",
-                type: "post",
-                dataType: "text",
-                data: {
-                    "iMaNhiemVuCode": $("input[name='iMaNhiemVuCode']").val(),
+                function frmXoaNhiemVuSubmit(id) {
+                    debugger;
+                    swal({
+                        title: "Bạn Có Chác muốn xóa? ",
+                        text: "Hãy suy nghỉ chắc chắn!",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "Xóa!",
+                        closeOnConfirm: false
                     },
-                success: function (result) {
-                    var html = '';
-                    $(".main-thongbao").empty();
-                    if (result === 'True') {
-                        html = '<h2 id="thongbao" class="w3-center">Đã xóa NhiemVu thành công</h2>';
-                    }
-                    else {
-                        html = '<h2 id="thongbao" class="w3-center">Đã xóa NhiemVu thất bại</h2>';
-                    }
-                    html += '<center><a class="w3-btn w3-padding-large w3-teal w3-hover-green w3-center" onclick="closeModal()">OK</a></center>';
-                    $(".main-thongbao").append(html);
-                    openModal('#modal-XoaNhiemVu', '#modal-ThongBao');
-                    $(".my-list").empty();
-                    $("#index").val(0);
-                    loadList();
+                     function () {
+                         $.ajax({
+                             url: "@Url.Action("XoaNhiemVu", "NhiemVu")",
+                             type: "post",
+                             dataType: "text",
+                             data: {'id':id},
+                             success: function (result) {
+                                 //var html = '';
+                                 //$(".main-thongbao").empty();
+                                 if (result === 'True') {
+                                     //html = '<h2 id="thongbao" class="w3-center">Đã xóa NhiemVu thành công</h2>';
+                                     var table = $('#example').DataTable();
+                                       table
+                                        .row($('.tr-' + id))
+                                        .remove()
+                                        .draw();
+                                       swal("Đã Xóa!", "nhiệm vụ bạn chọn đã xóa.", "success");
+                                 }
+                                 //else {
+                                 //    html = '<h2 id="thongbao" class="w3-center">Đã xóa NhiemVu thất bại</h2>';
+                                 //}
+                                 //html += '<center><a class="w3-btn w3-padding-large w3-teal w3-hover-green w3-center" onclick="closeModal()">OK</a></center>';
+                                 //$(".main-thongbao").append(html);
+                                 //openModal('#modal-XoaNhiemVu', '#modal-ThongBao');
+                                 //$(".my-list").empty();
+                                 //$("#index").val(0);
+
+                             }
+                         });
+                     })
                 }
-            });
-        }
-        $(document).ready(function () {
-            //Xóa đi dòng cũ của datatable đã khai báo
-            loadTable();
-        });
+                $(document).ready(function () {
+                    //Xóa đi dòng cũ của datatable đã khai báo
+                    loadTable();
+                });
 
-        function loadTable() {
-            let dataTable1 = $('#example').DataTable();
-            dataTable1
-                .clear()
-                .draw();
-            $.ajax({
-                type: "post",
-                dataType: "json",
-                url: "@Url.Action("GetNhiemVuModule", "NhiemVu")",
-                data:{"iMaModuleCode":$("#iMaModuleCode").val()},
-            success: function (res) {
+                function loadTable() {
+                    let dataTable1 = $('#example').DataTable();
+                    let startday;
+                    let fStart;
+                    let endday;
+                    let eStart;
+                    dataTable1
+                        .clear()
+                        .draw();
+                    $.ajax({
+                        type: "post",
+                        dataType: "json",
+                        url: "@Url.Action("GetNhiemVuModule", "NhiemVu")",
+                        data:{"iMaModuleCode":$("#iMaModuleCode").val()},
+                        success: function (res) {
+                            debugger;
+                            for (let i = 0; i < res.length; i++) {
+                                startday = new Date(parseInt(res[i].dNgayBD.substr(6)));
+                                fStart = startday.getDate() + '/' + (startday.getMonth() + 1) + '/' + startday.getFullYear();
+                                endday = new Date(parseInt(res[i].dNgayKT.substr(6)));
+                                eStart = endday.getDate() + '/' + (endday.getMonth() + 1) + '/' + endday.getFullYear();
+                                if (res[i].iMaTrangThaiCode == 4 || res[i].iMaTrangThaiCode == 3) {
+                                    var rowNode = dataTable1.row.add([
+                                 '<a href="/NhiemVu/ChiTietNhiemVu?iMaNhiemVuCode=' + res[i].iMaNhiemVuCode + '">' + res[i].vTenNhiemVu + '</a>',
+                                 '' + res[i].vMoTa + '',
+                                 '' + res[i].vNguoiDuocGiaoCode + '',
+                                 '' + fStart + '',
+                                 '' + eStart + '',
+                                 '' + res[i].vTenTrangThai + '',
+                                 '<input type="button" disabled onclick="giaoNhiemVu(' + res[i].iMaNhiemVuCode + ')" id="' + res[i].iMaNhiemVuCode + '" class="btn btn-success" value="Giao NV"  /><input onclick="frmXoaNhiemVuSubmit(' + res[i].iMaNhiemVuCode + ')" type="button"  id="xoa-' + res[i].iMaNhiemVuCode + '" class="btn btn-danger" value="Xóa"  /><input onclick="frmChinhSuaNhiemVuSubmit(' + res[i].iMaNhiemVuCode + ')" type="button"  id="sua-' + res[i].iMaNhiemVuCode + '" class="btn btn-info" value="Sửa"  />',
+                                    ]).draw()
+                                    .node();
+                                    $(rowNode).find('td').eq(6).addClass('tdbutton');
+                                    $(rowNode).addClass('tr-' + res[i].iMaNhiemVuCode);
+                                }
+                                else {
+                                    var rowNode=dataTable1.row.add([
+                                 '<a href="/NhiemVu/ChiTietNhiemVu?iMaNhiemVuCode=' + res[i].iMaNhiemVuCode + '">' + res[i].vTenNhiemVu + '</a>',
+                                 '' + res[i].vMoTa + '',
+                                 '' + res[i].vNguoiDuocGiaoCode + '',
+                                 '' + fStart + '',
+                                 '' + eStart + '',
+                                 '' + res[i].vTenTrangThai + '',
+                                 '<input type="button" onclick="giaoNhiemVu(' + res[i].iMaNhiemVuCode + ')" id="' + res[i].iMaNhiemVuCode + '" class="btn btn-success" value="Giao NV"  /><input onclick="frmXoaNhiemVuSubmit(' + res[i].iMaNhiemVuCode + ')" type="button"  id="xoa-' + res[i].iMaNhiemVuCode + '" class="btn btn-danger" value="Xóa"  /><input onclick="frmChinhSuaNhiemVuSubmit(' + res[i].iMaNhiemVuCode + ')" type="button"  id="sua-' + res[i].iMaNhiemVuCode + '" class="btn btn-info" value="Sửa"  />',
+                                    ]).draw()
+                                    .node();
+                                    $(rowNode).find('td').eq(6).addClass('tdbutton');
+                                    $(rowNode).addClass('tr-' + res[i].iMaNhiemVuCode);
+                                }
 
-                for (let i = 0; i < res.length; i++) {
-                    var startday = new Date(parseInt(res[i].dNgayBD.substr(6)));
-                    fStart = startday.getDate() + '/' + (startday.getMonth() + 1) + '/' + startday.getFullYear();
-                    var endday = new Date(parseInt(res[i].dNgayKT.substr(6)));
-                    eStart = endday.getDate() + '/' + (endday.getMonth() + 1) + '/' + endday.getFullYear();
-                    if (res[i].iMaTrangThaiCode == 4 || res[i].iMaTrangThaiCode == 3) {
-                        dataTable1.row.add([
-                     '<a href="/NhiemVu/ChiTietNhiemVu?iMaNhiemVuCode=' + res[i].iMaNhiemVuCode + '">' + res[i].vTenNhiemVu + '</a>',
-                     '' + res[i].vMoTa + '',
-                     '' + res[i].vNguoiDuocGiaoCode + '',
-                     '' + fStart + '',
-                     '' + eStart + '',
-                     '' + res[i].vTenTrangThai + '',
-                     '<input type="button" disabled onclick="giaoNhiemVu(' + res[i].iMaNhiemVuCode + ')" id="' + res[i].iMaNhiemVuCode + '" class="btn btn-success" value="Giao nhiệm vụ"  />',
-                        ]).draw();
-                    }
-                    else {
-                        dataTable1.row.add([
-                     '<a href="/NhiemVu/ChiTietNhiemVu?iMaNhiemVuCode=' + res[i].iMaNhiemVuCode + '">' + res[i].vTenNhiemVu + '</a>',
-                     '' + res[i].vMoTa + '',
-                     '' + res[i].vNguoiDuocGiaoCode + '',
-                     '' + fStart + '',
-                     '' + eStart + '',
-                     '' + res[i].vTenTrangThai + '',
-                     '<input type="button" onclick="giaoNhiemVu(' + res[i].iMaNhiemVuCode + ')" id="' + res[i].iMaNhiemVuCode + '" class="btn btn-success" value="Giao nhiệm vụ"  />',
-                        ]).draw();
-                    }
-                    
-                }
-
-            },
-            error: function (data) {
-                alert(data.x);
-            }
-        });
-        }
-
-        function giaoNhiemVu(iMaNhiemVuCode) {
-            $("#iMaNhiemVuCode").val(iMaNhiemVuCode);
-            $('#thanhvien').modal('show');
-            var dataTablethanhvien = $("#examplethanhvien").DataTable();
-            dataTablethanhvien
-                .clear()
-                .draw();
-            $.ajax({
-                type: "post",
-                dataType: "json",
-                url: "@Url.Action("GetThongTinThanhVien", "NhiemVu")",
-                success: function (res) {
-                    for (let i = 0; i < res.length; i++) {
-                        dataTablethanhvien.row.add([
-                            '' + res[i].vTenDangNhap + '',
-                            '<input onclick="LayNhiemVu(' + res[i].iMaThanhVienCode + ',0)" type="button"  class="btn btn-info btn-block" value="' + res[i].iSoNhiemVuDuocGiao + '"  />',
-                            '<input onclick="LayNhiemVu(' + res[i].iMaThanhVienCode + ',1)" type="button"  class="btn btn-info btn-block" value="' + res[i].iSoNhiemVuMoi + '"  />',
-                            '<input onclick="LayNhiemVu(' + res[i].iMaThanhVienCode + ',4)"  type="button"  class="btn btn-info btn-block" value="' + res[i].iSoNhiemVuDaHoanThanh + '"  />',
-                            '<input onclick="LayNhiemVu(' + res[i].iMaThanhVienCode + ',2)" type="button"  class="btn btn-info btn-block" value="' + res[i].iSoNhiemVuDangThucHien + '"  />',
-                            '<input onclick="LayNhiemVu(' + res[i].iMaThanhVienCode + ',3)" type="button"  class="btn btn-info btn-block" value="' + res[i].iSoNhiemVuDangChoDuyet + '"  />',
-                            '<input onclick="LayNhiemVu(' + res[i].iMaThanhVienCode + ',5)" type="button"  class="btn btn-info btn-block" value="' + res[i].iSoNhiemVuDangSuaLoi + '"  />',
-                            '<input class="form-check-input" type="radio" name="gridRadios" value="' + res[i].iMaThanhVienCode + '">',
-                        ]).draw();
-
-                    }
-                },
-                error: function (data) {
-                    alert(data.x);
-                }
-            });
-        }
-        function LayNhiemVu(iMaNguoiDuocGiaoCode, iMaTrangThaiCode) {
-            dataTable3
-                .clear()
-                .draw();
-            $('#xemdanhsachnhiemvu').modal('show');
-            $.ajax({
-                type: "post",
-                url: "@Url.Action("GetNhiemVuTrangThai", "NhiemVu")",
-                data: {
-                    'iMaNguoiDuocGiaoCode': iMaNguoiDuocGiaoCode,
-                    'iMaTrangThaiCode': iMaTrangThaiCode
-                },
-                success: function (res) {
-                    for (let i = 0; i < res.length; i++) {
-                        dataTable3.row.add([
-                            '<a href="/NhiemVu/ChiTietNhiemVu?iMaNhiemVuCode=' + res[i].iMaNhiemVuCode + '">' + res[i].vTenNhiemVu + '</a>',
-                            '' + res[i].vMoTa + '',
-                            '' + res[i].vNguoiDang + '',
-                            '' + res[i].vNguoiDuocGiaoCode + '',
-                        ]).draw();
-                    }
-                },
-                error: function (data) {
-                    alert(data.x);
-                }
-            });
-        }
-
-        function giaonhiemvuSubmit() {
-            var iMaThanhVienCode = $("input[name=gridRadios]:checked").val();
-            var iMaNhiemVuCode = parseInt($("#iMaNhiemVuCode").val());
-            $.ajax({
-                url:"@Url.Action("GiaoNhiemVu","NhiemVu")",
-                type:"post",
-                dataType:"text",
-                data: {
-                    "iMaNhiemVuCode": iMaNhiemVuCode,
-                    "iMaThanhVienCode": iMaThanhVienCode,
-                },
-                success: function (result) {
-                    if (result === 'True') {
-                        //show thông báo
-                        $('.not').notify({
-                            message: {
-                                text: 'Đã giao nhiệm vụ thành công!'
                             }
-                        }).show();
-                        loadTable();
-                    }
-                    else {
-                        $('.not').notify({
-                            message: {
-                                text: 'Đã giao nhiệm vụ thất bại!'
-                            }
-                        }).show();
-                    }
+
+                        },
+                        error: function (data) {
+                            alert(data.x);
+                        }
+                    });
                 }
-            });
-        }
+
+                function giaoNhiemVu(iMaNhiemVuCode) {
+                    $("#iMaNhiemVuCode").val(iMaNhiemVuCode);
+                    $('#thanhvien').modal('show');
+                    var dataTablethanhvien = $("#examplethanhvien").DataTable();
+                    dataTablethanhvien
+                        .clear()
+                        .draw();
+                    $.ajax({
+                        type: "post",
+                        dataType: "json",
+                        url: "@Url.Action("GetThongTinThanhVien", "NhiemVu")",
+                        success: function (res) {
+                            for (let i = 0; i < res.length; i++) {
+                                dataTablethanhvien.row.add([
+                                    '' + res[i].vTenDangNhap + '',
+                                    '<input onclick="LayNhiemVu(' + res[i].iMaThanhVienCode + ',0)" type="button"  class="btn btn-info btn-block" value="' + res[i].iSoNhiemVuDuocGiao + '"  />',
+                                    '<input onclick="LayNhiemVu(' + res[i].iMaThanhVienCode + ',1)" type="button"  class="btn btn-info btn-block" value="' + res[i].iSoNhiemVuMoi + '"  />',
+                                    '<input onclick="LayNhiemVu(' + res[i].iMaThanhVienCode + ',4)"  type="button"  class="btn btn-info btn-block" value="' + res[i].iSoNhiemVuDaHoanThanh + '"  />',
+                                    '<input onclick="LayNhiemVu(' + res[i].iMaThanhVienCode + ',2)" type="button"  class="btn btn-info btn-block" value="' + res[i].iSoNhiemVuDangThucHien + '"  />',
+                                    '<input onclick="LayNhiemVu(' + res[i].iMaThanhVienCode + ',3)" type="button"  class="btn btn-info btn-block" value="' + res[i].iSoNhiemVuDangChoDuyet + '"  />',
+                                    '<input onclick="LayNhiemVu(' + res[i].iMaThanhVienCode + ',5)" type="button"  class="btn btn-info btn-block" value="' + res[i].iSoNhiemVuDangSuaLoi + '"  />',
+                                    '<input class="form-check-input" type="radio" name="gridRadios" value="' + res[i].iMaThanhVienCode + '">',
+                                ]).draw();
+
+                            }
+                        },
+                        error: function (data) {
+                            alert(data.x);
+                        }
+                    });
+                }
+                function LayNhiemVu(iMaNguoiDuocGiaoCode, iMaTrangThaiCode) {
+                    dataTable3
+                        .clear()
+                        .draw();
+                    $('#xemdanhsachnhiemvu').modal('show');
+                    $.ajax({
+                        type: "post",
+                        url: "@Url.Action("GetNhiemVuTrangThai", "NhiemVu")",
+                        data: {
+                            'iMaNguoiDuocGiaoCode': iMaNguoiDuocGiaoCode,
+                            'iMaTrangThaiCode': iMaTrangThaiCode
+                        },
+                        success: function (res) {
+                            for (let i = 0; i < res.length; i++) {
+                                dataTable3.row.add([
+                                    '<a href="/NhiemVu/ChiTietNhiemVu?iMaNhiemVuCode=' + res[i].iMaNhiemVuCode + '">' + res[i].vTenNhiemVu + '</a>',
+                                    '' + res[i].vMoTa + '',
+                                    '' + res[i].vNguoiDang + '',
+                                    '' + res[i].vNguoiDuocGiaoCode + '',
+                                ]).draw();
+                            }
+                        },
+                        error: function (data) {
+                            alert(data.x);
+                        }
+                    });
+                }
+
+                function giaonhiemvuSubmit() {
+                    var iMaThanhVienCode = $("input[name=gridRadios]:checked").val();
+                    var iMaNhiemVuCode = parseInt($("#iMaNhiemVuCode").val());
+                    $.ajax({
+                        url:"@Url.Action("GiaoNhiemVu","NhiemVu")",
+                        type:"post",
+                        dataType:"text",
+                        data: {
+                            "iMaNhiemVuCode": iMaNhiemVuCode,
+                            "iMaThanhVienCode": iMaThanhVienCode,
+                        },
+                        success: function (result) {
+                            if (result === 'True') {
+                                //show thông báo
+                                $('.not').notify({
+                                    message: {
+                                        text: 'Đã giao nhiệm vụ thành công!'
+                                    }
+                                }).show();
+                                loadTable();
+                            }
+                            else {
+                                $('.not').notify({
+                                    message: {
+                                        text: 'Đã giao nhiệm vụ thất bại!'
+                                    }
+                                }).show();
+                            }
+                        }
+                    });
+                }
 
     </script>
 }
@@ -566,7 +639,7 @@
                                             <th>Ngày Bắt Đầu</th>
                                             <th>Ngày Kết Thúc</th>
                                             <th>Trạng thái</th>
-                                            <th>Giao nhiệm vụ</th>
+                                            <th>Thao tác</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -625,7 +698,7 @@
                                 <td>
                                     <div class="form-group">
                                         <input id="countErrHinh" hidden value="0" />
-                                        <div class="w3-bar" id="bar-hinh">
+                                        <div class="w3-bar bar-hinh" id="bar-hinh">
 
                                         </div>
 
@@ -639,7 +712,7 @@
                                 <td>
                                     <div class="form-group">
                                         <input id="countErrTapTin" hidden value="0" />
-                                        <div class="w3-bar" id="bar-taptin">
+                                        <div class="w3-bar bar-taptin" id="bar-taptin">
 
                                         </div>
                                     </div>
@@ -685,54 +758,7 @@
             </div>
         </div>
     </div>
-    <div id="modal-ChinhSuaNhiemVu" class="w3-modal">
-        <div class="w3-modal-content w3-animate-right w3-card-4">
-            <div class="w3-display-container">
-                <form id="frmChinhSuaNhiemVu" method="post" enctype="multipart/form-data">
-                    <input hidden name="iMaNhiemVuCode" />
-                    @Html.AntiForgeryToken()
-                    <header class="w3-container w3-teal">
-                        <span onclick="closeModal()" class="w3-button w3-display-topright">&times;</span>
-                        <h2 id="title-modal" class="w3-text-white">Chỉnh sửa NhiemVu</h2>
-                    </header>
-                    <div class="modal-main comfrim">
-                        <table class="w3-table-all comfrim" align="center">
-                            <thead>
-                                <tr>
-                                    <th width="20%"></th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tr>
-                                <td>
-                                    Tên NhiemVu
-                                </td>
-                                <td>
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="Nhập tên NhiemVu ở đây..." name="vTenNhiemVu" />
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Mô tả
-                                </td>
-                                <td>
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="Nhập mô tả ở đây..." name="vMoTa" />
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                    <footer id="footer-modal" class="w3-container w3-teal">
-                        <a class="w3-btn w3-padding-large w3-hover-white" onclick="closeModal()">Quay lại</a>
-                        <a class="w3-btn w3-padding-large w3-hover-white w3-right" onclick="frmChinhSuaNhiemVuSubmit()">Lưu</a>
-                    </footer>
-                </form>
-            </div>
-        </div>
-    </div>
+   
     <div id="modal-XoaNhiemVu" class="w3-modal">
         <div class="w3-modal-content w3-animate-right w3-card-4">
             <div class="w3-display-container">
@@ -746,7 +772,7 @@
                 </div>
                 <footer id="footer-modal" class="w3-container w3-teal">
                     <a class="w3-btn w3-padding-large w3-hover-white" onclick="closeModal()">Quay lại</a>
-                    <a class="w3-btn w3-padding-large w3-hover-white w3-right" onclick="frmXoaNhiemVuSubmit()">Xóa</a>
+                    <a class="w3-btn w3-padding-large w3-hover-white w3-right" >Xóa</a>
                 </footer>
             </div>
         </div>
@@ -934,6 +960,77 @@
         </div><!-- /.modal-dialog -->
     </div>
 </div>
+@*modal chỉnh sửa nhiệm vụ*@
+<div class="form-horizontal">
+    <div class="modal fade" id="SuaNhiemVu">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="formsuanhiemvu" method="post" action="#" enctype="multipart/form-data">
+                    <h3 style="text-align:center">Sửa nhiệm vụ</h3>
+                    <div class="modal-body">
+                        <div class="col-xs-12">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+
+                                    <div class="form-group ">
+                                        <div class="controls col-md-3">
+                                            <label for="field-120478">Tên nhiệm vụ</label>
+                                        </div>
+                                        <div class="controls col-md-9">
+                                            <input style="width:100%" type="text" id="sua-vTenNhiemVu" name="vTenNhiemVu" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        <div class="controls col-md-3">
+                                            <label for="field-120478">File(word,excel...)</label>
+                                        </div>
+                                        <div class="controls col-md-9">
+                                            <input multiple type="file" id="AnhDaiDien" name="file">
+                                            <div id="macdinh"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        <div class="controls col-md-3">
+                                            <label for="field-120478">Mô tả ngắn</label>
+                                        </div>
+                                        <div class="controls col-md-9">
+                                            <textarea style="width:100%" id="sua-vMoTa" name="vMoTa"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        <div class="controls col-md-3">
+                                            <label for="field-120478">Ngày bắt đầu</label>
+                                        </div>
+                                        <div class="controls col-md-9">
+                                            @*<input style="width:100%" type="text" id="dNgayBatDau" name="dNgayBatDau" />*@
+                                            <input type="text" id="sua-dNgayBD" name="dNgayBatDau" class="form-control datepicker" data-format="mm/dd/yyyy" placeholder="hãy chọn ngày bắt dầu">
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        <div class="controls col-md-3">
+                                            <label for="field-120478">Ngày kết thúc</label>
+                                        </div>
+                                        <div class="controls col-md-9">
+                                            @*<input style="width:100%" type="text" id="dNgayKetThuc" name="dNgayKetThuc" />*@
+                                            <input type="text" id="sua-dNgayKT" name="dNgayKetThuc" class="form-control datepicker" data-format="mm/dd/yyyy" placeholder="hãy chọn ngày kết thúc">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- /.modal-body -->
+                    <div class="modal-footer">
+
+                        <div class="form-actions no-color text-center">
+                            <a id="luusuanhiemvu" class="btn btn-success"> Sửa nhiệm vụ</a>
+                            <input type="button" class="btn btn-danger" value="Hủy" data-dismiss="modal" />
+                        </div>
+                    </div><!-- /.modal-footer -->
+                </form>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+</div>
 
 @section scripts
 {
@@ -952,7 +1049,6 @@
             });
 
         });
-        var dataTable = $('#example').DataTable();
         var dataTable1 = $('#example1').DataTable();
         var dataTable3 = $('#example3').DataTable();
         var dataTable4 = $('#example4').DataTable();

@@ -1,16 +1,13 @@
 ﻿
 @{
-    ViewBag.Title = "ChiTietNhiemVu";
-    Layout = "~/Views/Shared/_admin.cshtml";
+    ViewBag.Title = "Chi tiết nhiệm vụ";
 }
-
 @section css{
-    <script src="~/Helper/jquery-validation-1.17.0/dist/jquery.validate.min.js"></script>
-<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.4/summernote.css" rel="stylesheet">
-}
+<link href="~/Content/myslideshow.css" rel="stylesheet" />
+<script src="~/Helper/jquery-validation-1.17.0/dist/jquery.validate.min.js"></script>
+    }
 @section js{
-    <script src="~/Scripts/MyScripts/myslideshow.js"></script>
-<script src="~/Scripts/summernote.js"></script>
+<script src="~/Scripts/MyScripts/myslideshow.js"></script>
     <script>
         $("#frmBaoCaoNhiemVu").validate({
             rules: {
@@ -20,21 +17,15 @@
             },
             messages: {
                 vMoTa: "Không được bỏ trống !",
-            }
-        });
-
-        $("#frmThemLoi").validate({
-            rules: {
-                vTenLoi: {
-                    required: true
-                },
-                vChiTietLoi: {
-                    required: true
-                }
             },
-            messages: {
-                vChiTietLoi: "Không được bỏ trống !",
-                vTenLoi: "Không được bỏ trống !",
+            errorClass: "form-control-feedback",
+            highlight: function (element) {
+                $(element).addClass("form-control-danger");
+                $(element).closest("div").addClass("has-danger");
+            },
+            unhighlight: function (element) {
+                $(element).removeClass('form-control-danger');
+                $(element).closest("div").removeClass("has-danger");
             }
         });
 
@@ -43,7 +34,6 @@
 
         }
         function openModal(curModal, nextModal) {
-            refresh();
             $(curModal).css("display", "none");
             $(nextModal).css("display", "block");
         }
@@ -80,7 +70,7 @@
             doiMauTenTrangThai(@Model.iMaTrangThaiCode);
 
             $.ajax({
-                url:"@Url.Action("GetTapTinNhiemVu", "NhiemVu")",
+                url:"@Url.Action("GetTapTinNhiemVu", "Account")",
                 type:"post",
                 dataType:"json",
                 data:{"iMaNhiemVuCode":@Model.iMaNhiemVuCode},
@@ -88,10 +78,9 @@
                     for(i=0;i<result.length;i++)
                     {
                         var html='';
-                        html+='<div class="col-md-4">';
-                        html+='<li>';
+                        html+='<li class="w3-content w3-display-container w3-margin w3-padding" style="max-width:100px;float:left">';
                         html+='<a href="'+result[i]["vDuongDan"]+'" download>';
-                        
+
                         var extDoc = ['doc', 'docx'];
                         var extExcel = ['xls', 'xlsx'];
                         var extZip = ['zip', 'rar'];
@@ -114,13 +103,11 @@
 
                         html+='<p class="w3-margin-top truncate" data-toggle="tooltip" data-placement="bottom" title="'+fileName+'">'+fileName+'</p>';
                         html+='</li>';
-                        html+='</div>';
                         $("#taptin").append(html);
                     }
                 }
             });
         })
-
         function doiTenbtnTrangThai(iMaTrangThaiCode){
             if(iMaTrangThaiCode==2)
             {
@@ -133,13 +120,10 @@
 
         function thayDoiTrangThai(curModal,iMaTrangThaiCode){
             $.ajax({
-                url:"@Url.Action("ThayDoiTrangThai", "NhiemVu")",
+                url:"@Url.Action("ThayDoiTrangThai", "Account")",
                 type:"post",
                 dataType:"text",
-                data:{
-                    "iMaNhiemVuCode":@Model.iMaNhiemVuCode,
-                    "iMaTrangThaiCode":iMaTrangThaiCode
-                },
+                data:{"iMaNhiemVuCode":@Model.iMaNhiemVuCode},
                 success:function(result){
                     $(".main-thongbao").empty();
                     var html ='';
@@ -155,10 +139,6 @@
                             html += '<h2 id="thongbao" class="w3-center">Đã báo cáo thành công !</h2>';
                             $("#vTenTrangThai").text("Đang chờ duyệt");
                             $("#btnTrangThai").hide();
-                        }else if(iMaTrangThaiCode == 4){
-                            html += '<h2 id="thongbao" class="w3-center">Đã duyệt thành công !</h2>';
-                            $("#vTenTrangThai").text("Đã hoàn thành");
-                            $(".btnTrangThai").hide();
                         }
 
                     }else{
@@ -166,70 +146,13 @@
                     }
                     html += '<center><button class="w3-btn w3-padding-large w3-teal w3-hover-green w3-center" onclick="closeModal()">OK</button><center>';
                     $('.main-thongbao').append(html);
-                    openModal(curModal,"#modal-ThongBao")
+                    openModal(curModal,"#modal-thongbao")
                 }
             });
         }
 
-        $(".w3-bar").on('change', 'input[name="Hinh"]', function () {
-            var index = parseInt($(this).attr("id"));
-            index++;
-            $(this).siblings().eq(0).remove();
-            var html = '';
-            html += '<a onclick="removefile(event)" class="w3-transparent w3-hover-gray w3-display-topright">&times;</a>';
-
-            var extHinh = ['png', 'jpg'];
-            var fileName = event.target.files[0].name;
-            var fileNameExt = fileName.substr(fileName.lastIndexOf('.') + 1);
-            if ($.inArray(fileNameExt, extHinh) == -1) {
-                html = '';
-                html += '<a onclick="removefile(event,1)" class="w3-transparent w3-hover-gray w3-display-topright">&times;</a>';
-                var count = $("#countErrHinh").val();
-                count++;
-                $("#countErrHinh").val(count);
-                if ($("#errHinh").length == 0) {
-                    $(".bar-hinh").after('<p id="errHinh" class="w3-text-red">Vui lòng chọn định dạng file là png hoặc jpg !</p>');
-                }
-            }
-
-            html += '<h3><label><img style="width:63px;height:43px" src="" /></label></h3>';
-            $(this).after(html);
-            var output = $(this).siblings().eq(1).find("img");
-
-            output.attr("src", URL.createObjectURL(event.target.files[0]));
-
-            html = '<div class="w3-margin-right w3-bar-item w3-border w3-border-gray w3-pale-blue w3-display-container">';
-            html += '       <input type="file" style="display:none" class="form-control validate" id="' + index + 'Hinh" name="Hinh">';
-            html += '       <h3><label for="' + index + 'Hinh"><i class="fa fa-camera w3-button w3-padding-large w3-text-teal" aria-hidden="true"></i></label></h3>';
-            html += '</div>';
-            $(this).closest(".w3-bar-item").before(html);
-
-        
-        });
-
-        function refresh() {
-            $("input[name='vTenLoi']").val('');
-            $("textarea[name='vMoTa']").val('');
-            refreshHinh();
-            refreshTapTin();
-        }
-
-        function refreshHinh() {
-            $("#countErrHinh").val(0);
-            $(".bar-hinh").empty();
-            $("#errHinh").remove();
-            var html = '';
-            html += '<div class="w3-margin-right w3-bar-item w3-border w3-border-gray w3-pale-blue w3-display-container">';
-            html += '     <input type="file" style="display:none" class="form-control validate" id="1Hinh" name="Hinh">';
-            html += '     <h3>';
-            html += '         <label for="1Hinh"><i class="fa fa-camera w3-button w3-padding-large w3-text-teal" aria-hidden="true"></i></label>';
-            html += '     </h3>';
-            html += '</div>';
-            $(".bar-hinh").append(html);
-        }
-
         $(".main-modal").on('change','input[name="TapTin"]',function () {
-            var index = parseInt($(this).attr("id"));
+            var index = $(this).attr("id");
             index++;
             $(this).siblings().eq(0).remove();
             var html = '';
@@ -262,7 +185,7 @@
                 $("#countErrTapTin").val(count);
                 if ($("#errTapTin").length == 0)
                 {
-                    $(".bar-taptin").after('<p id="errTapTin" class="w3-text-red">Vui lòng chọn định dạng file là xls, xlsx, doc, docs, txt, zip, rar, js, css, cs, sql !</p>');
+                    $("#bar-taptin").after('<p id="errTapTin" class="w3-text-red">Vui lòng chọn định dạng file là xls, xlsx, doc, docs, txt, zip, rar, js, css, cs, sql !</p>');
                 }
 
             }
@@ -270,7 +193,7 @@
             $(this).after(html);
 
             html = '<div class="w3-margin-right w3-bar-item w3-border w3-border-gray w3-pale-blue w3-display-container">';
-            html += '       <input type="file" style="display:none" class="form-control validate" id="' + index + 'TapTin" name="TapTin">';
+            html += '       <input type="file" hidden class="form-control validate" id="' + index + 'TapTin" name="TapTin">';
             html+='       <h3><label for="'+index+'TapTin"><i class="fa fa-file w3-button w3-padding-large w3-text-teal" aria-hidden="true"></i></label></h3>';
             html += '</div>';
             $(this).closest(".w3-bar-item").before(html);
@@ -279,16 +202,16 @@
 
         function refreshTapTin() {
             $("#countErrTapTin").val(0);
-            $(".bar-taptin").empty();
+            $("#bar-taptin").empty();
             $("#errTapTin").remove();
             var html = '';
             html += '<div class="w3-margin-right w3-bar-item w3-border w3-border-gray w3-pale-blue w3-display-container">';
-            html += '     <input type="file" style="display:none" class="form-control validate" id="1TapTin" name="TapTin">';
+            html += '     <input type="file" hidden class="form-control validate" id="1TapTin" name="TapTin">';
             html += '     <h3>';
             html += '         <label for="1TapTin"><i class="fa fa-file w3-button w3-padding-large w3-text-teal" aria-hidden="true"></i></label>';
             html += '     </h3>';
             html += '</div>';
-            $(".bar-taptin").append(html);
+            $("#bar-taptin").append(html);
         }
 
         function removefile(event, error) {
@@ -323,7 +246,7 @@
                 }
             }
             $.ajax({
-                url: "/NhiemVu/UploadFileBaoCao?iMaBaoCaoCode=" + iMaBaoCaoCode,
+                url: "/Account/UploadFileBaoCao?iMaBaoCaoCode=" + iMaBaoCaoCode,
                 type: "POST",
                 contentType: false,
                 processData: false,
@@ -332,14 +255,14 @@
                 success: function (result) {
                     var html = '';
                     if (result === 'True') {
-                        thayDoiTrangThai('#modal-BaoCao',3)
+                        thayDoiTrangThai('#modal-baocao',3)
                     }
                     else {
 
                         html = '<h2 id="thongbao" class="w3-center">Đã báo cáo thất bại !</h2>';
                         html += '<center><a class="w3-btn w3-padding-large w3-teal w3-hover-green w3-center" onclick="closeModal()">OK</a></center>';
                         $(".main-thongbao").append(html);
-                        openModal('#modal-BaoCao', '#modal-ThongBao');
+                        openModal('#modal-baocao', '#modal-thongbao');
                     }
                 }
             });
@@ -348,7 +271,7 @@
         function frmBaoCaoNhiemVuSubmit(){
             if ($("#countErrTapTin").val() == 0 && $("#frmBaoCaoNhiemVu").valid()) {
                 $.ajax({
-                    url:"@Url.Action("BaoCaoNhiemVu", "NhiemVu")",
+                    url:"@Url.Action("BaoCaoNhiemVu", "Account")",
                     type:"post",
                     dataType:"text",
                     data:{
@@ -363,13 +286,13 @@
                             {
                                 uploadfilebaocao(result);
                             }else{
-                                thayDoiTrangThai('#modal-BaoCao',3)
+                                thayDoiTrangThai('#modal-baocao',3)
                             }
                         }else{
                             var html = '<h2 id="thongbao" class="w3-center">Đã báo cáo thất bại !</h2>';
                             html += '<center><a class="w3-btn w3-padding-large w3-teal w3-hover-green w3-center" onclick="closeModal()">OK</a></center>';
                             $(".main-thongbao").append(html);
-                            openModal('#modal-BaoCao', '#modal-ThongBao');
+                            openModal('#modal-baocao', '#modal-thongbao');
                         }
                     }
                 });
@@ -377,86 +300,40 @@
             else{}
         }
 
-        function btnTrangThaiClick(iMaTrangThaiCode,iSuaLoi){
-            if(iSuaLoi==1)
+        function btnTrangThaiClick(iMaTrangThaiCode){
+            if(iMaTrangThaiCode == 1)
             {
-                thayDoiTrangThai('',4);
-            }else if(iSuaLoi==2){
-                openModal('','#modal-ThemLoi');
-            }else{
-                if(iMaTrangThaiCode == 1)
-                {
-                    openModal('','#modal-comfirm');
-                }else if(iMaTrangThaiCode == 2 || iMaTrangThaiCode==5){
-                    openModal('','#modal-BaoCao');
-                }
+                openModal('','#modal-comfirm');
+            }else if(iMaTrangThaiCode == 2 || iMaTrangThaiCode == 5){
+                openModal('','#modal-baocao');
             }
         }
-        function frmThemLoiSubmit(){
-            if ($("#countErrHinh").val() == 0 && $("#frmThemLoi").valid()) {
-                $.ajax({
-                    url:"@Url.Action("ThemLoi", "NhiemVu")",
-                    type:"post",
-                dataType:"text",
-                data:{
-                    "iMaNhiemVuCode":@Model.iMaNhiemVuCode,
-                    "vTenLoi":$("input[name='vTenLoi']").val(),
-                    "vChiTietLoi":$("input[name='vChiTietLoi']").val(),
-                },
-                success: function(result){
-                    if(result!=0)
-                    {
-                        uploadfile(result);
-                    }else{
-                        var html = '<h2 id="thongbao" class="w3-center">Đã báo cáo thất bại !</h2>';
-                        html += '<center><a class="w3-btn w3-padding-large w3-teal w3-hover-green w3-center" onclick="closeModal()">OK</a></center>';
-                        $(".main-thongbao").append(html);
-                        openModal('#modal-ThemLoi', '#modal-ThongBao');
-                    }
-                }
-            });
-        }
-        else{}
-        }
+        //function xoaLink(event){
+        //    $(event.target).closest('.input-group').remove();
+        //}
 
-        function uploadfile(iMaChiTietLoiCode) {
-            var inputfile = $("input[type='file']");
-            var data = new FormData();
-            for (i = 0; i < inputfile.length; i++) {
-                var files = inputfile[i].files;
-                for (var j = 0; j < files.length; j++) {
-                    var file = files[j];
-                    data.append("FileUpload" + i, file);
-                }
-            }
-            $.ajax({
-                url: "/NhiemVu/UploadHinhLoi?iMaChiTietLoiCode=" + iMaChiTietLoiCode,
-                type: "POST",
-                contentType: false,
-                processData: false,
-                data: data,
-                success: function (result) {
-                    var html = '';
-                    if (result === 'True') {
-                        html = '<h2 id="thongbao" class="w3-center">Đã thêm lỗi thành công !</h2>';
-                        $(".main-thongbao").append(html);
-                    }
-                    else {
-                        html = '<h2 id="thongbao" class="w3-center">Đã thêm lỗi thất bại !</h2>';
-                        $(".main-thongbao").append(html);
-                    }
-                    html = '<center><a class="w3-btn w3-padding-large w3-teal w3-hover-green w3-center" onclick="closeModal()">OK</a></center>';
-                    $(".main-thongbao").append(html);
-                    openModal('#modal-ThemLoi', '#modal-ThongBao');
-                }
-            });
-
-        }
+        //function themLink(event){
+        //    var current = $(event.target);
+        //    var html = '<div class="input-group">';
+        //    html+=' <span class="input-group-addon" id="basic-addon1">Link:</span>';
+        //    html+='    <input type="text" name="linkfile" class="form-control" placeholder="Coppy link file vào đây..." aria-describedby="basic-addon1">';
+        //    html+='    <span class="input-group-btn">';
+        //    html+='        <button class="btn w3-teal" onclick="themLink(event)" type="button">+</button>';
+        //    html+='    </span>';
+        //    html+='</div>';
+        //    current.closest('.input-group').after(html);
+        //    html='';
+        //    html+='    <span class="input-group-btn">';
+        //    html+='        <button class="btn" onclick="xoaLink(event)" type="button">x</button>';
+        //    html+='    </span>';
+        //    current.closest('span').after(html);
+        //    current.closest('span').remove();
+        //}
     </script>
-}
 
-@using sb_admin.web.Models
-@using sb_admin.web.Helper
+    }
+
+@using NhiemVu.Models
 @model ChiTietNhiemVuViewModel
 
 <div class="w3-white w3-margin-top w3-container w3-border w3-border-green" style="padding:0px">
@@ -464,14 +341,13 @@
     <div class="w3-bar w3-teal">
         <div class="w3-bar-item">@ViewBag.Title</div>
     </div>
-
-    @*<div class="w3-row w3-margin">
+    <div class="w3-row w3-margin">
         <div class="w3-third w3-border-right w3-border-green">
-            @Html.Action("HinhNhiemVuPartial", "NhiemVu", new { iMaNhiemVuCode = Model.iMaNhiemVuCode })
+            @Html.Action("HinhNhiemVuPartial", "Account", new { iMaNhiemVuCode = Model.iMaNhiemVuCode })
         </div>
         <div class="w3-twothird">
             <div class="w3-content w3-margin w3-padding">
-                <input id="iMaTrangThaiCode" hidden value="@Model.iMaTrangThaiCode" />
+                <input id="iMaTrangThaiCode" hidden value="@Model.iMaTrangThaiCode"/>
                 <table>
                     <tr>
                         <td><p>Ngày đăng:</p></td>
@@ -503,118 +379,22 @@
                     </tr>
                     <tr>
                         <td colspan="2" class="w3-center">
-                            @if (CurrentContext.GetUser().iMaThanhVienCode != Model.iMaNguoiDangCode && CurrentContext.GetUser().iMaThanhVienCode == Model.iMaNguoiDuocGiaoCode)
+                            @if (Model.iMaTrangThaiCode != 3 && Model.iMaTrangThaiCode != 4)
                             {
-                                if (Model.iMaTrangThaiCode != 3 && Model.iMaTrangThaiCode != 4)
-                                {
-                                    <button id="btnTrangThai" class="btnTrangThai w3-button w3-white w3-border w3-border-blue w3-round-large" onclick="btnTrangThaiClick(@Model.iMaTrangThaiCode)">Nhận nhiệm vụ</button>
-                                }
-                            }
-                            else if (CurrentContext.GetUser().iMaThanhVienCode == Model.iMaNguoiDangCode && Model.iMaTrangThaiCode == 3)
-                            {
-                                <button onclick="btnTrangThaiClick(@Model.iMaTrangThaiCode,1)" class="btnTrangThai btn btn-success">Duyệt</button>
-                                <button onclick="btnTrangThaiClick(@Model.iMaTrangThaiCode,2)" class="btnTrangThai btn btn-danger">Sửa lại</button>
-                            }
-                            else if (CurrentContext.GetUser().iMaThanhVienCode == Model.iMaNguoiDangCode && Model.iMaTrangThaiCode == 5)
-                            {
-                                <button onclick="btnTrangThaiClick(@Model.iMaTrangThaiCode,2)" class="btnTrangThai btn btn-danger">Thêm lỗi</button>
+                                <button id="btnTrangThai" class="w3-button w3-white w3-border w3-border-blue w3-round-large" onclick="btnTrangThaiClick(@Model.iMaTrangThaiCode)">Nhận nhiệm vụ</button>
                             }
                         </td>
                     </tr>
                 </table>
             </div>
-
+            
         </div>
         <div class="w3-row w3-margin">
-            <ul id="taptin"></ul>
-        </div>
-
-        <div class="w3-half w3-margin">
-            <h2>Chi tiết lỗi</h2>
-            @if (Model.iMaTrangThaiCode == 5)
-            {
-                @Html.Action("GetChiTietLoi", "NhiemVu", new { iMaNhiemVuCode = Model.iMaNhiemVuCode })
-            }
-        </div>
-
-        <div class="w3-half w3-margin">
-            <h2>Báo cáo</h2>
-            @Html.Action("GetBaoCao", "NhiemVu", new { iMaNhiemVuCode = Model.iMaNhiemVuCode })
-        </div>
-
-        
-        
-        
-    </div>*@
-    @*asdasdasd*@
-    <div class="col-lg-12">
-        <div class="panel panel-default">
-
-            <div class="panel-body">
-                <div class="form-group">
-                    <div class="col-md-4">
-                            <input id="iMaTrangThaiCode" hidden value="@Model.iMaTrangThaiCode" />
-                            <table>
-                                <tr>
-                                    <td><p>Ngày đăng:</p></td>
-                                    <td><p>@Model.dNgayLap</p></td>
-                                </tr>
-                                <tr>
-                                    <td><p>Người đăng:</p></td>
-                                    <td><p>@Model.vTenNguoiDang</p></td>
-                                </tr>
-                                <tr>
-                                    <td><p>Tên nhiệm vụ:</p></td>
-                                    <td><p class="w3-text-blue">@Model.vTenNhiemVu</p></td>
-                                </tr>
-                                <tr>
-                                    <td><p>Người được giao:</p></td>
-                                    <td><p>@Model.vTenNguoiDuocGiao</p></td>
-                                </tr>
-                                <tr>
-                                    <td><p>Ngày bắt đầu:</p></td>
-                                    <td><p>@Model.dNgayBD</p></td>
-                                </tr>
-                                <tr>
-                                    <td><p>Ngày kết thúc:</p></td>
-                                    <td><p>@Model.dNgayKT</p></td>
-                                </tr>
-                                <tr>
-                                    <td><p>Trạng thái:</p></td>
-                                    <td><p id="vTenTrangThai">@Model.vTenTrangThai</p></td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2" class="w3-center">
-                                        @if (CurrentContext.GetUser().iMaThanhVienCode != Model.iMaNguoiDangCode && CurrentContext.GetUser().iMaThanhVienCode == Model.iMaNguoiDuocGiaoCode)
-                                        {
-                                            if (Model.iMaTrangThaiCode != 3 && Model.iMaTrangThaiCode != 4)
-                                            {
-                                                <button id="btnTrangThai" class="btnTrangThai w3-button w3-white w3-border w3-border-blue w3-round-large" onclick="btnTrangThaiClick(@Model.iMaTrangThaiCode)">Nhận nhiệm vụ</button>
-                                            }
-                                        }
-                                        else if (CurrentContext.GetUser().iMaThanhVienCode == Model.iMaNguoiDangCode && Model.iMaTrangThaiCode == 3)
-                                        {
-                                            <button onclick="btnTrangThaiClick(@Model.iMaTrangThaiCode,1)" class="btnTrangThai btn btn-success">Duyệt</button>
-                                            <button onclick="btnTrangThaiClick(@Model.iMaTrangThaiCode,2)" class="btnTrangThai btn btn-danger">Sửa lại</button>
-                                        }
-                                        else if (CurrentContext.GetUser().iMaThanhVienCode == Model.iMaNguoiDangCode && Model.iMaTrangThaiCode == 5)
-                                        {
-                                            <button onclick="btnTrangThaiClick(@Model.iMaTrangThaiCode,2)" class="btnTrangThai btn btn-danger">Thêm lỗi</button>
-                                        }
-                                    </td>
-                                </tr>
-                            </table>
-                        <div style="margin-left: -50px;" class="w3-row">
-                            <ul id="taptin"></ul>
-                        </div>
-                    </div>
-                    <div class="col-md-4">adasd</div>
-                    <div class="col-md-4">asdasd</div>
-                </div>
-            </div>
+            <ul id="taptin">
+            </ul>
         </div>
     </div>
-    @*asdasdasd*@
+
     <div id="modal-comfirm" class="w3-modal">
         <div class="w3-modal-content w3-animate-right w3-card-4">
             <div class="w3-display-container">
@@ -628,14 +408,14 @@
                         <a class="w3-btn w3-padding-large w3-teal w3-hover-green w3-center w3-margin-right" onclick="closeModal()">Quay lại</a>
                         <a class="w3-btn w3-padding-large w3-teal w3-hover-green w3-center w3-margin-left" onclick="thayDoiTrangThai('#modal-comfirm',2)">Đã sẵn sàng</a>
                     </center>
-
+                    
                 </div>
                 <footer id="footer-modal" class="w3-container w3-teal"></footer>
             </div>
         </div>
     </div>
 
-    <div id="modal-BaoCao" class="w3-modal">
+    <div id="modal-baocao" class="w3-modal">
         <div class="w3-modal-content w3-animate-right w3-card-4">
             <div class="w3-display-container">
                 <header class="w3-container w3-teal">
@@ -656,14 +436,17 @@
                                     <div class="input-group">
                                         <span class="input-group-addon" id="basic-addon1">Link:</span>
                                         <input type="text" name="linkfile" class="form-control" placeholder="Coppy link file vào đây..." aria-describedby="basic-addon1">
+                                        @*<span class="input-group-btn">
+                                            <button class="btn w3-teal" onclick="themLink(event)" type="button">+</button>
+                                        </span>*@
                                     </div>
                                 </div>
                             </div>
-
+                            
                             <div class="form-group w3-row">
                                 <label class="w3-container w3-quarter">File báo cáo:</label>
                                 <input id="countErrTapTin" hidden value="0" />
-                                <div class="w3-bar w3-container w3-threequarter bar-taptin">
+                                <div class="w3-bar w3-container w3-threequarter" id="bar-taptin">
                                     <div class="w3-margin-right w3-bar-item w3-border w3-border-gray w3-pale-blue w3-display-container">
                                         <input type="file" hidden class="form-control validate" id="1TapTin" name="TapTin">
                                         <h3>
@@ -683,7 +466,7 @@
         </div>
     </div>
 
-    <div id="modal-ThongBao" class="w3-modal">
+    <div id="modal-thongbao" class="w3-modal">
         <div class="w3-modal-content w3-animate-right w3-card-4">
             <div class="w3-display-container">
                 <header class="w3-container w3-teal">
@@ -691,73 +474,10 @@
                     <h2 id="title-modal">Thông báo</h2>
                 </header>
                 <div class="main-thongbao align-content-center">
-
+                    
                 </div>
                 <footer id="footer-modal" class="w3-container w3-teal"></footer>
             </div>
         </div>
     </div>
-
-    <div id="modal-ThemLoi" class="w3-modal">
-        <div class="w3-modal-content w3-animate-right w3-card-4">
-            <div class="w3-display-container">
-                <form id="frmThemLoi" method="post" enctype="multipart/form-data">
-                    @Html.AntiForgeryToken()
-                    <header class="w3-container w3-teal">
-                        <span onclick="closeModal()" class="w3-button w3-display-topright">&times;</span>
-                        <h2 id="title-modal">Thêm lỗi</h2>
-                    </header>
-                    <div class="modal-main comfrim">
-                        <table class="w3-table-all comfrim" align="center">
-                            <thead>
-                                <tr>
-                                    <th width="20%"></th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tr>
-                                <td>
-                                    Tên lỗi
-                                </td>
-                                <td>
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="Nhập tên nhiệm vụ ở đây..." name="vTenLoi">
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Hình
-                                </td>
-                                <td>
-                                    <div class="form-group">
-                                        <input id="countErrHinh" hidden value="0" />
-                                        <div class="w3-bar bar-hinh">
-
-                                        </div>
-
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Mô tả
-                                </td>
-                                <td>
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="Nhập mô tả ở đây..." name="vChiTietLoi"/>
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                    <footer id="footer-modal" class="w3-container w3-teal">
-                        <a class="w3-btn w3-padding-large w3-hover-white" onclick="closeModal()">Quay lại</a>
-                        <a class="w3-btn w3-padding-large w3-hover-white w3-right" onclick="frmThemLoiSubmit()">Lưu</a>
-                    </footer>
-                </form>
-            </div>
-        </div>
-    </div>
 </div>
-

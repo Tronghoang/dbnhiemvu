@@ -221,6 +221,7 @@
         }
         function ChiTietLoi(id)
         {
+            $('.summernote').summernote('disable');
             $.ajax({
                 type: "post",
                 url: "@Url.Action("ChiTietLoi", "Home")",

@@ -1,16 +1,15 @@
 ﻿@using sb_admin.web.Helper
 @if (CurrentContext.IsLogged())
 {
-    <a id="logoutLink" class="btn w3-green">Logout</a>
-    <span class="w3-green">@CurrentContext.GetUser().vTenDangNhap</span>
+    <a style="margin: 14px;" id="logoutLink" class="btn w3-green">Logout</a>
 }
 else
 {
-    <a href="@Url.Action("Login", "Account")" class="w3-green">Login</a>
+    <a style="margin: 14px;" href="@Url.Action("Login", "Account")" class="btn w3-green">Login</a>
     
 }
 
-<form id="frmLogout" method="post" action="@Url.Action("Logout","Account")"></form>
+<form style="width:100px" id="frmLogout" method="post" action="@Url.Action("Logout","Account")"></form>
 
 
     <script>
